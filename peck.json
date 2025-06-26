@@ -2,7 +2,11 @@
     "preset": "laravel",
     "ignore": {
         "words": [
-            "php"
+            "php",
+            "prev",
+            "livestream",
+            "param",
+            "givebutter"
         ],
         "paths": [
             "tests"

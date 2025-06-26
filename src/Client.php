@@ -21,19 +21,10 @@ use Givebutter\Resources\TicketsResource;
 use Givebutter\Resources\TransactionsResource;
 use Wrapkit\Contracts\ConnectorContract;
 
-/**
- * The primary client gateway for connecting to Hetzner Cloud's API containing all connections to the available resources.
- */
 final readonly class Client implements ClientContract
 {
-    /**
-     * The base URL for Givebutter's API, requires authentication by default.
-     */
     public const string API_BASE_URL = 'https://api.givebutter.com/v1';
 
-    /**
-     * Creates a client instance with the provided client transport abstraction.
-     */
     public function __construct(
         public ConnectorContract $connector
     ) {
