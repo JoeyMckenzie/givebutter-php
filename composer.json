@@ -14,9 +14,15 @@
             "email": "joey.mckenzie27@gmail.com"
         }
     ],
+    "repositories": [
+        {
+            "url": "../wrapkit",
+            "type": "path"
+        }
+    ],
     "require": {
         "php": ">=8.4",
-        "joeymckenzie/wrapkit": "^0.1"
+        "joeymckenzie/wrapkit": "*"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.47",
@@ -31,9 +37,10 @@
         "phpstan/phpstan-deprecation-rules": "^2.0",
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
-        "rector/rector": "^2.1"
+        "rector/rector": "^2.1",
+        "mockery/mockery": "2.0.x-dev"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Givebutter\\": "src/"
