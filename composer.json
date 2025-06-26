@@ -22,7 +22,8 @@
     ],
     "require": {
         "php": ">=8.4",
-        "joeymckenzie/wrapkit": "*"
+        "joeymckenzie/wrapkit": "*",
+        "nesbot/carbon": "^3.0@dev"
     },
     "require-dev": {
         "ergebnis/composer-normalize": "^2.47",
@@ -38,7 +39,8 @@
         "phpstan/phpstan-phpunit": "^2.0",
         "phpstan/phpstan-strict-rules": "^2.0",
         "rector/rector": "^2.1",
-        "mockery/mockery": "2.0.x-dev"
+        "mockery/mockery": "2.0.x-dev",
+        "pestphp/pest-plugin-faker": "3.x-dev"
     },
     "minimum-stability": "dev",
     "autoload": {
