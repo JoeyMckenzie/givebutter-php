@@ -16,7 +16,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *
  * @implements ResponseContract<CoverSchema>
  */
-final class Cover implements ResponseContract
+final readonly class Cover implements ResponseContract
 {
     /**
      * @use ArrayAccessible<CoverSchema>

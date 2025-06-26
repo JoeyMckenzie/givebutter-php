@@ -4,87 +4,146 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
+use Carbon\CarbonImmutable;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
+use Givebutter\Responses\Models\Cover;
+use Givebutter\Responses\Models\Event;
+use Givebutter\Testing\Fixtures\Campaigns\GetCampaignFixture;
 
 covers(GetCampaignResponse::class);
 
 describe(GetCampaignResponse::class, function (): void {
-    it('returns a valid typed object', function (): void {
-        // Arrange & Act
-        $response = GetCampaignResponse::from(GetCampaignResponse::data());
+    beforeEach(function (): void {
+        $this->data = GetCampaignFixture::data();
+        $this->response = GetCampaignResponse::from($this->data);
+    });
 
-        // Assert
-        expect($response)->toBeInstanceOf(GetActionResponse::class)
-            ->action->not->toBeNull()->toBeInstanceOf(Action::class)
-            ->error->toBeNull();
+    it('returns a valid typed object', function (): void {
+        // Arrange & Act & Assert
+        expect($this->response)->toBeInstanceOf(GetCampaignResponse::class)
+            ->id->toBeInt()
+            ->code->toBeString()
+            ->accountId->toBeString()
+            ->eventId->toBeInt()
+            ->type->toBeString()
+            ->title->toBeString()
+            ->subtitle->toBeString()
+            ->description->toBeString()
+            ->slug->toBeString()
+            ->url->toBeString()
+            ->goal->toBeInt()
+            ->raised->toBeInt()
+            ->donors->toBeInt()
+            ->currency->toBeString()
+            ->status->toBeString()
+            ->timezone->toBeString()
+            ->endAt->toBeInstanceOf(CarbonImmutable::class)
+            ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+            ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
+            ->cover->toBeInstanceOf(Cover::class)
+            ->event->toBeInstanceOf(Event::class);
     });
 
     it('is accessible from an array', function (): void {
         // Arrange & Act
-        $response = GetActionResponse::from(GetActionFixture::data());
+        $data = $this->response->toArray();
 
         // Assert
-        expect($response['action'])
-            ->not->toBeNull()->toBeArray()
-            ->and($response['error'])->toBeNull();
-    });
-
-    it('prints to an array', function (): void {
-        // Arrange
-        $data = GetActionFixture::data();
-
-        // Act
-        $response = GetActionResponse::from($data);
-
-        // Assert
-        expect($response->toArray())
-            ->toBeArray()
-            ->and($response['action'])->toBeArray()
-            ->and($response['error'])->toBeNull();
-    });
-
-    it('returns errors', function (): void {
-        // Arrange
-        $error = GetActionFixture::error();
-
-        // Act
-        $response = GetActionResponse::from($error);
-
-        // Assert
-        expect($response->error)
-            ->not->toBeNull()->toBeInstanceOf(Error::class)
-            ->and($response->toArray())
-            ->toBeArray()
-            ->toHaveKey('action')
-            ->toHaveKey('error')
-            ->and($response['action'])->toBeNull()
-            ->and($response['error'])->toBeArray()
-            ->toHaveKey('message')
-            ->toHaveKey('code');
+        expect($data)->toBeArray()
+            ->and($data['id'])->toBeInt()
+            ->and($data['code'])->toBeString()
+            ->and($data['account_id'])->toBeString()
+            ->and($data['event_id'])->toBeInt()
+            ->and($data['type'])->toBeString()
+            ->and($data['title'])->toBeString()
+            ->and($data['subtitle'])->toBeString()
+            ->and($data['description'])->toBeString()
+            ->and($data['slug'])->toBeString()
+            ->and($data['url'])->toBeString()
+            ->and($data['goal'])->toBeInt()
+            ->and($data['raised'])->toBeInt()
+            ->and($data['donors'])->toBeInt()
+            ->and($data['currency'])->toBeString()
+            ->and($data['cover'])->toBeArray()
+            ->and($data['status'])->toBeString()
+            ->and($data['timezone'])->toBeString()
+            ->and($data['end_at'])->toBeString()
+            ->and($data['created_at'])->toBeString()
+            ->and($data['updated_at'])->toBeString()
+            ->and($data['event'])->toBeArray();
     });
 
     it('generates fake responses', function (): void {
         // Arrange & Act
-        $fake = GetActionResponse::fake(GetActionFixture::class);
+        $fake = GetCampaignResponse::fake(GetCampaignFixture::class);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetActionResponse::class)
-            ->action->not->toBeNull()->toBeInstanceOf(Action::class)
-            ->error->toBeNull();
+
+        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+            ->id->toBeInt()
+            ->code->toBeString()
+            ->accountId->toBeString()
+            ->eventId->toBeInt()
+            ->type->toBeString()
+            ->title->toBeString()
+            ->subtitle->toBeString()
+            ->description->toBeString()
+            ->slug->toBeString()
+            ->url->toBeString()
+            ->goal->toBeInt()
+            ->raised->toBeInt()
+            ->donors->toBeInt()
+            ->currency->toBeString()
+            ->status->toBeString()
+            ->timezone->toBeString()
+            ->endAt->toBeInstanceOf(CarbonImmutable::class)
+            ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+            ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
+            ->cover->toBeInstanceOf(Cover::class)
+            ->event->toBeInstanceOf(Event::class);
     });
 
     it('can override nested properties on fakes', function (): void {
         // Arrange & Act
-        $fake = GetActionResponse::fake(GetActionFixture::class, [
-            'action' => [
-                'command' => 'stop_resource',
+        $fake = GetCampaignResponse::fake(GetCampaignFixture::class, [
+            'cover' => [
+                'url' => 'https://php.net/',
             ],
         ]);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetActionResponse::class)
-            ->action->not->toBeNull()->toBeInstanceOf(Action::class)
-            ->error->toBeNull()
-            ->and($fake->action->command)->toBe('stop_resource');
+        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+            ->cover->url->toBeString('https://php.net/');
+    });
+
+    it('can override properties on fakes', function (): void {
+        // Arrange & Act
+        $fake = GetCampaignResponse::fake(GetCampaignFixture::class, [
+            'description' => 'campaign description',
+        ]);
+
+        // Assert
+        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+            ->description->toBeString('campaign description');
+    });
+
+    it('handles nullable nested objects', function (): void {
+        // Arrange & Act
+        $fake = GetCampaignResponse::fake(GetCampaignFixture::class, [
+            'event' => null,
+            'cover' => null,
+            'end_at' => null,
+        ]);
+        $data = $fake->toArray();
+
+        // Assert
+        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+            ->event->toBeNull()
+            ->cover->toBeNull()
+            ->endAt->toBeNull();
+
+        expect($data['event'])->toBeNull()
+            ->and($data['cover'])->toBeNull()
+            ->and($data['end_at'])->toBeNull();
     });
 });

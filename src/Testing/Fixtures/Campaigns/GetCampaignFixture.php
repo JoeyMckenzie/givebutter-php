@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Campaigns;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Campaign;
+use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Testing\Fixtures\Models\CoverFixture;
 use Givebutter\Testing\Fixtures\Models\EventFixture;
 use Wrapkit\Testing\AbstractDataFixture;
@@ -13,7 +13,7 @@ use Wrapkit\Testing\AbstractDataFixture;
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type CampaignSchema from Campaign
+ * @phpstan-import-type CampaignSchema from GetCampaignResponse
  */
 final class GetCampaignFixture extends AbstractDataFixture
 {

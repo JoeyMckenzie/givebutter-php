@@ -19,7 +19,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *
  * @implements ResponseContract<LivestreamSchema>
  */
-final class Livestream implements ResponseContract
+final readonly class Livestream implements ResponseContract
 {
     /**
      * @use ArrayAccessible<LivestreamSchema>

@@ -30,7 +30,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *
  * @implements ResponseContract<EventSchema>
  */
-final class Event implements ResponseContract
+final readonly class Event implements ResponseContract
 {
     /**
      * @use ArrayAccessible<EventSchema>
