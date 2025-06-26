@@ -51,5 +51,50 @@
             "php-http/discovery": true,
             "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "check": [
+            "@test",
+            "@fmt:test",
+            "@lint",
+            "@refactor:test",
+            "@typos"
+        ],
+        "ci": [
+            "@lint:ci",
+            "@fmt:test",
+            "@refactor:test",
+            "@test:ci",
+            "@typos"
+        ],
+        "fix": [
+            "@refactor",
+            "@fmt"
+        ],
+        "fmt": "vendor/bin/pint",
+        "fmt:test": "vendor/bin/pint --test",
+        "lint": "XDEBUG_MODE=off vendor/bin/phpstan analyze",
+        "lint:ci": "XDEBUG_MODE=off vendor/bin/phpstan analyze --error-format=github",
+        "lint:clear": "vendor/bin/phpstan clear-result-cache",
+        "prep": [
+            "@fix",
+            "@check"
+        ],
+        "prepare": "git config core.hookspath .githooks",
+        "refactor": "vendor/bin/rector process",
+        "refactor:test": "vendor/bin/rector process --dry-run",
+        "test": "vendor/bin/pest --parallel",
+        "test:ci": [
+            "@test:coverage",
+            "@test:mutate",
+            "@test:types"
+        ],
+        "test:coverage": "vendor/bin/pest --coverage-clover coverage.xml --parallel",
+        "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
+        "test:mutate:cache-clear": "vendor/bin/pest --mutate --min=100 --clear-cache",
+        "test:types": "vendor/bin/pest --type-coverage --min=100",
+        "test:watch": "vendor/bin/pest --parallel --watch",
+        "test:watchmu": "vendor/bin/pest --watch --parallel --mutate",
+        "typos": "vendor/bin/peck"
     }
 }
