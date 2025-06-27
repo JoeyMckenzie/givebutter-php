@@ -48,3 +48,9 @@ $updatedCampaign = $client
         'goal' => 1500,
     ]);
 var_dump($updatedCampaign);
+
+// Delete a campaign
+$deleteResponse = $client
+    ->campaigns()
+    ->delete($campaign->id);
+var_dump($deleteResponse);

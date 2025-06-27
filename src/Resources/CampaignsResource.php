@@ -9,6 +9,7 @@ use Givebutter\Contracts\Resources\CampaignsResourceContract;
 use Givebutter\Contracts\Resources\CampaignTeamsResourceContract;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ConnectorContract;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
@@ -116,5 +117,12 @@ final class CampaignsResource implements CampaignsResourceContract
         $data = $response->data();
 
         return GetCampaignResponse::from($data);
+    }
+
+    public function delete(int $id): ResponseInterface
+    {
+        $request = ClientRequestBuilder::delete("$this->resource/$id");
+
+        return $this->connector->sendStandardClientRequest($request);
     }
 }

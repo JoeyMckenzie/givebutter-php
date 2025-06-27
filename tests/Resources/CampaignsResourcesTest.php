@@ -9,6 +9,8 @@ use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignFixture;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignsFixture;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Psr\Http\Message\ResponseInterface;
 use Tests\Mocks\ClientMock;
 use Wrapkit\ValueObjects\Response;
 
@@ -114,5 +116,21 @@ describe('campaigns', function (): void {
 
         // Assert
         expect($result)->toBeCampaign();
+    });
+
+    it('can delete campaigns', function (): void {
+        // Arrange
+        $client = ClientMock::delete(
+            'campaigns/123',
+            new GuzzleResponse(200),
+            methodName: 'sendStandardClientRequest'
+        );
+
+        // Act
+        $result = $client->campaigns()->delete(123);
+
+        // Assert
+        expect($result)->toBeInstanceOf(ResponseInterface::class)
+            ->and($result->getStatusCode())->toBe(200);
     });
 });

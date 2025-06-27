@@ -6,6 +6,7 @@ namespace Givebutter\Contracts\Resources;
 
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ResourceContract;
 
 interface CampaignsResourceContract extends ResourceContract
@@ -43,4 +44,6 @@ interface CampaignsResourceContract extends ResourceContract
      * } $params
      */
     public function update(int $id, array $params): GetCampaignResponse;
+
+    public function delete(int $id): ResponseInterface;
 }
