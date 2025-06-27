@@ -118,7 +118,7 @@ describe('campaigns', function (): void {
         expect($result)->toBeCampaign();
     });
 
-    it('can delete campaigns', function (): void {
+    it('can delete a campaign', function (): void {
         // Arrange
         $client = ClientMock::delete(
             'campaigns/123',
