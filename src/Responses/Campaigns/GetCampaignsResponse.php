@@ -11,27 +11,27 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type GetCampaignSchema from GetCampaignResponse
+ * @phpstan-import-type GetCampaignResponseSchema from GetCampaignResponse
  * @phpstan-import-type MetaSchema from Meta
  * @phpstan-import-type LinksSchema from Links
  *
- * @phpstan-type GetCampaignsSchema array{
- *     data: GetCampaignSchema[],
+ * @phpstan-type GetCampaignsResponseSchema array{
+ *     data: GetCampaignResponseSchema[],
  *     links: LinksSchema,
  *     meta: MetaSchema
  * }
  *
- * @implements ResponseContract<GetCampaignsSchema>
+ * @implements ResponseContract<GetCampaignsResponseSchema>
  */
 final readonly class GetCampaignsResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<GetCampaignsSchema>
+     * @use ArrayAccessible<GetCampaignsResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @use Fakeable<GetCampaignsSchema>
+     * @use Fakeable<GetCampaignsResponseSchema>
      */
     use Fakeable;
 
@@ -47,7 +47,7 @@ final readonly class GetCampaignsResponse implements ResponseContract
     }
 
     /**
-     * @param  GetCampaignsSchema  $attributes
+     * @param  GetCampaignsResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

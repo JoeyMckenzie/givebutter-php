@@ -15,7 +15,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *
  * @implements ResponseContract<ErrorSchema>
  */
-final class Error implements ResponseContract
+final readonly class Error implements ResponseContract
 {
     /**
      * @use ArrayAccessible<ErrorSchema>

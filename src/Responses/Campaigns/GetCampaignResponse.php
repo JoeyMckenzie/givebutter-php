@@ -15,7 +15,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  * @phpstan-import-type CoverSchema from Cover
  * @phpstan-import-type EventSchema from Event
  *
- * @phpstan-type GetCampaignSchema array{
+ * @phpstan-type GetCampaignResponseSchema array{
  *     id: int,
  *     code: string,
  *     account_id: string,
@@ -39,17 +39,17 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     event: ?EventSchema
  * }
  *
- * @implements ResponseContract<GetCampaignSchema>
+ * @implements ResponseContract<GetCampaignResponseSchema>
  */
 final readonly class GetCampaignResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<GetCampaignSchema>
+     * @use ArrayAccessible<GetCampaignResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @use Fakeable<GetCampaignSchema>
+     * @use Fakeable<GetCampaignResponseSchema>
      */
     use Fakeable;
 
@@ -80,7 +80,7 @@ final readonly class GetCampaignResponse implements ResponseContract
     }
 
     /**
-     * @param  GetCampaignSchema  $attributes
+     * @param  GetCampaignResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

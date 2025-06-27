@@ -13,13 +13,13 @@ use Wrapkit\Testing\AbstractDataFixture;
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type GetCampaignSchema from GetCampaignResponse
+ * @phpstan-import-type GetCampaignResponseSchema from GetCampaignResponse
  */
 final class GetCampaignFixture extends AbstractDataFixture
 {
     public static function error(): array
     {
-        /** @var GetCampaignSchema $data */
+        /** @var GetCampaignResponseSchema $data */
         $data = [
             'id' => fake()->numberBetween(1, 100),
             'code' => fake()->text,
@@ -49,7 +49,7 @@ final class GetCampaignFixture extends AbstractDataFixture
 
     public static function data(): array
     {
-        /** @var GetCampaignSchema $data */
+        /** @var GetCampaignResponseSchema $data */
         $data = [
             'id' => fake()->numberBetween(1, 100),
             'code' => fake()->text,

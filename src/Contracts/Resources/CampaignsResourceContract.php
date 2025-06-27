@@ -17,4 +17,17 @@ interface CampaignsResourceContract extends ResourceContract
     public function get(int $id): GetCampaignResponse;
 
     public function list(?string $scope = null): GetCampaignsResponse;
+
+    /**
+     * @param array{
+     *     description: string,
+     *     end_at: string,
+     *     goal: int,
+     *     subtitle: string,
+     *     slug: string,
+     *     title: string,
+     *     type: string,
+     * } $params
+     */
+    public function create(array $params): GetCampaignResponse;
 }

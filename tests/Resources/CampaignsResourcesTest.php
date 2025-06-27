@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonImmutable;
 use Givebutter\Resources\CampaignsResource;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
 use Givebutter\Responses\Models\Links;
@@ -63,5 +64,30 @@ describe('campaigns', function (): void {
             ->data->each()->toBeCampaign()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
+    });
+
+    it('can create campaigns', function (): void {
+        // Arrange
+        $payload = [
+            'description' => 'This is a test campaign.',
+            'end_at' => CarbonImmutable::now()->toIso8601String(),
+            'goal' => 1000,
+            'subtitle' => 'subtitle',
+            'slug' => 'slug123',
+            'title' => 'title',
+            'type' => 'collect',
+        ];
+
+        $client = ClientMock::post(
+            'campaigns',
+            $payload,
+            Response::from(GetCampaignFixture::data()),
+        );
+
+        // Act
+        $result = $client->campaigns()->create($payload);
+
+        // Assert
+        expect($result)->toBeCampaign();
     });
 });

@@ -14,8 +14,8 @@ use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
 
 /**
- * @phpstan-import-type GetCampaignSchema from GetCampaignResponse
- * @phpstan-import-type GetCampaignsSchema from GetCampaignsResponse
+ * @phpstan-import-type GetCampaignResponseSchema from GetCampaignResponse
+ * @phpstan-import-type GetCampaignsResponseSchema from GetCampaignsResponse
  */
 final class CampaignsResource implements CampaignsResourceContract
 {
@@ -43,13 +43,13 @@ final class CampaignsResource implements CampaignsResourceContract
 
     public function list(?string $scope = null): GetCampaignsResponse
     {
-        $request = ClientRequestBuilder::get('campaigns')
+        $request = ClientRequestBuilder::get($this->resource)
             ->withQueryParam('scope', $scope);
 
         /** @var Response<array<array-key, mixed>> $response */
         $response = $this->connector->sendClientRequest($request);
 
-        /** @var GetCampaignsSchema $data */
+        /** @var GetCampaignsResponseSchema $data */
         $data = $response->data();
 
         return GetCampaignsResponse::from($data);
@@ -57,12 +57,37 @@ final class CampaignsResource implements CampaignsResourceContract
 
     public function get(int $id): GetCampaignResponse
     {
-        $request = ClientRequestBuilder::get("campaigns/$id");
+        $request = ClientRequestBuilder::get("$this->resource/$id");
 
         /** @var Response<array<array-key, mixed>> $response */
         $response = $this->connector->sendClientRequest($request);
 
-        /** @var GetCampaignSchema $data */
+        /** @var GetCampaignResponseSchema $data */
+        $data = $response->data();
+
+        return GetCampaignResponse::from($data);
+    }
+
+    /**
+     * @param array{
+     *     description: string,
+     *     end_at: string,
+     *     goal: int,
+     *     subtitle: string,
+     *     slug: string,
+     *     title: string,
+     *     type: string,
+     * } $params
+     */
+    public function create(array $params): GetCampaignResponse
+    {
+        $request = ClientRequestBuilder::post($this->resource)
+            ->withRequestContent($params);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetCampaignResponseSchema $data */
         $data = $response->data();
 
         return GetCampaignResponse::from($data);
