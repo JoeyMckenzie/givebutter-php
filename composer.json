@@ -97,8 +97,14 @@
         "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
         "test:mutate:cache-clear": "vendor/bin/pest --mutate --min=100 --clear-cache",
         "test:types": "vendor/bin/pest --type-coverage --min=100",
-        "test:watch": "vendor/bin/pest --parallel --watch",
-        "test:watchmu": "vendor/bin/pest --watch --parallel --mutate",
+        "test:watch": [
+            "Composer\\Config::disableProcessTimeout",
+            "vendor/bin/pest --parallel --watch"
+        ],
+        "test:watchmu": [
+            "Composer\\Config::disableProcessTimeout",
+            "vendor/bin/pest --watch --parallel --mutate"
+        ],
         "typos": "vendor/bin/peck"
     }
 }

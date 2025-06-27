@@ -14,7 +14,9 @@ declare(strict_types=1);
 */
 
 use Carbon\CarbonImmutable;
+use Givebutter\Responses\Campaigns\GetCampaignMemberResponse;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
+use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Responses\Models\Cover;
 use Givebutter\Responses\Models\Event;
 
@@ -54,6 +56,31 @@ expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignRespo
     ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
     ->cover->toBeInstanceOf(Cover::class)
     ->event->toBeInstanceOf(Event::class));
+
+expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
+    ->id->toBeInt()
+    ->firstName->toBeString()
+    ->lastName->toBeString()
+    ->email->toBeString()
+    ->phone->toBeString()
+    ->displayName->toBeString()
+    ->picture->toBeString()
+    ->raised->toBeInt()
+    ->goal->toBeInt()
+    ->donors->toBeInt()
+    ->items->toBeInt()
+    ->url->toBeString());
+
+expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignTeamResponse::class)
+    ->id->toBeInt()
+    ->name->toBeString()
+    ->logo->toBeString()
+    ->slug->toBeString()
+    ->url->toBeString()
+    ->raised->toBeInt()
+    ->goal->toBeInt()
+    ->supporters->toBeInt()
+    ->members->toBeInt());
 
 /*
 |--------------------------------------------------------------------------

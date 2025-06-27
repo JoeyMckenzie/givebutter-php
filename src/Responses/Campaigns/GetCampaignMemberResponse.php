@@ -10,7 +10,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
  * @phpstan-type GetCampaignMemberResponseSchema array{
- *     id: string,
+ *     id: int,
  *     first_name: string,
  *     last_name: string,
  *     email: string,
@@ -39,7 +39,7 @@ final readonly class GetCampaignMemberResponse implements ResponseContract
     use Fakeable;
 
     public function __construct(
-        public string $id,
+        public int $id,
         public string $firstName,
         public string $lastName,
         public string $email,

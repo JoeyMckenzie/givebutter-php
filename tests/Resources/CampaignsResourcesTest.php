@@ -4,11 +4,17 @@ declare(strict_types=1);
 
 use Carbon\CarbonImmutable;
 use Givebutter\Resources\CampaignsResource;
+use Givebutter\Responses\Campaigns\GetCampaignMembersResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
+use Givebutter\Responses\Campaigns\GetCampaignTeamsResponse;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignFixture;
+use Givebutter\Testing\Fixtures\Campaigns\GetCampaignMemberFixture;
+use Givebutter\Testing\Fixtures\Campaigns\GetCampaignMembersFixture;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignsFixture;
+use Givebutter\Testing\Fixtures\Campaigns\GetCampaignTeamFixture;
+use Givebutter\Testing\Fixtures\Campaigns\GetCampaignTeamsFixture;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use Psr\Http\Message\ResponseInterface;
 use Tests\Mocks\ClientMock;
@@ -16,7 +22,7 @@ use Wrapkit\ValueObjects\Response;
 
 covers(CampaignsResource::class);
 
-describe('campaigns', function (): void {
+describe(CampaignsResource::class, function (): void {
     it('can retrieve a single campaign', function (): void {
         // Arrange
         $client = ClientMock::get(
@@ -132,5 +138,102 @@ describe('campaigns', function (): void {
         // Assert
         expect($result)->toBeInstanceOf(ResponseInterface::class)
             ->and($result->getStatusCode())->toBe(200);
+    });
+
+    describe('members', function (): void {
+        it('can retrieve a single campaign member', function (): void {
+            // Arrange
+            $client = ClientMock::get(
+                'campaigns/123/members/321',
+                Response::from(GetCampaignMemberFixture::data()),
+            );
+
+            // Act
+            $result = $client
+                ->campaigns()
+                ->members()
+                ->get(321, 123);
+
+            // Assert
+            expect($result)->toBeCampaignMember();
+        });
+
+        it('can retrieve all campaign members', function (): void {
+            // Arrange
+            $client = ClientMock::get(
+                'campaigns/123/members',
+                Response::from(GetCampaignMembersFixture::data()),
+            );
+
+            // Act
+            $result = $client
+                ->campaigns()
+                ->members()
+                ->list(123);
+
+            // Assert
+            expect($result)->toBeInstanceOf(GetCampaignMembersResponse::class)
+                ->data->each()->toBeCampaignMember()
+                ->meta->toBeInstanceOf(Meta::class)
+                ->links->toBeInstanceOf(Links::class);
+        });
+
+        it('can delete a campaign member', function (): void {
+            // Arrange
+            $client = ClientMock::delete(
+                'campaigns/123/members/321',
+                new GuzzleResponse(200),
+                methodName: 'sendStandardClientRequest'
+            );
+
+            // Act
+            $result = $client
+                ->campaigns()
+                ->members()
+                ->delete(321, 123);
+
+            // Assert
+            expect($result)->toBeInstanceOf(ResponseInterface::class)
+                ->and($result->getStatusCode())->toBe(200);
+        });
+    });
+
+    describe('teams', function (): void {
+        it('can retrieve a single campaign team', function (): void {
+            // Arrange
+            $client = ClientMock::get(
+                'campaigns/123/teams/321',
+                Response::from(GetCampaignTeamFixture::data()),
+            );
+
+            // Act
+            $result = $client
+                ->campaigns()
+                ->teams()
+                ->get(321, 123);
+
+            // Assert
+            expect($result)->toBeCampaignTeam();
+        });
+
+        it('can retrieve all campaign teams', function (): void {
+            // Arrange
+            $client = ClientMock::get(
+                'campaigns/123/teams',
+                Response::from(GetCampaignTeamsFixture::data()),
+            );
+
+            // Act
+            $result = $client
+                ->campaigns()
+                ->teams()
+                ->list(123);
+
+            // Assert
+            expect($result)->toBeInstanceOf(GetCampaignTeamsResponse::class)
+                ->data->each()->toBeCampaignTeam()
+                ->meta->toBeInstanceOf(Meta::class)
+                ->links->toBeInstanceOf(Links::class);
+        });
     });
 });

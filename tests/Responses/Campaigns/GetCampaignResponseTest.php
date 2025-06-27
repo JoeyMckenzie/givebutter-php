@@ -68,7 +68,7 @@ describe(GetCampaignResponse::class, function (): void {
 
         // Assert
         expect($fake)->toBeCampaign()
-            ->cover->url->toBeString('https://php.net/');
+            ->cover->url->toBe('https://php.net/');
     });
 
     it('can override properties on fakes', function (): void {
@@ -79,7 +79,7 @@ describe(GetCampaignResponse::class, function (): void {
 
         // Assert
         expect($fake)->toBeCampaign()
-            ->description->toBeString('campaign description');
+            ->description->toBe('campaign description');
     });
 
     it('handles nullable nested objects', function (): void {
