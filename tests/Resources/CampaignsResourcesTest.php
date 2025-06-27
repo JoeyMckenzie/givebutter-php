@@ -90,4 +90,29 @@ describe('campaigns', function (): void {
         // Assert
         expect($result)->toBeCampaign();
     });
+
+    it('can update campaigns', function (): void {
+        // Arrange
+        $payload = [
+            'description' => 'This is an updated test campaign.',
+            'end_at' => CarbonImmutable::now()->toIso8601String(),
+            'goal' => 10000,
+            'subtitle' => 'updated subtitle',
+            'slug' => 'updatedSlug123',
+            'title' => 'updated title',
+            'type' => 'updated collect',
+        ];
+
+        $client = ClientMock::patch(
+            'campaigns/123',
+            $payload,
+            Response::from(GetCampaignFixture::data()),
+        );
+
+        // Act
+        $result = $client->campaigns()->update(123, $payload);
+
+        // Assert
+        expect($result)->toBeCampaign();
+    });
 });

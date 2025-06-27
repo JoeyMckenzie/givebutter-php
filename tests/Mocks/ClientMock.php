@@ -16,7 +16,7 @@ use Wrapkit\ValueObjects\Response;
 final class ClientMock
 {
     /**
-     * @param  array<string, string>  $params
+     * @param  array<string, array-key>  $params
      * @param  array<string, string>  $additionalHeaders
      */
     public static function post(
@@ -29,7 +29,7 @@ final class ClientMock
     }
 
     /**
-     * @param  array<string, string>  $params
+     * @param  array<string, array-key>  $params
      * @param  array<string, string>  $additionalHeaders
      */
     public static function create(
@@ -51,20 +51,20 @@ final class ClientMock
     }
 
     /**
-     * @param  array<string, string>  $params
+     * @param  array<string, array-key>  $params
      * @param  array<string, string>  $additionalHeaders
      */
-    public static function put(
+    public static function patch(
         string $resource,
         array $params,
         Response|ResponseInterface|string|null $response,
         bool $validateParams = true,
     ): Client {
-        return self::create(HttpMethod::PUT, $resource, $params, $response, $validateParams);
+        return self::create(HttpMethod::PATCH, $resource, $params, $response, $validateParams);
     }
 
     /**
-     * @param  array<string, string>  $params
+     * @param  array<string, array-key>  $params
      * @param  array<string, string>  $additionalHeaders
      */
     public static function delete(
@@ -106,7 +106,7 @@ final class ClientMock
             HttpMethod::GET => self::validateParams($request, $params),
             HttpMethod::DELETE => self::validateParams($request, $params),
             HttpMethod::POST => self::validateRequestBody($request, $params),
-            HttpMethod::PUT => self::validateRequestBody($request, $params),
+            HttpMethod::PATCH => self::validateRequestBody($request, $params),
         };
     }
 

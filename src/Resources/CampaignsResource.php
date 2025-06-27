@@ -92,4 +92,29 @@ final class CampaignsResource implements CampaignsResourceContract
 
         return GetCampaignResponse::from($data);
     }
+
+    /**
+     * @param array{
+     *     description?: string,
+     *     end_at?: string,
+     *     goal?: int,
+     *     subtitle?: string,
+     *     slug?: string,
+     *     title?: string,
+     *     type?: string,
+     * } $params
+     */
+    public function update(int $id, array $params): GetCampaignResponse
+    {
+        $request = ClientRequestBuilder::patch("$this->resource/$id")
+            ->withRequestContent($params);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetCampaignResponseSchema $data */
+        $data = $response->data();
+
+        return GetCampaignResponse::from($data);
+    }
 }

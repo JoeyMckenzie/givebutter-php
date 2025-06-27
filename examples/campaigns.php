@@ -14,16 +14,7 @@ $dotenv->load();
 $apiKey = $_ENV['GIVEBUTTER_API_KEY'];
 $client = Givebutter::client($apiKey);
 
-$campaign = $client
-    ->campaigns()
-    ->get(441507);
-var_dump($campaign);
-
-$campaigns = $client
-    ->campaigns()
-    ->list();
-var_dump($campaigns);
-
+// Create a campaign
 $createdCampaign = $client
     ->campaigns()
     ->create([
@@ -36,3 +27,24 @@ $createdCampaign = $client
         'type' => 'collect',
     ]);
 var_dump($createdCampaign);
+
+// Get a campaign
+$campaign = $client
+    ->campaigns()
+    ->get(441507);
+var_dump($campaign);
+
+// Get all campaigns
+$campaigns = $client
+    ->campaigns()
+    ->list();
+var_dump($campaigns);
+
+// Update a campaign
+$updatedCampaign = $client
+    ->campaigns()
+    ->update($campaign->id, [
+        'description' => 'This is a test campaign.',
+        'goal' => 1500,
+    ]);
+var_dump($updatedCampaign);
