@@ -23,7 +23,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *
  * @implements ResponseContract<GetCampaignMembersResponseSchema>
  */
-final class GetCampaignMembersResponse implements ResponseContract
+final readonly class GetCampaignMembersResponse implements ResponseContract
 {
     /**
      * @use ArrayAccessible<GetCampaignMembersResponseSchema>
