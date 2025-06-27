@@ -5,7 +5,7 @@
         <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/givebutter-php/run-ci.yml?branch=main&label=ci" alt="ci" />
         <img src="https://img.shields.io/github/actions/workflow/status/joeymckenzie/givebutter-php/fix-php-code-style-issues.yml?branch=main&label=code%20style" alt="packgist downloads" />
         <img src="https://img.shields.io/packagist/dt/joeymckenzie/givebutter-php.svg" alt="packgist downloads" />
-        <img src="https://codecov.io/gh/JoeyMckenzie/givebutter-php/graph/badge.svg?token=AXMP8ZTMKD&style=flat-square" alt="codecov coverage report"/> 
+        <img src="https://codecov.io/gh/JoeyMckenzie/givebutter-php/graph/badge.svg?token=9LZK1YDGKG" alt="codecov coverage report"/> 
     </div>
 </div>
 
