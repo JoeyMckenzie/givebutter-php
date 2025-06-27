@@ -13,9 +13,13 @@ declare(strict_types=1);
 |
 */
 
+use Carbon\CarbonImmutable;
+use Givebutter\Responses\Campaigns\GetCampaignResponse;
+use Givebutter\Responses\Models\Cover;
+use Givebutter\Responses\Models\Event;
+
 pest()->extend(Tests\TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+    ->in('Resources', 'Responses');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +32,28 @@ pest()->extend(Tests\TestCase::class)
 |
 */
 
-expect()->extend('toBeOne', fn () => $this->toBe(1));
+expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignResponse::class)
+    ->id->toBeInt()
+    ->code->toBeString()
+    ->accountId->toBeString()
+    ->eventId->toBeInt()
+    ->type->toBeString()
+    ->title->toBeString()
+    ->subtitle->toBeString()
+    ->description->toBeString()
+    ->slug->toBeString()
+    ->url->toBeString()
+    ->goal->toBeInt()
+    ->raised->toBeInt()
+    ->donors->toBeInt()
+    ->currency->toBeString()
+    ->status->toBeString()
+    ->timezone->toBeString()
+    ->endAt->toBeInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->cover->toBeInstanceOf(Cover::class)
+    ->event->toBeInstanceOf(Event::class));
 
 /*
 |--------------------------------------------------------------------------

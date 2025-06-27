@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Carbon\CarbonImmutable;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
-use Givebutter\Responses\Models\Cover;
-use Givebutter\Responses\Models\Event;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignFixture;
 
 covers(GetCampaignResponse::class);
@@ -20,28 +17,7 @@ describe(GetCampaignResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeInstanceOf(GetCampaignResponse::class)
-            ->id->toBeInt()
-            ->code->toBeString()
-            ->accountId->toBeString()
-            ->eventId->toBeInt()
-            ->type->toBeString()
-            ->title->toBeString()
-            ->subtitle->toBeString()
-            ->description->toBeString()
-            ->slug->toBeString()
-            ->url->toBeString()
-            ->goal->toBeInt()
-            ->raised->toBeInt()
-            ->donors->toBeInt()
-            ->currency->toBeString()
-            ->status->toBeString()
-            ->timezone->toBeString()
-            ->endAt->toBeInstanceOf(CarbonImmutable::class)
-            ->createdAt->toBeInstanceOf(CarbonImmutable::class)
-            ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
-            ->cover->toBeInstanceOf(Cover::class)
-            ->event->toBeInstanceOf(Event::class);
+        expect($this->response)->toBeCampaign();
     });
 
     it('is accessible from an array', function (): void {
@@ -79,28 +55,7 @@ describe(GetCampaignResponse::class, function (): void {
 
         // Assert
 
-        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
-            ->id->toBeInt()
-            ->code->toBeString()
-            ->accountId->toBeString()
-            ->eventId->toBeInt()
-            ->type->toBeString()
-            ->title->toBeString()
-            ->subtitle->toBeString()
-            ->description->toBeString()
-            ->slug->toBeString()
-            ->url->toBeString()
-            ->goal->toBeInt()
-            ->raised->toBeInt()
-            ->donors->toBeInt()
-            ->currency->toBeString()
-            ->status->toBeString()
-            ->timezone->toBeString()
-            ->endAt->toBeInstanceOf(CarbonImmutable::class)
-            ->createdAt->toBeInstanceOf(CarbonImmutable::class)
-            ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
-            ->cover->toBeInstanceOf(Cover::class)
-            ->event->toBeInstanceOf(Event::class);
+        expect($fake)->toBeCampaign();
     });
 
     it('can override nested properties on fakes', function (): void {
@@ -112,7 +67,7 @@ describe(GetCampaignResponse::class, function (): void {
         ]);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+        expect($fake)->toBeCampaign()
             ->cover->url->toBeString('https://php.net/');
     });
 
@@ -123,7 +78,7 @@ describe(GetCampaignResponse::class, function (): void {
         ]);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetCampaignResponse::class)
+        expect($fake)->toBeCampaign()
             ->description->toBeString('campaign description');
     });
 
