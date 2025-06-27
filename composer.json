@@ -1,5 +1,5 @@
 {
-    "name": "jmckenzie/givebutter-php",
+    "name": "joeymckenzie/givebutter-php",
     "description": "PHP API wrapper for Givebutter's public API.",
     "license": "MIT",
     "type": "library",
