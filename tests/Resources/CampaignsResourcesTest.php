@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 use Carbon\CarbonImmutable;
+use Givebutter\Resources\CampaignMembersResource;
 use Givebutter\Resources\CampaignsResource;
+use Givebutter\Resources\CampaignTeamsResource;
 use Givebutter\Responses\Campaigns\GetCampaignMembersResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamsResponse;
@@ -21,6 +23,8 @@ use Tests\Mocks\ClientMock;
 use Wrapkit\ValueObjects\Response;
 
 covers(CampaignsResource::class);
+covers(CampaignMembersResource::class);
+covers(CampaignTeamsResource::class);
 
 describe(CampaignsResource::class, function (): void {
     it('can retrieve a single campaign', function (): void {
