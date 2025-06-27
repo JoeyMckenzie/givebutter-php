@@ -18,6 +18,8 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
 - [Getting started](#getting-started)
 - [Usage](#usage)
     - [Campaigns](#campaigns)
+    - [Campaign Members](#campaign-members)
+    - [Campaign Teams](#campaign-teams)
 
 ## Getting started
 
@@ -159,4 +161,89 @@ Deletes a campaign.
 $response = $client->campaigns()->delete(42);
 
 echo $response->getStatusCode(); // 200
+```
+
+### Campaign Members
+
+#### Get all campaign members
+
+Gets a list of available campaign members.
+
+```php
+$response = $client
+    ->campaigns()
+    ->members()
+    ->list(123);
+
+echo $response->data; // array<int, GetCampaignMembersResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 123, ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a campaign member
+
+Gets a single campaign member.
+
+```php
+$response = $client
+    ->campaigns()
+    ->members()
+    ->get(123, 42);
+
+echo $response->data(); // GetCampaignMemberResponse::class
+echo $response->id; // 123
+echo $response->firstName; // 'John'
+echo $response->lastName; // 'Smith'
+echo $response->raised; // 10000
+echo $response->toArray(); // ['id' => 123, ...]
+```
+
+#### Delete a campaign member
+
+Deletes a campaign member.
+
+```php
+$response = $client
+    ->campaigns()
+    ->members
+    ->delete(123, 42);
+
+echo $response->getStatusCode(); // 200
+```
+
+### Campaign Teams
+
+#### Get all campaign teams
+
+Gets a list of available campaign teams.
+
+```php
+$response = $client
+    ->campaigns()
+    ->teams()
+    ->list(123);
+
+echo $response->data; // array<int, GetCampaignTeamsResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 123, ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a campaign team
+
+Gets a single campaign team.
+
+```php
+$response = $client
+    ->campaigns()
+    ->teams()
+    ->get(123, 42);
+
+echo $response->data(); // GetCampaignTeamResponse::class
+echo $response->id; // 123
+echo $response->name; // 'Team 1'
+echo $response->logo; // 'https://domain.com/photo123'
+echo $response->raised; // 10000
+echo $response->toArray(); // ['id' => 123, ...]
 ```
