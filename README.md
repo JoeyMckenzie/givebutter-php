@@ -50,19 +50,16 @@ $createdCampaign = $client
         'title' => 'title',
         'type' => 'collect',
     ]);
-var_dump($createdCampaign);
 
 // Get a campaign
 $campaign = $client
     ->campaigns()
     ->get(441507);
-var_dump($campaign);
 
 // Get all campaigns
 $campaigns = $client
     ->campaigns()
     ->list();
-var_dump($campaigns);
 
 // Update a campaign
 $updatedCampaign = $client
@@ -71,14 +68,11 @@ $updatedCampaign = $client
         'description' => 'This is a test campaign.',
         'goal' => 1500,
     ]);
-var_dump($updatedCampaign);
 
 // Delete a campaign
 $deleteResponse = $client
     ->campaigns()
     ->delete($campaign->id);
-var_dump($deleteResponse);
-
 ```
 
 For a comprehensive set of examples, take a look at the [examples](/examples) directory.
@@ -92,15 +86,17 @@ For a comprehensive set of examples, take a look at the [examples](/examples) di
 Creates a campaign from a specified payload.
 
 ```php
-$response = $client->campaigns()->create([
-              'title' => 'Campaign title',
-              'description' => 'Campaign description.',
-              'end_at' => CarbonImmutable::now()->toIso8601String(),
-              'goal' => 10000,
-              'subtitle' => 'Campaign subtitle',
-              'slug' => 'campaignSlug123',
-              'type' => 'collect',
-          ]);
+$response = $client
+    ->campaigns()
+    ->create([
+        'title' => 'Campaign title',
+        'description' => 'Campaign description.',
+        'end_at' => CarbonImmutable::now()->toIso8601String(),
+        'goal' => 10000,
+        'subtitle' => 'Campaign subtitle',
+        'slug' => 'campaignSlug123',
+        'type' => 'collect',
+    ]);
 
 echo $response->data(); // GetCampaignResponse::class
 echo $response->id; // 42
@@ -114,7 +110,9 @@ echo $response->toArray(); // ['id' => 42, ...]
 Gets a list of available campaigns. Optionally, accepts a scope parameter.
 
 ```php
-$response = $client->campaigns()->list();
+$response = $client
+    ->campaigns()
+    ->list();
 
 echo $response->data; // array<int, GetCampaignResponse::class>
 echo $response->meta; // Meta::class
@@ -127,7 +125,9 @@ echo $response->toArray(); // ['data' => ['id' => 42, ...], 'meta' => [...], 'li
 Gets a single campaign.
 
 ```php
-$response = $client->campaigns()->get(42);
+$response = $client
+    ->campaigns()
+    ->get(42);
 
 echo $response->data(); // GetCampaignResponse::class
 echo $response->id; // 42
@@ -141,10 +141,12 @@ echo $response->toArray(); // ['id' => 42, ...]
 Updates a campaign from a specified payload.
 
 ```php
-$response = $client->campaigns()->update(42, [
-              'description' => 'Updated campaign description.',
-              'goal' => 20000,
-          ]);
+$response = $client
+    ->campaigns()
+    ->update(42, [
+        'description' => 'Updated campaign description.',
+        'goal' => 20000,
+    ]);
 
 echo $response->data(); // GetCampaignResponse::class
 echo $response->id; // 42
@@ -158,7 +160,9 @@ echo $response->toArray(); // ['id' => 42, ...]
 Deletes a campaign.
 
 ```php
-$response = $client->campaigns()->delete(42);
+$response = $client
+    ->campaigns()
+    ->delete(42);
 
 echo $response->getStatusCode(); // 200
 ```
@@ -206,7 +210,7 @@ Deletes a campaign member.
 ```php
 $response = $client
     ->campaigns()
-    ->members
+    ->members()
     ->delete(123, 42);
 
 echo $response->getStatusCode(); // 200
