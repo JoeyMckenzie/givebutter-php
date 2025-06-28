@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Givebutter;
 
-use Givebutter\Exceptions\ApiClientException;
+use Givebutter\Exceptions\GivebutterClientException;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
 use Wrapkit\Contracts\ConnectorContract;
@@ -65,12 +65,12 @@ final class Builder
     }
 
     /**
-     * @throws ApiClientException
+     * @throws GivebutterClientException
      */
     public function build(): Client
     {
         if ($this->apiKey === null) {
-            throw ApiClientException::apiKeyMissing();
+            throw GivebutterClientException::apiKeyMissing();
         }
 
         $headers = Headers::create();

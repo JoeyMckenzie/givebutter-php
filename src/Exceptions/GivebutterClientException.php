@@ -6,7 +6,7 @@ namespace Givebutter\Exceptions;
 
 use Exception;
 
-final class ApiClientException extends Exception
+final class GivebutterClientException extends Exception
 {
     public function __construct(string $message)
     {

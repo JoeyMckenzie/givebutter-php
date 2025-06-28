@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Givebutter;
 
-use Givebutter\Exceptions\ApiClientException;
+use Givebutter\Exceptions\GivebutterClientException;
 
 final class Givebutter
 {
     /**
      * Creates a new default client instance.
      *
-     * @throws ApiClientException
+     * @throws GivebutterClientException
      */
     public static function client(string $apiKey): Client
     {

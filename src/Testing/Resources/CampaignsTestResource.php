@@ -7,6 +7,7 @@ namespace Givebutter\Testing\Resources;
 use Givebutter\Contracts\Resources\CampaignMembersResourceContract;
 use Givebutter\Contracts\Resources\CampaignsResourceContract;
 use Givebutter\Contracts\Resources\CampaignTeamsResourceContract;
+use Givebutter\Resources\CampaignsResource;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -27,7 +28,7 @@ final class CampaignsTestResource implements CampaignsResourceContract
 
     public string $resource {
         get {
-            return 'campaigns';
+            return CampaignsResource::class;
         }
     }
 

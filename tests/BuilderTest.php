@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Givebutter\Builder;
 use Givebutter\Client;
-use Givebutter\Exceptions\ApiClientException;
+use Givebutter\Exceptions\GivebutterClientException;
 use Psr\Http\Client\ClientInterface;
 use Wrapkit\ValueObjects\Headers;
 use Wrapkit\ValueObjects\QueryParams;
@@ -31,7 +31,7 @@ describe(Builder::class, function (): void {
 
         it('throws an exception if no API key is supplied', function (): void {
             // Arrange & Act & Assert
-            expect(fn () => $this->builder->build())->toThrow(ApiClientException::class);
+            expect(fn () => $this->builder->build())->toThrow(GivebutterClientException::class);
         });
     });
 
