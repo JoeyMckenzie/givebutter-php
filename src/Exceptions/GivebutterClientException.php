@@ -15,6 +15,6 @@ final class GivebutterClientException extends Exception
 
     public static function apiKeyMissing(): self
     {
-        return new self('API key is required to call Givebutter\'s API.');
+        return new self("API key is required to call Givebutter's API.");
     }
 }
