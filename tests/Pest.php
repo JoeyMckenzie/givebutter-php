@@ -17,8 +17,12 @@ use Carbon\CarbonImmutable;
 use Givebutter\Responses\Campaigns\GetCampaignMemberResponse;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
+use Givebutter\Responses\Contacts\GetContactResponse;
+use Givebutter\Responses\Models\Address;
+use Givebutter\Responses\Models\ContactMeta;
 use Givebutter\Responses\Models\Cover;
 use Givebutter\Responses\Models\Event;
+use Givebutter\Responses\Models\Stats;
 
 pest()->extend(Tests\TestCase::class)
     ->in('Resources', 'Responses');
@@ -81,6 +85,30 @@ expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignT
     ->goal->toBeInt()
     ->supporters->toBeInt()
     ->members->toBeInt());
+
+expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactResponse::class)
+    ->id->toBeInt()
+    ->firstName->toBeString()
+    ->middleName->toBeString()
+    ->lastName->toBeString()
+    ->dob->toBeInstanceOf(CarbonImmutable::class)
+    ->company->toBeString()
+    ->title->toBeString()
+    ->twitterUrl->toBeString()
+    ->linkedInUrl->toBeString()
+    ->facebookUrl->toBeString()
+    ->emails->toBeArray()->each()->toBeInstanceOf(ContactMeta::class)
+    ->phones->toBeArray()->each()->toBeInstanceOf(ContactMeta::class)
+    ->primaryEmail->toBeString()
+    ->primaryPhone->toBeString()
+    ->note->toBeString()
+    ->addresses->toBeArray()->each()->toBeInstanceOf(Address::class)
+    ->primaryAddress->toBeInstanceOf(Address::class)
+    ->stats->toBeInstanceOf(Stats::class)
+    ->tags->toBeArray()->each->toBeString()
+    ->archivedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->updatedAt->toBeInstanceOf(CarbonImmutable::class));
 
 /*
 |--------------------------------------------------------------------------

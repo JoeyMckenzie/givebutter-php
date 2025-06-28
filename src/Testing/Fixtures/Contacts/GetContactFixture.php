@@ -22,14 +22,14 @@ final class GetContactFixture extends AbstractDataFixture
         $data = [
             'id' => fake()->numberBetween(1, 100),
             'first_name' => fake()->firstName,
-            'middle_name' => fake()->boolean ? fake()->name : null,
+            'middle_name' => fake()->name,
             'last_name' => fake()->lastName,
             'dob' => fake()->iso8601,
             'company' => fake()->company,
             'title' => fake()->title,
-            'twitter_url' => fake()->boolean ? fake()->url : null,
-            'linkedin_url' => fake()->boolean ? fake()->url : null,
-            'facebook_url' => fake()->boolean ? fake()->url : null,
+            'twitter_url' => fake()->url,
+            'linkedin_url' => fake()->url,
+            'facebook_url' => fake()->url,
             'emails' => array_map(fn (): array => [
                 'type' => fake()->text,
                 'value' => fake()->email,
