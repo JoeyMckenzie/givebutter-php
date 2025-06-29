@@ -388,7 +388,7 @@ echo $response->lastName; // 'Scott'
 echo $response->toArray(); // ['id' => 42, ...]
 ```
 
-### Campaigns
+### Tickets
 
 #### Get all tickets
 
