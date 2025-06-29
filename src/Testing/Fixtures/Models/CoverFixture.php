@@ -18,9 +18,9 @@ final class CoverFixture extends AbstractDataFixture
     {
         /** @var CoverSchema $data */
         $data = [
-            'type' => fake()->text,
-            'url' => fake()->url,
-            'source' => fake()->text,
+            'type' => fake()->text(),
+            'url' => fake()->url(),
+            'source' => fake()->text(),
         ];
 
         return $data;

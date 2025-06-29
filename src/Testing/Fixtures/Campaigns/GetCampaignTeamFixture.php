@@ -19,10 +19,10 @@ final class GetCampaignTeamFixture extends AbstractDataFixture
         /** @var GetCampaignTeamResponseSchema $data */
         $data = [
             'id' => fake()->numberBetween(1, 100),
-            'name' => fake()->name,
-            'logo' => fake()->imageUrl,
+            'name' => fake()->name(),
+            'logo' => fake()->imageUrl(),
             'slug' => fake()->text(),
-            'url' => fake()->url,
+            'url' => fake()->url(),
             'raised' => fake()->numberBetween(100, 1000),
             'goal' => fake()->numberBetween(1000, 10000),
             'supporters' => fake()->numberBetween(1, 100),

@@ -18,10 +18,10 @@ final class LinksFixture extends AbstractDataFixture
     {
         /** @var LinksSchema $data */
         $data = [
-            'first' => fake()->url,
-            'last' => fake()->url,
-            'prev' => fake()->url,
-            'next' => fake()->url,
+            'first' => fake()->url(),
+            'last' => fake()->url(),
+            'prev' => fake()->url(),
+            'next' => fake()->url(),
         ];
 
         return $data;

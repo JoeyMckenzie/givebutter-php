@@ -101,4 +101,46 @@ describe(GetContactResponse::class, function (): void {
         expect($fake)->toBeContact()
             ->company->toBe('Dunder Mifflin');
     });
+
+    it('handles null dob field correctly', function (): void {
+        // Arrange
+        $data = GetContactFixture::data();
+        $data['dob'] = null;
+
+        // Act
+        $response = GetContactResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->dob)->toBeNull()
+            ->and($arrayData['dob'])->toBeNull();
+    });
+
+    it('handles null addressUnsubscribedAt field correctly', function (): void {
+        // Arrange
+        $data = GetContactFixture::data();
+        $data['address_unsubscribed_at'] = null;
+
+        // Act
+        $response = GetContactResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->addressUnsubscribedAt)->toBeNull()
+            ->and($arrayData['address_unsubscribed_at'])->toBeNull();
+    });
+
+    it('handles null archivedAt field correctly', function (): void {
+        // Arrange
+        $data = GetContactFixture::data();
+        $data['archived_at'] = null;
+
+        // Act
+        $response = GetContactResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->archivedAt)->toBeNull()
+            ->and($arrayData['archived_at'])->toBeNull();
+    });
 });

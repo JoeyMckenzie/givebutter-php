@@ -19,17 +19,17 @@ final class GetCampaignMemberFixture extends AbstractDataFixture
         /** @var GetCampaignMemberResponseSchema $data */
         $data = [
             'id' => fake()->numberBetween(1, 100),
-            'first_name' => fake()->firstName,
-            'last_name' => fake()->lastName,
-            'email' => fake()->email,
-            'phone' => fake()->phoneNumber,
-            'display_name' => fake()->userName,
-            'picture' => fake()->imageUrl,
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'email' => fake()->email(),
+            'phone' => fake()->phoneNumber(),
+            'display_name' => fake()->userName(),
+            'picture' => fake()->imageUrl(),
             'raised' => fake()->numberBetween(100, 1000),
             'goal' => fake()->numberBetween(1000, 10000),
             'donors' => fake()->numberBetween(1, 100),
             'items' => fake()->numberBetween(1, 100),
-            'url' => fake()->url,
+            'url' => fake()->url(),
         ];
 
         return $data;

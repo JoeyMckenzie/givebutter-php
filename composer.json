@@ -90,12 +90,13 @@
         "test": "vendor/bin/pest --parallel",
         "test:ci": [
             "@test:coverage",
-            "@test:mutate",
+            "@test:mutate:sync",
             "@test:types"
         ],
         "test:coverage": "vendor/bin/pest --coverage-clover coverage.xml --parallel",
         "test:mutate": "vendor/bin/pest --mutate --min=100 --parallel",
         "test:mutate:cache-clear": "vendor/bin/pest --mutate --min=100 --clear-cache",
+        "test:mutate:sync": "vendor/bin/pest --mutate --min=100",
         "test:types": "vendor/bin/pest --type-coverage --min=100",
         "test:watch": [
             "Composer\\Config::disableProcessTimeout",

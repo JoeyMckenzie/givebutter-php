@@ -18,12 +18,12 @@ final class LivestreamFixture extends AbstractDataFixture
     {
         /** @var LivestreamSchema $data */
         $data = [
-            'url' => fake()->url,
-            'type' => fake()->text,
-            'location' => fake()->text,
-            'platform' => fake()->text,
-            'embed_url' => fake()->text,
-            'scheduled' => fake()->boolean,
+            'url' => fake()->url(),
+            'type' => fake()->text(),
+            'location' => fake()->text(),
+            'platform' => fake()->text(),
+            'embed_url' => fake()->text(),
+            'scheduled' => fake()->boolean(),
         ];
 
         return $data;
