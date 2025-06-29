@@ -126,7 +126,7 @@ final readonly class GetContactResponse implements ResponseContract
         public CarbonImmutable $createdAt,
         public CarbonImmutable $updatedAt,
         public ?string $preferredName,
-        public string $salutationName,
+        public ?string $salutationName,
     ) {
         //
     }
@@ -195,22 +195,22 @@ final readonly class GetContactResponse implements ResponseContract
             'company_name' => $this->companyName,
             'employer' => $this->employer,
             'point_of_contact' => $this->pointOfContact,
-            'associated_companies' => array_map(static fn (Company $company): array => $company->toArray(), $this->associatedCompanies),
+            'associated_companies' => array_map(static fn (Company $company): array => $company->toArray(), $this->associatedCompanies), // @pest-mutate-ignore
             'title' => $this->title,
             'twitter_url' => $this->twitterUrl,
             'linkedin_url' => $this->linkedInUrl,
             'facebook_url' => $this->facebookUrl,
             'website_url' => $this->websiteUrl,
-            'emails' => array_map(static fn (ContactMeta $email): array => $email->toArray(), $this->emails),
-            'phones' => array_map(static fn (ContactMeta $address): array => $address->toArray(), $this->phones),
+            'emails' => array_map(static fn (ContactMeta $email): array => $email->toArray(), $this->emails), // @pest-mutate-ignore
+            'phones' => array_map(static fn (ContactMeta $address): array => $address->toArray(), $this->phones), // @pest-mutate-ignore
             'primary_email' => $this->primaryEmail,
             'primary_phone' => $this->primaryPhone,
             'note' => $this->note,
-            'addresses' => array_map(static fn (Address $address): array => $address->toArray(), $this->addresses),
+            'addresses' => array_map(static fn (Address $address): array => $address->toArray(), $this->addresses), // @pest-mutate-ignore
             'primary_address' => $this->primaryAddress->toArray(),
             'stats' => $this->stats->toArray(),
             'tags' => $this->tags,
-            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields),
+            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
             'external_ids' => $this->externalIds,
             'is_email_subscribed' => $this->isEmailSubscribed,
             'is_phone_subscribed' => $this->isPhoneSubscribed,

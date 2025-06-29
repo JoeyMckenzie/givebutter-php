@@ -61,7 +61,7 @@ final readonly class GetCampaignTeamsResponse implements ResponseContract
     public function toArray(): array
     {
         return [
-            'data' => array_map(static fn (GetCampaignTeamResponse $item): array => $item->toArray(), $this->data), // @pest-mutate-ignore-line
+            'data' => array_map(static fn (GetCampaignTeamResponse $item): array => $item->toArray(), $this->data), // @pest-mutate-ignore
             'links' => $this->links->toArray(),
             'meta' => $this->meta->toArray(),
         ];
