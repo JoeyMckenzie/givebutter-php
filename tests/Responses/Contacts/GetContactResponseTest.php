@@ -102,10 +102,15 @@ describe(GetContactResponse::class, function (): void {
             ->company->toBe('Dunder Mifflin');
     });
 
-    it('handles null dob field correctly', function (): void {
+    it('handles nullable fields correctly', function (): void {
         // Arrange
         $data = GetContactFixture::data();
         $data['dob'] = null;
+        $data['address_unsubscribed_at'] = null;
+        $data['archived_at'] = null;
+        $data['associated_companies'] = null;
+        $data['primary_email'] = null;
+        $data['primary_phone'] = null;
 
         // Act
         $response = GetContactResponse::from($data);
@@ -113,48 +118,18 @@ describe(GetContactResponse::class, function (): void {
 
         // Assert
         expect($response->dob)->toBeNull()
-            ->and($arrayData['dob'])->toBeNull();
-    });
-
-    it('handles null addressUnsubscribedAt field correctly', function (): void {
-        // Arrange
-        $data = GetContactFixture::data();
-        $data['address_unsubscribed_at'] = null;
-
-        // Act
-        $response = GetContactResponse::from($data);
-        $arrayData = $response->toArray();
-
-        // Assert
-        expect($response->addressUnsubscribedAt)->toBeNull()
-            ->and($arrayData['address_unsubscribed_at'])->toBeNull();
-    });
-
-    it('handles null archivedAt field correctly', function (): void {
-        // Arrange
-        $data = GetContactFixture::data();
-        $data['archived_at'] = null;
-
-        // Act
-        $response = GetContactResponse::from($data);
-        $arrayData = $response->toArray();
-
-        // Assert
-        expect($response->archivedAt)->toBeNull()
-            ->and($arrayData['archived_at'])->toBeNull();
-    });
-
-    it('handles null associatedCompanies field correctly', function (): void {
-        // Arrange
-        $data = GetContactFixture::data();
-        $data['associated_companies'] = null;
-
-        // Act
-        $response = GetContactResponse::from($data);
-        $arrayData = $response->toArray();
-
-        // Assert
-        expect($response->associatedCompanies)->toBeArray()->toBeEmpty()
+            ->and($arrayData['dob'])->toBeNull()
+            ->and($response->addressUnsubscribedAt)->toBeNull()
+            ->and($arrayData['address_unsubscribed_at'])->toBeNull()
+            ->and($response->archivedAt)->toBeNull()
+            ->and($arrayData['archived_at'])->toBeNull()
+            ->and($response->primaryEmail)->toBeNull()
+            ->and(array_key_exists('primary_email', $arrayData))->toBeTrue()
+            ->and($arrayData['primary_email'])->toBeNull()
+            ->and($response->primaryPhone)->toBeNull()
+            ->and(array_key_exists('primary_phone', $arrayData))->toBeTrue()
+            ->and($arrayData['primary_phone'])->toBeNull()
+            ->and($response->associatedCompanies)->toBeArray()->toBeEmpty()
             ->and($arrayData['associated_companies'])->toBeArray()->toBeEmpty();
     });
 });

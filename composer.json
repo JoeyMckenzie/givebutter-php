@@ -58,7 +58,7 @@
     },
     "scripts": {
         "check": [
-            "@test",
+            "@test:mutate",
             "@fmt:test",
             "@lint",
             "@refactor:test",
