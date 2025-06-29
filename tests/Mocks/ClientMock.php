@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Mocks;
 
 use Givebutter\Client;
+use JsonException;
 use Mockery;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -23,9 +24,10 @@ final class ClientMock
         string $resource,
         array $params,
         Response|ResponseInterface|string|null $response,
+        array $queryParams = [],
         bool $validateParams = true,
     ): Client {
-        return self::create(HttpMethod::POST, $resource, $params, $response, $validateParams);
+        return self::create(HttpMethod::POST, $resource, $params, $response, $queryParams, $validateParams);
     }
 
     /**
@@ -37,6 +39,7 @@ final class ClientMock
         string $resource,
         array $params,
         Response|ResponseInterface|string|null $response,
+        array $queryParams = [],
         bool $validateParams = true,
         string $methodName = 'sendClientRequest'
     ): Client {
@@ -44,7 +47,7 @@ final class ClientMock
         $connector
             ->shouldReceive($methodName)
             ->once()
-            ->withArgs(fn (ClientRequestBuilder $requestBuilder): bool => self::validateRequest($requestBuilder, $method, $resource, $params, $validateParams))
+            ->withArgs(fn (ClientRequestBuilder $requestBuilder): bool => self::validateRequest($requestBuilder, $method, $resource, $params, $queryParams, $validateParams))
             ->andReturn($response);
 
         return new Client($connector);
@@ -60,7 +63,7 @@ final class ClientMock
         Response|ResponseInterface|string|null $response,
         bool $validateParams = true,
     ): Client {
-        return self::create(HttpMethod::PATCH, $resource, $params, $response, $validateParams);
+        return self::create(HttpMethod::PATCH, $resource, $params, $response, validateParams: $validateParams);
     }
 
     /**
@@ -73,7 +76,7 @@ final class ClientMock
         bool $validateParams = true,
         string $methodName = 'sendClientRequest'
     ): Client {
-        return self::create(HttpMethod::DELETE, $resource, [], $response, $validateParams, $methodName);
+        return self::create(HttpMethod::DELETE, $resource, [], $response, [], $validateParams, $methodName);
     }
 
     public static function get(
@@ -82,14 +85,21 @@ final class ClientMock
         array $params = [],
         bool $validateParams = true
     ): Client {
-        return self::create(HttpMethod::GET, $resource, $params, $response, $validateParams);
+        return self::create(HttpMethod::GET, $resource, $params, $response, validateParams: $validateParams);
     }
 
+    /**
+     * @param  array<string, mixed>  $params
+     * @param  array<string, mixed>  $queryParams
+     *
+     * @throws JsonException
+     */
     private static function validateRequest(
         ClientRequestBuilder $requestBuilder,
         HttpMethod $method,
         string $resource,
         array $params,
+        array $queryParams,
         bool $validateParams
     ): bool {
         $request = $requestBuilder->build();
@@ -105,8 +115,8 @@ final class ClientMock
         return match ($method) {
             HttpMethod::GET => self::validateParams($request, $params),
             HttpMethod::DELETE => self::validateParams($request, $params),
-            HttpMethod::POST => self::validateRequestBody($request, $params),
-            HttpMethod::PATCH => self::validateRequestBody($request, $params),
+            HttpMethod::POST => self::validateRequestBody($request, $params, $queryParams),
+            HttpMethod::PATCH => self::validateRequestBody($request, $params, $queryParams),
         };
     }
 
@@ -131,14 +141,20 @@ final class ClientMock
 
     /**
      * @param  array<array-key, mixed>  $params
+     * @param  array<array-key, mixed>  $queryParams
      */
-    private static function validateRequestBody(RequestInterface $request, array $params): bool
+    private static function validateRequestBody(RequestInterface $request, array $params, array $queryParams): bool
     {
         $requestContents = $request->getBody()->getContents();
         $requestArray = json_decode($requestContents, true);
         $paramsArray = json_decode(json_encode($params), true);
+        $queryValidated = true;
 
-        return self::compareArraysRecursively($requestArray, $paramsArray);
+        if (count($queryParams) > 0) {
+            $queryValidated = self::validateParams($request, $queryParams);
+        }
+
+        return $queryValidated && self::compareArraysRecursively($requestArray, $paramsArray);
     }
 
     /**

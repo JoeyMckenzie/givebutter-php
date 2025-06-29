@@ -44,4 +44,12 @@ final class ContactsTestResource implements ContactsResourceContract
 
         return $response;
     }
+
+    public function create(array $params, bool $forceCreate = false): GetContactResponse
+    {
+        /** @var GetContactResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
 }
