@@ -52,4 +52,12 @@ final class ContactsTestResource implements ContactsResourceContract
 
         return $response;
     }
+
+    public function update(int $id, array $params): GetContactResponse
+    {
+        /** @var GetContactResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
 }

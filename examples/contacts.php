@@ -65,3 +65,14 @@ $createdContact = $client
         'facebook_url' => 'https://facebook.com/dundermifflin',
     ]);
 var_dump($createdContact);
+
+// Update a contact
+$updatedContact = $client
+    ->contacts()
+    ->update($createdContact->id, [
+        'first_name' => 'Michael',
+        'last_name' => 'Scott',
+        'company' => 'CIA',
+        'title' => 'Secret Agent',
+    ]);
+var_dump($updatedContact);

@@ -175,4 +175,31 @@ describe(ContactsResource::class, function (): void {
         // Assert
         expect($result)->toBeContact();
     });
+
+    it('can update contacts', function (): void {
+        // Arrange
+        $payload = [
+            'first_name' => 'Michael',
+            'middle_name' => 'Gary',
+            'last_name' => 'Scarn',
+            'dob' => '03/15/1969',
+            'company' => 'CIA',
+            'title' => 'Secret Agent',
+            'twitter_url' => 'https://twitter.com/michaelscarn',
+            'linkedin_url' => 'https://linkedin.com/in/michaelscarn',
+            'facebook_url' => 'https://facebook.com/michaelscarn',
+        ];
+
+        $client = ClientMock::patch(
+            'contacts/123',
+            $payload,
+            Response::from(GetContactFixture::data()),
+        );
+
+        // Act
+        $result = $client->contacts()->update(123, $payload);
+
+        // Assert
+        expect($result)->toBeContact();
+    });
 });

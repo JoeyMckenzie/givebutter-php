@@ -20,6 +20,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
     - [Campaigns](#campaigns)
     - [Campaign Members](#campaign-members)
     - [Campaign Teams](#campaign-teams)
+    - [Contacts](#contacts)
 
 ## Getting started
 
@@ -250,4 +251,110 @@ echo $response->name; // 'Team 1'
 echo $response->logo; // 'https://domain.com/photo123'
 echo $response->raised; // 10000
 echo $response->toArray(); // ['id' => 123, ...]
+```
+
+### Contacts
+
+#### Create a contact
+
+Creates a contact from a specified payload.
+
+```php
+$response = $client
+    ->contacts()
+    ->create([
+        'first_name' => 'Michael',
+        'middle_name' => 'Gary',
+        'last_name' => 'Scott',
+        'email' => [
+            [
+                'type' => 'work',
+                'value' => 'michael.scott@dundermifflin.com',
+            ],
+        ],
+        'phones' => [
+            [
+                'type' => 'work',
+                'value' => '+15303567734',
+            ],
+        ],
+        'addresses' => [
+            [
+                'address_1' => '123 Paper St.',
+                'city' => 'Scranton',
+                'state' => 'PA',
+                'zipcode' => '18507',
+                'country' => 'US',
+            ],
+        ],
+        'tags' => [
+            'paper',
+            'dunder mifflin',
+        ],
+        'dob' => '03/15/1965',
+        'company' => 'Dunder Mifflin',
+        'title' => 'Regional Manager',
+        'twitter_url' => 'https://twitter.com/dundermifflin',
+        'linkedin_url' => 'https://linkedin.com/in/dundermifflin',
+        'facebook_url' => 'https://facebook.com/dundermifflin',
+    ]);
+
+echo $response->data(); // GetContactResponse::class
+echo $response->id; // 42
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scott'
+echo $response->toArray(); // ['id' => 42, ...]
+```
+
+#### Get all contacts
+
+Gets a list of available contacts. Optionally, accepts a scope parameter.
+
+```php
+$response = $client
+    ->contacts()
+    ->list();
+
+echo $response->data; // array<int, GetContactResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 42, ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a contact
+
+Gets a single contact.
+
+```php
+$response = $client
+    ->contact()
+    ->get(42);
+
+echo $response->data(); // GetContactResponse::class
+echo $response->id; // 42
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scott'
+echo $response->toArray(); // ['id' => 42, ...]
+```
+
+#### Update a contact
+
+Updates a contact from a specified payload.
+
+```php
+$response = $client
+    ->campaigns()
+    ->update(42, [
+        'first_name' => 'Michael',
+        'last_name' => 'Scarn',
+        'company' => 'CIA',
+        'title' => 'Secret Agent'
+    ]);
+
+echo $response->data(); // GetContactResponse::class
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scarn'
+echo $response->company; // 'CIA'
+echo $response->title; // 'Secret Agent'
+echo $response->toArray(); // ['id' => 42, ...]
 ```

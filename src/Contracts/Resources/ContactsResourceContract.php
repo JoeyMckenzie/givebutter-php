@@ -37,6 +37,17 @@ use Wrapkit\Contracts\ResourceContract;
  *     linkedin_url?: string,
  *     facebook_url?: string,
  * }
+ * @phpstan-type UpdateContactSchema array{
+ *     first_name?: string,
+ *     middle_name?: string,
+ *     last_name?: string,
+ *     dob?: string,
+ *     company?: string,
+ *     title?: string,
+ *     twitter_url?: string,
+ *     linkedin_url?: string,
+ *     facebook_url?: string,
+ * }
  */
 interface ContactsResourceContract extends ResourceContract
 {
@@ -48,4 +59,9 @@ interface ContactsResourceContract extends ResourceContract
      * @param  CreateContactSchema  $params
      */
     public function create(array $params, bool $forceCreate = false): GetContactResponse;
+
+    /**
+     * @param  UpdateContactSchema  $params
+     */
+    public function update(int $id, array $params): GetContactResponse;
 }
