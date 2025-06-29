@@ -25,6 +25,7 @@ use Givebutter\Responses\Models\Cover;
 use Givebutter\Responses\Models\CustomField;
 use Givebutter\Responses\Models\Event;
 use Givebutter\Responses\Models\Stats;
+use Givebutter\Responses\Tickets\GetTicketResponse;
 
 pest()->extend(Tests\TestCase::class)
     ->in(__DIR__);
@@ -132,6 +133,21 @@ expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactRespons
     ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
     ->preferredName->toBeNullOrString()
     ->salutationName->toBeString());
+
+expect()->extend('toBeTicket', fn () => $this->toBeInstanceOf(GetTicketResponse::class)
+    ->id->toBeString()
+    ->idSuffix->toBeString()
+    ->name->toBeString()
+    ->firstName->toBeString()
+    ->lastName->toBeString()
+    ->email->toBeString()
+    ->phone->toBeString()
+    ->title->toBeString()
+    ->description->toBeString()
+    ->price->toBeInt()
+    ->pdf->toBeString()
+    ->arrivedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class));
 
 /*
 |--------------------------------------------------------------------------

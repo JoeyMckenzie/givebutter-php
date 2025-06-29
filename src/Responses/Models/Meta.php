@@ -12,13 +12,13 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *
  * @phpstan-type MetaSchema array{
  *     current_page: int,
- *     from: int,
+ *     from: ?int,
  *     last_page: int,
  *     path: string,
  *     per_page: int,
- *     to: int,
+ *     to: ?int,
  *     total: int,
- *     unfiltered_total: ?int,
+ *     unfiltered_total?: ?int,
  *     links: MetaLinkSchema[]
  * }
  *
@@ -36,11 +36,11 @@ final readonly class Meta implements ResponseContract
      */
     public function __construct(
         public int $currentPage,
-        public int $from,
+        public ?int $from,
         public int $lastPage,
         public string $path,
         public int $perPage,
-        public int $to,
+        public ?int $to,
         public int $total,
         public ?int $unfilteredTotal,
         public array $links
@@ -61,7 +61,7 @@ final readonly class Meta implements ResponseContract
             $attributes['per_page'],
             $attributes['to'],
             $attributes['total'],
-            $attributes['unfiltered_total'],
+            $attributes['unfiltered_total'] ?? null,
             array_map(static fn (array $link): MetaLink => MetaLink::from($link), $attributes['links']),
         );
     }

@@ -21,6 +21,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
     - [Campaign Members](#campaign-members)
     - [Campaign Teams](#campaign-teams)
     - [Contacts](#contacts)
+    - [Tickets](#tickets)
 
 ## Getting started
 
@@ -369,4 +370,53 @@ $response = $client
     ->archive(42);
 
 echo $response->getStatusCode(); // 200
+```
+
+#### Restore a contact
+
+Gets an archived contact.
+
+```php
+$response = $client
+    ->contacts()
+    ->restore(42);
+
+echo $response->data(); // GetContactResponse::class
+echo $response->id; // 42
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scott'
+echo $response->toArray(); // ['id' => 42, ...]
+```
+
+### Campaigns
+
+#### Get all tickets
+
+Gets a list of tickets.
+
+```php
+$response = $client
+    ->tickets()
+    ->list();
+
+echo $response->data; // array<int, GetTicketsResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a ticket
+
+Gets a single ticket.
+
+```php
+$response = $client
+    ->tickets()
+    ->get('ab123');
+
+echo $response->data(); // GetTicketResponse::class
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scott'
+echo $response->price; // 100
+echo $response->toArray(); // ['id' => 'abc123', ...]
 ```
