@@ -19,8 +19,10 @@ use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Models\Address;
+use Givebutter\Responses\Models\Company;
 use Givebutter\Responses\Models\ContactMeta;
 use Givebutter\Responses\Models\Cover;
+use Givebutter\Responses\Models\CustomField;
 use Givebutter\Responses\Models\Event;
 use Givebutter\Responses\Models\Stats;
 
@@ -88,27 +90,44 @@ expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignT
 
 expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactResponse::class)
     ->id->toBeInt()
+    ->type->toBeString()
+    ->prefix->toBeString()
     ->firstName->toBeString()
     ->middleName->toBeString()
     ->lastName->toBeString()
+    ->suffix->toBeString()
+    ->gender->toBeString()
     ->dob->toBeInstanceOf(CarbonImmutable::class)
     ->company->toBeString()
+    ->companyName->toBeString()
+    ->employer->toBeString()
+    ->pointOfContact->toBeString()
+    ->associatedCompanies->toBeArray()->each->toBeInstanceOf(Company::class)
     ->title->toBeString()
     ->twitterUrl->toBeString()
     ->linkedInUrl->toBeString()
     ->facebookUrl->toBeString()
-    ->emails->toBeArray()->each()->toBeInstanceOf(ContactMeta::class)
-    ->phones->toBeArray()->each()->toBeInstanceOf(ContactMeta::class)
+    ->websiteUrl->toBeString()
+    ->emails->toBeArray()->each->toBeInstanceOf(ContactMeta::class)
+    ->phones->toBeArray()->each->toBeInstanceOf(ContactMeta::class)
     ->primaryEmail->toBeString()
     ->primaryPhone->toBeString()
     ->note->toBeString()
-    ->addresses->toBeArray()->each()->toBeInstanceOf(Address::class)
+    ->addresses->toBeArray()->each->toBeInstanceOf(Address::class)
     ->primaryAddress->toBeInstanceOf(Address::class)
     ->stats->toBeInstanceOf(Stats::class)
     ->tags->toBeArray()->each->toBeString()
+    ->customFields->toBeArray()->each->toBeInstanceOf(CustomField::class)
+    ->externalIds->toBeArray()->each->toBeInt()
+    ->isEmailSubscribed->toBeBool()
+    ->isPhoneSubscribed->toBeBool()
+    ->isAddressSubscribed->toBeBool()
+    ->addressUnsubscribedAt->toBeInstanceOf(CarbonImmutable::class)
     ->archivedAt->toBeInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
-    ->updatedAt->toBeInstanceOf(CarbonImmutable::class));
+    ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->preferredName->toBeString()
+    ->salutationName->toBeString());
 
 /*
 |--------------------------------------------------------------------------
