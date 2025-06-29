@@ -10,11 +10,11 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
  * @phpstan-type AddressSchema array{
- *     id: int,
- *     account_id: int,
- *     name: string,
+ *     id?: ?int,
+ *     account_id?: ?int,
+ *     name?: ?string,
  *     address_1: string,
- *     address_2: string,
+ *     address_2: ?string,
  *     city: string,
  *     state: string,
  *     zipcode: string,
@@ -35,11 +35,11 @@ final readonly class Address implements ResponseContract
     use ArrayAccessible;
 
     public function __construct(
-        public int $id,
-        public int $accountId,
-        public string $name,
+        public ?int $id,
+        public ?int $accountId,
+        public ?string $name,
         public string $address1,
-        public string $address2,
+        public ?string $address2,
         public string $city,
         public string $state,
         public string $zipCode,
@@ -58,9 +58,9 @@ final readonly class Address implements ResponseContract
     public static function from(array $attributes): self
     {
         return new self(
-            $attributes['id'],
-            $attributes['account_id'],
-            $attributes['name'],
+            $attributes['id'] ?? null,
+            $attributes['account_id'] ?? null,
+            $attributes['name'] ?? null,
             $attributes['address_1'],
             $attributes['address_2'],
             $attributes['city'],

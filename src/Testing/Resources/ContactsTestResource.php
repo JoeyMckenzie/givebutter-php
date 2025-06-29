@@ -7,12 +7,14 @@ namespace Givebutter\Testing\Resources;
 use Givebutter\Contracts\Resources\ContactsResourceContract;
 use Givebutter\Resources\ContactsResource;
 use Givebutter\Responses\Contacts\GetContactResponse;
+use Givebutter\Responses\Contacts\GetContactsResponse;
 use Wrapkit\Testing\Concerns\Testable;
 
 /**
  * @phpstan-import-type GetContactResponseSchema from GetContactResponse
+ * @phpstan-import-type GetContactsResponseSchema from GetContactsResponse
  *
- * @phpstan-type ContactsResponseSchema GetContactResponseSchema
+ * @phpstan-type ContactsResponseSchema GetContactResponseSchema|GetContactsResponseSchema
  */
 final class ContactsTestResource implements ContactsResourceContract
 {
@@ -30,6 +32,14 @@ final class ContactsTestResource implements ContactsResourceContract
     public function get(int $id): GetContactResponse
     {
         /** @var GetContactResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    public function list(?string $scope = null): GetContactsResponse
+    {
+        /** @var GetContactsResponse $response */
         $response = $this->record(__FUNCTION__, func_get_args());
 
         return $response;

@@ -6,12 +6,14 @@ namespace Givebutter\Resources;
 
 use Givebutter\Contracts\Resources\ContactsResourceContract;
 use Givebutter\Responses\Contacts\GetContactResponse;
+use Givebutter\Responses\Contacts\GetContactsResponse;
 use Wrapkit\Contracts\ConnectorContract;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
 
 /**
  * @phpstan-import-type GetContactResponseSchema from GetContactResponse
+ * @phpstan-import-type GetContactsResponseSchema from GetContactsResponse
  */
 final class ContactsResource implements ContactsResourceContract
 {
@@ -25,6 +27,20 @@ final class ContactsResource implements ContactsResourceContract
         public ConnectorContract $connector
     ) {
         //
+    }
+
+    public function list(?string $scope = null): GetContactsResponse
+    {
+        $request = ClientRequestBuilder::get($this->resource)
+            ->withQueryParam('scope', $scope);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetContactsResponseSchema $data */
+        $data = $response->data();
+
+        return GetContactsResponse::from($data);
     }
 
     public function get(int $id): GetContactResponse

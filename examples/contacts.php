@@ -18,3 +18,9 @@ $contact = $client
     ->contacts()
     ->get(24837053);
 var_dump($contact);
+
+// Get all contacts
+$contacts = $client
+    ->contacts()
+    ->list();
+var_dump($contacts);

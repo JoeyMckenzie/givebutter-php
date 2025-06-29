@@ -27,7 +27,7 @@ use Givebutter\Responses\Models\Event;
 use Givebutter\Responses\Models\Stats;
 
 pest()->extend(Tests\TestCase::class)
-    ->in('Resources', 'Responses');
+    ->in(__DIR__);
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +42,7 @@ pest()->extend(Tests\TestCase::class)
 
 expect()->extend('toBeNullOrInstanceOf', fn (string $value) => $this->value === null ? $this : $this->toBeInstanceOf($value));
 expect()->extend('toBeNullOrString', fn () => $this->value === null ? $this : $this->toBeString());
+expect()->extend('toBeNullOrArray', fn () => $this->value === null ? $this : $this->toBeArray());
 
 expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignResponse::class)
     ->id->toBeInt()
@@ -117,7 +118,7 @@ expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactRespons
     ->primaryPhone->toBeString()
     ->note->toBeNullOrString()
     ->addresses->toBeArray()->each->toBeInstanceOf(Address::class)
-    ->primaryAddress->toBeInstanceOf(Address::class)
+    ->primaryAddress->toBeNullOrInstanceOf(Address::class)
     ->stats->toBeInstanceOf(Stats::class)
     ->tags->toBeArray()->each->toBeString()
     ->customFields->toBeArray()->each->toBeInstanceOf(CustomField::class)
@@ -130,7 +131,7 @@ expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactRespons
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
     ->preferredName->toBeNullOrString()
-    ->salutationName->toBeNullOrString());
+    ->salutationName->toBeString());
 
 /*
 |--------------------------------------------------------------------------

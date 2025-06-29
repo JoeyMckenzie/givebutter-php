@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Campaigns\GetCampaignResponse;
-use Givebutter\Responses\Campaigns\GetCampaignsResponse;
+use Givebutter\Responses\Contacts\GetContactResponse;
+use Givebutter\Responses\Contacts\GetContactsResponse;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
-use Givebutter\Testing\Fixtures\Campaigns\GetCampaignsFixture;
+use Givebutter\Testing\Fixtures\Contacts\GetContactsFixture;
 
-covers(GetCampaignsResponse::class);
+covers(GetContactsResponse::class);
 
-describe(GetCampaignsResponse::class, function (): void {
+describe(GetContactsResponse::class, function (): void {
     beforeEach(function (): void {
-        $this->data = GetCampaignsFixture::data();
-        $this->response = GetCampaignsResponse::from($this->data);
+        $this->data = GetContactsFixture::data();
+        $this->response = GetContactsResponse::from($this->data);
     });
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignResponse::class)
+        expect($this->response)->toBeInstanceOf(GetContactsResponse::class)
+            ->data->toBeArray()->each->toBeInstanceOf(GetContactResponse::class)
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -39,12 +39,12 @@ describe(GetCampaignsResponse::class, function (): void {
 
     it('generates fake responses', function (): void {
         // Arrange & Act
-        $fake = GetCampaignsResponse::fake(GetCampaignsFixture::class);
+        $fake = GetContactsResponse::fake(GetContactsFixture::class);
 
         // Assert
 
-        expect($fake)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignResponse::class)
+        expect($fake)->toBeInstanceOf(GetContactsResponse::class)
+            ->data->toBeArray()->each->toBeInstanceOf(GetContactResponse::class)
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });

@@ -18,7 +18,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     per_page: int,
  *     to: int,
  *     total: int,
- *     unfiltered_total: int,
+ *     unfiltered_total: ?int,
  *     links: MetaLinkSchema[]
  * }
  *
@@ -42,7 +42,7 @@ final readonly class Meta implements ResponseContract
         public int $perPage,
         public int $to,
         public int $total,
-        public int $unfilteredTotal,
+        public ?int $unfilteredTotal,
         public array $links
     ) {
         //

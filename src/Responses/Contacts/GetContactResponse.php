@@ -48,7 +48,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     primary_phone: string,
  *     note: ?string,
  *     addresses: AddressSchema[],
- *     primary_address: AddressSchema,
+ *     primary_address: ?AddressSchema,
  *     stats: StatsSchema,
  *     tags: string[],
  *     custom_fields: CustomFieldSchema[],
@@ -113,7 +113,7 @@ final readonly class GetContactResponse implements ResponseContract
         public string $primaryPhone,
         public ?string $note,
         public array $addresses,
-        public Address $primaryAddress,
+        public ?Address $primaryAddress,
         public Stats $stats,
         public array $tags,
         public array $customFields,
@@ -126,7 +126,7 @@ final readonly class GetContactResponse implements ResponseContract
         public CarbonImmutable $createdAt,
         public CarbonImmutable $updatedAt,
         public ?string $preferredName,
-        public ?string $salutationName,
+        public string $salutationName,
     ) {
         //
     }
@@ -162,7 +162,7 @@ final readonly class GetContactResponse implements ResponseContract
             $attributes['primary_phone'],
             $attributes['note'],
             array_map(static fn (array $address): Address => Address::from($address), $attributes['addresses']),
-            Address::from($attributes['primary_address']),
+            isset($attributes['primary_address']) ? Address::from($attributes['primary_address']) : null,
             Stats::from($attributes['stats']),
             $attributes['tags'],
             array_map(static fn (array $field): CustomField => CustomField::from($field), $attributes['custom_fields']),
@@ -207,7 +207,7 @@ final readonly class GetContactResponse implements ResponseContract
             'primary_phone' => $this->primaryPhone,
             'note' => $this->note,
             'addresses' => array_map(static fn (Address $address): array => $address->toArray(), $this->addresses), // @pest-mutate-ignore
-            'primary_address' => $this->primaryAddress->toArray(),
+            'primary_address' => $this->primaryAddress?->toArray(),
             'stats' => $this->stats->toArray(),
             'tags' => $this->tags,
             'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore

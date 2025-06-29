@@ -53,7 +53,7 @@ describe(CampaignsResource::class, function (): void {
 
         // Assert
         expect($result)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->each()->toBeCampaign()
+            ->data->each->toBeCampaign()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -73,7 +73,7 @@ describe(CampaignsResource::class, function (): void {
 
         // Assert
         expect($result)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->each()->toBeCampaign()
+            ->data->each->toBeCampaign()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -177,7 +177,7 @@ describe(CampaignsResource::class, function (): void {
 
             // Assert
             expect($result)->toBeInstanceOf(GetCampaignMembersResponse::class)
-                ->data->each()->toBeCampaignMember()
+                ->data->each->toBeCampaignMember()
                 ->meta->toBeInstanceOf(Meta::class)
                 ->links->toBeInstanceOf(Links::class);
         });
@@ -235,7 +235,7 @@ describe(CampaignsResource::class, function (): void {
 
             // Assert
             expect($result)->toBeInstanceOf(GetCampaignTeamsResponse::class)
-                ->data->each()->toBeCampaignTeam()
+                ->data->each->toBeCampaignTeam()
                 ->meta->toBeInstanceOf(Meta::class)
                 ->links->toBeInstanceOf(Links::class);
         });

@@ -25,7 +25,7 @@ final class MetaFixture extends AbstractDataFixture
             'per_page' => 20,
             'to' => fake()->numberBetween(1, 100),
             'total' => fake()->numberBetween(1, 100),
-            'unfiltered_total' => fake()->numberBetween(1, 100),
+            'unfiltered_total' => fake()->boolean() ? fake()->numberBetween(1, 100) : null,
             'links' => array_map(
                 static fn (): array => [
                     'url' => fake()->url(),

@@ -24,23 +24,23 @@ final class GetContactFixture extends AbstractDataFixture
         $data = [
             'id' => fake()->numberBetween(1, 100),
             'type' => fake()->text(),
-            'prefix' => fake()->boolean() ? fake()->text : null,
+            'prefix' => fake()->boolean() ? fake()->text() : null,
             'first_name' => fake()->firstName(),
-            'middle_name' => fake()->boolean() ? fake()->name : null,
+            'middle_name' => fake()->boolean() ? fake()->name() : null,
             'last_name' => fake()->lastName(),
-            'suffix' => fake()->boolean() ? fake()->text : null,
-            'gender' => fake()->boolean() ? fake()->text : null,
-            'dob' => fake()->boolean() ? fake()->iso8601 : null,
-            'company' => fake()->boolean() ? fake()->company : null,
-            'company_name' => fake()->boolean() ? fake()->company : null,
-            'employer' => fake()->boolean() ? fake()->company : null,
-            'point_of_contact' => fake()->boolean() ? fake()->name : null,
+            'suffix' => fake()->boolean() ? fake()->text() : null,
+            'gender' => fake()->boolean() ? fake()->text() : null,
+            'dob' => fake()->boolean() ? fake()->iso8601() : null,
+            'company' => fake()->boolean() ? fake()->company() : null,
+            'company_name' => fake()->boolean() ? fake()->company() : null,
+            'employer' => fake()->boolean() ? fake()->company() : null,
+            'point_of_contact' => fake()->boolean() ? fake()->name() : null,
             'associated_companies' => array_map(static fn (): array => self::fakeCompany(), range(1, fake()->numberBetween(1, 5))),
-            'title' => fake()->boolean() ? fake()->title : null,
-            'twitter_url' => fake()->boolean() ? fake()->url : null,
-            'linkedin_url' => fake()->boolean() ? fake()->url : null,
-            'facebook_url' => fake()->boolean() ? fake()->url : null,
-            'website_url' => fake()->boolean() ? fake()->url : null,
+            'title' => fake()->boolean() ? fake()->title() : null,
+            'twitter_url' => fake()->boolean() ? fake()->url() : null,
+            'linkedin_url' => fake()->boolean() ? fake()->url() : null,
+            'facebook_url' => fake()->boolean() ? fake()->url() : null,
+            'website_url' => fake()->boolean() ? fake()->url() : null,
             'emails' => array_map(fn (): array => [
                 'type' => fake()->text(),
                 'value' => fake()->email(),
@@ -51,9 +51,9 @@ final class GetContactFixture extends AbstractDataFixture
             ], range(1, fake()->numberBetween(1, 5))),
             'primary_email' => fake()->email(),
             'primary_phone' => fake()->phoneNumber(),
-            'note' => fake()->boolean() ? fake()->text : null,
+            'note' => fake()->boolean() ? fake()->text() : null,
             'addresses' => array_map(fn (): array => self::fakeAddress(), range(1, fake()->numberBetween(1, 5))),
-            'primary_address' => self::fakeAddress(),
+            'primary_address' => fake()->boolean() ? self::fakeAddress() : null,
             'stats' => [
                 'recurring_contributions' => fake()->numberBetween(100, 1000),
                 'total_contributions' => fake()->numberBetween(100, 1000),
@@ -71,12 +71,12 @@ final class GetContactFixture extends AbstractDataFixture
             'is_email_subscribed' => fake()->boolean(),
             'is_phone_subscribed' => fake()->boolean(),
             'is_address_subscribed' => fake()->boolean(),
-            'address_unsubscribed_at' => fake()->boolean() ? fake()->iso8601 : null,
-            'archived_at' => fake()->boolean() ? fake()->iso8601 : null,
-            'created_at' => fake()->iso8601,
-            'updated_at' => fake()->iso8601,
-            'preferred_name' => fake()->boolean() ? fake()->firstName : null,
-            'salutation_name' => fake()->boolean() ? fake()->firstName : null,
+            'address_unsubscribed_at' => fake()->boolean() ? fake()->iso8601() : null,
+            'archived_at' => fake()->boolean() ? fake()->iso8601() : null,
+            'created_at' => fake()->iso8601(),
+            'updated_at' => fake()->iso8601(),
+            'preferred_name' => fake()->boolean() ? fake()->firstName() : null,
+            'salutation_name' => fake()->firstName(),
         ];
 
         return $data;
@@ -90,12 +90,12 @@ final class GetContactFixture extends AbstractDataFixture
         return [
             'id' => fake()->numberBetween(1, 100),
             'type' => fake()->text(),
-            'company_name' => fake()->company,
-            'title' => fake()->boolean() ? fake()->title : null,
-            'twitter_url' => fake()->boolean() ? fake()->url : null,
-            'linkedin_url' => fake()->boolean() ? fake()->url : null,
-            'facebook_url' => fake()->boolean() ? fake()->url : null,
-            'website_url' => fake()->boolean() ? fake()->url : null,
+            'company_name' => fake()->company(),
+            'title' => fake()->boolean() ? fake()->title() : null,
+            'twitter_url' => fake()->boolean() ? fake()->url() : null,
+            'linkedin_url' => fake()->boolean() ? fake()->url() : null,
+            'facebook_url' => fake()->boolean() ? fake()->url() : null,
+            'website_url' => fake()->boolean() ? fake()->url() : null,
             'emails' => array_map(fn (): array => [
                 'type' => fake()->text(),
                 'value' => fake()->email(),
@@ -106,17 +106,17 @@ final class GetContactFixture extends AbstractDataFixture
             ], range(1, fake()->numberBetween(1, 5))),
             'primary_email' => fake()->email(),
             'primary_phone' => fake()->phoneNumber(),
-            'note' => fake()->boolean() ? fake()->text : null,
+            'note' => fake()->boolean() ? fake()->text() : null,
             'addresses' => array_map(fn (): array => self::fakeAddress(), range(1, fake()->numberBetween(1, 5))),
-            'primary_address' => self::fakeAddress(),
+            'primary_address' => fake()->boolean() ? self::fakeAddress() : null,
             'is_email_subscribed' => fake()->boolean(),
             'is_phone_subscribed' => fake()->boolean(),
             'is_address_subscribed' => fake()->boolean(),
-            'address_unsubscribed_at' => fake()->iso8601,
-            'archived_at' => fake()->boolean() ? fake()->iso8601 : null,
-            'created_at' => fake()->iso8601,
-            'updated_at' => fake()->iso8601,
-            'first_time_supporter_at' => fake()->boolean() ? fake()->iso8601 : null,
+            'address_unsubscribed_at' => fake()->iso8601(),
+            'archived_at' => fake()->boolean() ? fake()->iso8601() : null,
+            'created_at' => fake()->iso8601(),
+            'updated_at' => fake()->iso8601(),
+            'first_time_supporter_at' => fake()->boolean() ? fake()->iso8601() : null,
         ];
     }
 
@@ -125,20 +125,32 @@ final class GetContactFixture extends AbstractDataFixture
      */
     private static function fakeAddress(): array
     {
-        return [
-            'id' => fake()->numberBetween(1, 100),
-            'account_id' => fake()->numberBetween(1, 100),
-            'name' => fake()->text(),
-            'address_1' => fake()->streetAddress,
-            'address_2' => fake()->streetAddress,
+        /** @var AddressSchema $data */
+        $data = [
+            'address_1' => fake()->streetAddress(),
+            'address_2' => fake()->boolean() ? fake()->streetAddress() : null,
             'city' => fake()->city,
             'state' => fake()->text(),
             'zipcode' => fake()->text(),
-            'country' => fake()->country,
+            'country' => fake()->country(),
             'type' => fake()->text(),
             'is_primary' => fake()->boolean(),
-            'created_at' => fake()->iso8601,
-            'updated_at' => fake()->iso8601,
+            'created_at' => fake()->iso8601(),
+            'updated_at' => fake()->iso8601(),
         ];
+
+        if (fake()->boolean()) {
+            $data['id'] = fake()->numberBetween(1, 100);
+        }
+
+        if (fake()->boolean()) {
+            $data['account_id'] = fake()->numberBetween(1, 100);
+        }
+
+        if (fake()->boolean()) {
+            $data['name'] = fake()->text();
+        }
+
+        return $data;
     }
 }

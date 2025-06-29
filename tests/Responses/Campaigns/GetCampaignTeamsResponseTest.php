@@ -21,7 +21,7 @@ describe(GetCampaignTeamsResponse::class, function (): void {
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetCampaignTeamsResponse::class)
-            ->data->toBeArray()->each()->toBeInstanceOf(GetCampaignTeamResponse::class)
+            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignTeamResponse::class)
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -44,7 +44,7 @@ describe(GetCampaignTeamsResponse::class, function (): void {
         // Assert
 
         expect($fake)->toBeInstanceOf(GetCampaignTeamsResponse::class)
-            ->data->toBeArray()->each()->toBeInstanceOf(GetCampaignTeamResponse::class)
+            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignTeamResponse::class)
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
