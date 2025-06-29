@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 use Givebutter\Givebutter;
 
+use function Pest\Faker\fake;
+
 require_once __DIR__.'/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
@@ -29,40 +31,40 @@ var_dump($contacts);
 $createdContact = $client
     ->contacts()
     ->create([
-        'first_name' => 'Michael',
-        'middle_name' => 'Gary',
-        'last_name' => 'Scott',
+        'first_name' => fake()->firstName(),
+        'middle_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
         'email' => [
             [
                 'type' => 'work',
-                'value' => 'michael.scott@dundermifflin.com',
+                'value' => fake()->email(),
             ],
         ],
         'phones' => [
             [
                 'type' => 'work',
-                'value' => '+15303567734',
+                'value' => fake()->e164PhoneNumber(),
             ],
         ],
         'addresses' => [
             [
-                'address_1' => '123 Paper St.',
-                'city' => 'Scranton',
-                'state' => 'PA',
-                'zipcode' => '18507',
+                'address_1' => fake()->streetAddress(),
+                'city' => fake()->city(),
+                'state' => 'CA',
+                'zipcode' => fake()->postcode(),
                 'country' => 'US',
             ],
         ],
         'tags' => [
-            'paper',
-            'dunder mifflin',
+            fake()->word(),
+            fake()->word(),
         ],
-        'dob' => '03/15/1965',
-        'company' => 'Dunder Mifflin',
-        'title' => 'Regional Manager',
-        'twitter_url' => 'https://twitter.com/dundermifflin',
-        'linkedin_url' => 'https://linkedin.com/in/dundermifflin',
-        'facebook_url' => 'https://facebook.com/dundermifflin',
+        'dob' => fake()->dateTimeBetween('-90 years', '-25 years')->format('m/d/Y'),
+        'company' => fake()->company(),
+        'title' => fake()->title(),
+        'twitter_url' => fake()->url(),
+        'linkedin_url' => fake()->url(),
+        'facebook_url' => fake()->url(),
     ]);
 var_dump($createdContact);
 
@@ -70,9 +72,21 @@ var_dump($createdContact);
 $updatedContact = $client
     ->contacts()
     ->update($createdContact->id, [
-        'first_name' => 'Michael',
-        'last_name' => 'Scott',
-        'company' => 'CIA',
-        'title' => 'Secret Agent',
+        'first_name' => fake()->firstName(),
+        'last_name' => fake()->lastName(),
+        'company' => fake()->company(),
+        'title' => fake()->title(),
     ]);
 var_dump($updatedContact);
+
+// Archive a contact
+$deletedContactResponse = $client
+    ->contacts()
+    ->archive($createdContact->id);
+var_dump($deletedContactResponse->getStatusCode());
+
+// Restore a contact
+$restoredContact = $client
+    ->contacts()
+    ->restore($createdContact->id);
+var_dump($restoredContact);

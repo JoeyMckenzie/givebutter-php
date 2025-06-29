@@ -90,7 +90,7 @@
         "test": "vendor/bin/pest --parallel",
         "test:ci": [
             "@test:coverage",
-            "@test:mutate:sync",
+            "@test:mutate",
             "@test:types"
         ],
         "test:coverage": "vendor/bin/pest --coverage-clover coverage.xml --parallel",

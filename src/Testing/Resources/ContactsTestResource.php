@@ -69,4 +69,12 @@ final class ContactsTestResource implements ContactsResourceContract
 
         return $response;
     }
+
+    public function restore(int $id): GetContactResponse
+    {
+        /** @var GetContactResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
 }

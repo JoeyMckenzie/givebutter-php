@@ -220,4 +220,20 @@ describe(ContactsResource::class, function (): void {
         expect($result)->toBeInstanceOf(ResponseInterface::class)
             ->and($result->getStatusCode())->toBe(200);
     });
+
+    it('can restore a contact', function (): void {
+        // Arrange
+        $client = ClientMock::patch(
+            'contacts/123',
+            [],
+            Response::from(GetContactFixture::data()),
+            validateParams: false
+        );
+
+        // Act
+        $result = $client->contacts()->restore(123);
+
+        // Assert
+        expect($result)->toBeContact();
+    });
 });

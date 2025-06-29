@@ -93,4 +93,17 @@ final class ContactsResource implements ContactsResourceContract
 
         return $this->connector->sendStandardClientRequest($request);
     }
+
+    public function restore(int $id): GetContactResponse
+    {
+        $request = ClientRequestBuilder::patch("$this->resource/$id");
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetContactResponseSchema $data */
+        $data = $response->data();
+
+        return GetContactResponse::from($data);
+    }
 }

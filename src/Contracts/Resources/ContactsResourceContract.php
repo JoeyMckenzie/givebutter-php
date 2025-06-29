@@ -67,4 +67,6 @@ interface ContactsResourceContract extends ResourceContract
     public function update(int $id, array $params): GetContactResponse;
 
     public function archive(int $id): ResponseInterface;
+
+    public function restore(int $id): GetContactResponse;
 }
