@@ -132,4 +132,23 @@ describe(GetContactResponse::class, function (): void {
             ->and($response->associatedCompanies)->toBeArray()->toBeEmpty()
             ->and($arrayData['associated_companies'])->toBeArray()->toBeEmpty();
     });
+
+    it('handles non-null primary email and phone correctly', function (): void {
+        // Arrange
+        $data = GetContactFixture::data();
+        $data['primary_email'] = 'test@example.com';
+        $data['primary_phone'] = '+1234567890';
+
+        // Act
+        $response = GetContactResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->primaryEmail)->toBe('test@example.com')
+            ->and(array_key_exists('primary_email', $arrayData))->toBeTrue()
+            ->and($arrayData['primary_email'])->toBe('test@example.com')
+            ->and($response->primaryPhone)->toBe('+1234567890')
+            ->and(array_key_exists('primary_phone', $arrayData))->toBeTrue()
+            ->and($arrayData['primary_phone'])->toBe('+1234567890');
+    });
 });
