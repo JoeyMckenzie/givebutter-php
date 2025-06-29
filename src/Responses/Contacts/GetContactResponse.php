@@ -184,7 +184,7 @@ final readonly class GetContactResponse implements ResponseContract
         return [
             'id' => $this->id,
             'type' => $this->type,
-            'prefix' => $this->type,
+            'prefix' => $this->prefix,
             'first_name' => $this->firstName,
             'middle_name' => $this->middleName,
             'last_name' => $this->lastName,
