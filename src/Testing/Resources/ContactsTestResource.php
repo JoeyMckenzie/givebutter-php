@@ -8,6 +8,7 @@ use Givebutter\Contracts\Resources\ContactsResourceContract;
 use Givebutter\Resources\ContactsResource;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Contacts\GetContactsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Testing\Concerns\Testable;
 
 /**
@@ -56,6 +57,14 @@ final class ContactsTestResource implements ContactsResourceContract
     public function update(int $id, array $params): GetContactResponse
     {
         /** @var GetContactResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    public function archive(int $id): ResponseInterface
+    {
+        /** @var ResponseInterface $response */
         $response = $this->record(__FUNCTION__, func_get_args());
 
         return $response;

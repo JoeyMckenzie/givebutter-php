@@ -6,6 +6,7 @@ namespace Givebutter\Contracts\Resources;
 
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Contacts\GetContactsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ResourceContract;
 
 /**
@@ -64,4 +65,6 @@ interface ContactsResourceContract extends ResourceContract
      * @param  UpdateContactSchema  $params
      */
     public function update(int $id, array $params): GetContactResponse;
+
+    public function archive(int $id): ResponseInterface;
 }

@@ -9,6 +9,8 @@ use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Testing\Fixtures\Contacts\GetContactFixture;
 use Givebutter\Testing\Fixtures\Contacts\GetContactsFixture;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
+use Psr\Http\Message\ResponseInterface;
 use Tests\Mocks\ClientMock;
 use Wrapkit\ValueObjects\Response;
 
@@ -201,5 +203,21 @@ describe(ContactsResource::class, function (): void {
 
         // Assert
         expect($result)->toBeContact();
+    });
+
+    it('can archive a contact', function (): void {
+        // Arrange
+        $client = ClientMock::delete(
+            'contacts/123',
+            new GuzzleResponse(200),
+            methodName: 'sendStandardClientRequest'
+        );
+
+        // Act
+        $result = $client->contacts()->archive(123);
+
+        // Assert
+        expect($result)->toBeInstanceOf(ResponseInterface::class)
+            ->and($result->getStatusCode())->toBe(200);
     });
 });

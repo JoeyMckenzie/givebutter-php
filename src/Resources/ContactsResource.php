@@ -7,6 +7,7 @@ namespace Givebutter\Resources;
 use Givebutter\Contracts\Resources\ContactsResourceContract;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Contacts\GetContactsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ConnectorContract;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
@@ -84,5 +85,12 @@ final class ContactsResource implements ContactsResourceContract
         $data = $response->data();
 
         return GetContactResponse::from($data);
+    }
+
+    public function archive(int $id): ResponseInterface
+    {
+        $request = ClientRequestBuilder::delete("$this->resource/$id");
+
+        return $this->connector->sendStandardClientRequest($request);
     }
 }

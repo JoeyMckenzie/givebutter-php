@@ -358,3 +358,15 @@ echo $response->company; // 'CIA'
 echo $response->title; // 'Secret Agent'
 echo $response->toArray(); // ['id' => 42, ...]
 ```
+
+#### Archive a contact
+
+Archives a contact.
+
+```php
+$response = $client
+    ->contacts()
+    ->archive(42);
+
+echo $response->getStatusCode(); // 200
+```
