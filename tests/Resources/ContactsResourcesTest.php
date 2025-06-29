@@ -152,7 +152,7 @@ describe(ContactsResource::class, function (): void {
                 'paper',
                 'dunder mifflin',
             ],
-            'dob' => CarbonImmutable::now()->addYears(-50)->toIsoString(),
+            'dob' => CarbonImmutable::now()->addYears(-50)->toIso8601String(),
             'company' => 'Dunder Mifflin',
             'title' => 'Regional Manager',
             'twitter_url' => 'https://twitter.com/dundermifflin',
