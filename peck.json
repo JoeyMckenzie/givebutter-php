@@ -6,7 +6,9 @@
             "prev",
             "livestream",
             "param",
-            "givebutter"
+            "givebutter",
+            "linkedin",
+            "zipcode"
         ],
         "paths": [
             "tests"
