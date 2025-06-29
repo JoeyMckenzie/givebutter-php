@@ -47,8 +47,8 @@ describe(GetContactResponse::class, function (): void {
             ->and($data['website_url'])->toBeNullOrString()
             ->and($data['emails'])->toBeArray()
             ->and($data['phones'])->toBeArray()
-            ->and($data['primary_email'])->toBeString()
-            ->and($data['primary_phone'])->toBeString()
+            ->and($data['primary_email'])->toBeNullOrString()
+            ->and($data['primary_phone'])->toBeNullOrString()
             ->and($data['note'])->toBeNullOrString()
             ->and($data['addresses'])->toBeArray()
             ->and($data['primary_address'])->toBeNullOrArray()
@@ -142,5 +142,19 @@ describe(GetContactResponse::class, function (): void {
         // Assert
         expect($response->archivedAt)->toBeNull()
             ->and($arrayData['archived_at'])->toBeNull();
+    });
+
+    it('handles null associatedCompanies field correctly', function (): void {
+        // Arrange
+        $data = GetContactFixture::data();
+        $data['associated_companies'] = null;
+
+        // Act
+        $response = GetContactResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->associatedCompanies)->toBeArray()->toBeEmpty()
+            ->and($arrayData['associated_companies'])->toBeArray()->toBeEmpty();
     });
 });
