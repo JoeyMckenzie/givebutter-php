@@ -2,9 +2,7 @@
 
 declare(strict_types=1);
 
-use Givebutter\Resources\CampaignMembersResource;
-use Givebutter\Resources\CampaignsResource;
-use Givebutter\Resources\CampaignTeamsResource;
+use Givebutter\Resources\TicketsResource;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Responses\Tickets\GetTicketsResponse;
@@ -13,11 +11,9 @@ use Givebutter\Testing\Fixtures\Tickets\GetTicketsFixture;
 use Tests\Mocks\ClientMock;
 use Wrapkit\ValueObjects\Response;
 
-covers(CampaignsResource::class);
-covers(CampaignMembersResource::class);
-covers(CampaignTeamsResource::class);
+covers(TicketsResource::class);
 
-describe(CampaignsResource::class, function (): void {
+describe(TicketsResource::class, function (): void {
     it('can retrieve a single ticket', function (): void {
         // Arrange
         $client = ClientMock::get(

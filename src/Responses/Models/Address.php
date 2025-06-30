@@ -19,10 +19,10 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     state: string,
  *     zipcode: string,
  *     country: string,
- *     type: string,
- *     is_primary: bool,
- *     created_at: string,
- *     updated_at: string,
+ *     type?: ?string,
+ *     is_primary?: ?bool,
+ *     created_at?: ?string,
+ *     updated_at?: ?string,
  * }
  *
  * @implements ResponseContract<AddressSchema>
@@ -44,10 +44,10 @@ final readonly class Address implements ResponseContract
         public string $state,
         public string $zipCode,
         public string $country,
-        public string $type,
-        public bool $isPrimary,
-        public CarbonImmutable $createdAt,
-        public CarbonImmutable $updatedAt,
+        public ?string $type,
+        public ?bool $isPrimary,
+        public ?CarbonImmutable $createdAt,
+        public ?CarbonImmutable $updatedAt,
     ) {
         //
     }
@@ -67,10 +67,10 @@ final readonly class Address implements ResponseContract
             $attributes['state'],
             $attributes['zipcode'],
             $attributes['country'],
-            $attributes['type'],
-            $attributes['is_primary'],
-            CarbonImmutable::parse($attributes['created_at']),
-            CarbonImmutable::parse($attributes['updated_at']),
+            $attributes['type'] ?? null,
+            $attributes['is_primary'] ?? null,
+            isset($attributes['created_at']) ? CarbonImmutable::parse($attributes['created_at']) : null,
+            isset($attributes['updated_at']) ? CarbonImmutable::parse($attributes['updated_at']) : null,
         );
     }
 
@@ -88,8 +88,8 @@ final readonly class Address implements ResponseContract
             'country' => $this->country,
             'type' => $this->type,
             'is_primary' => $this->isPrimary,
-            'created_at' => $this->createdAt->toIso8601String(),
-            'updated_at' => $this->updatedAt->toIso8601String(),
+            'created_at' => $this->createdAt?->toIso8601String(),
+            'updated_at' => $this->updatedAt?->toIso8601String(),
         ];
     }
 }

@@ -15,6 +15,7 @@ use Givebutter\Contracts\Resources\TransactionsResourceContract;
 use Givebutter\Testing\Resources\CampaignsTestResource;
 use Givebutter\Testing\Resources\ContactsTestResource;
 use Givebutter\Testing\Resources\TicketsTestResource;
+use Givebutter\Testing\Resources\TransactionsTestResource;
 use Psr\Http\Message\ResponseInterface;
 use RuntimeException;
 use Throwable;
@@ -52,7 +53,7 @@ final class ClientFake implements ClientContract
 
     public function transactions(): TransactionsResourceContract
     {
-        throw new RuntimeException('Not implemented');
+        return new TransactionsTestResource($this->proxy);
     }
 
     public function payouts(): PayoutsResourceContract

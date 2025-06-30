@@ -23,9 +23,13 @@ use Givebutter\Responses\Models\Company;
 use Givebutter\Responses\Models\ContactMeta;
 use Givebutter\Responses\Models\Cover;
 use Givebutter\Responses\Models\CustomField;
+use Givebutter\Responses\Models\Dedication;
 use Givebutter\Responses\Models\Event;
+use Givebutter\Responses\Models\GivingSpace;
 use Givebutter\Responses\Models\Stats;
+use Givebutter\Responses\Models\Transaction;
 use Givebutter\Responses\Tickets\GetTicketResponse;
+use Givebutter\Responses\Transactions\GetTransactionResponse;
 
 pest()->extend(Tests\TestCase::class)
     ->in(__DIR__);
@@ -43,6 +47,7 @@ pest()->extend(Tests\TestCase::class)
 
 expect()->extend('toBeNullOrInstanceOf', fn (string $value) => $this->value === null ? $this : $this->toBeInstanceOf($value));
 expect()->extend('toBeNullOrString', fn () => $this->value === null ? $this : $this->toBeString());
+expect()->extend('toBeNullOrInt', fn () => $this->value === null ? $this : $this->toBeInt());
 expect()->extend('toBeNullOrArray', fn () => $this->value === null ? $this : $this->toBeArray());
 
 expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignResponse::class)
@@ -148,6 +153,49 @@ expect()->extend('toBeTicket', fn () => $this->toBeInstanceOf(GetTicketResponse:
     ->pdf->toBeString()
     ->arrivedAt->toBeInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class));
+
+expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTransactionResponse::class)
+    ->id->toBeString()
+    ->number->toBeString()
+    ->campaignId->toBeInt()
+    ->campaignCode->toBeString()
+    ->planId->toBeNullOrString()
+    ->pledgeId->toBeNullOrString()
+    ->teamId->toBeNullOrString()
+    ->memberId->toBeNullOrString()
+    ->fundId->toBeNullOrString()
+    ->fundCode->toBeNullOrString()
+    ->contactId->toBeInt()
+    ->firstName->toBeString()
+    ->lastName->toBeString()
+    ->companyName->toBeNullOrString()
+    ->company->toBeNullOrString()
+    ->email->toBeString()
+    ->phone->toBeString()
+    ->address->toBeNullOrInstanceOf(Address::class)
+    ->status->toBeString()
+    ->paymentMethod->toBeString()
+    ->method->toBeString()
+    ->amount->toBeInt()
+    ->fee->toBeInt()
+    ->feeCovered->toBeInt()
+    ->donated->toBeInt()
+    ->payout->toBeInt()
+    ->currency->toBeString()
+    ->transactedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->timezone->toBeString()
+    ->givingSpace->toBeNullOrInstanceOf(GivingSpace::class)
+    ->dedication->toBeNullOrInstanceOf(Dedication::class)
+    ->transactions->toBeArray()->each->toBeInstanceOf(Transaction::class)
+    ->customFields->toBeArray()->each->toBeInstanceOf(CustomField::class)
+    ->utmParameters->toBeArray()
+    ->externalId->toBeNullOrString()
+    ->communicationOptIn->toBeBool()
+    ->sessionId->toBeString()
+    ->attributionData->toBeArray()
+    ->fairMarketValueAmount->toBeNullOrInt()
+    ->taxDeductibleAmount->toBeNullOrInt());
 
 /*
 |--------------------------------------------------------------------------
