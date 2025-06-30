@@ -48,6 +48,26 @@ describe(TransactionsResource::class, function (): void {
             ->links->toBeInstanceOf(Links::class);
     });
 
+    it('can retrieve all transactions with a scope', function (): void {
+        // Arrange
+        $client = ClientMock::get(
+            'transactions',
+            Response::from(GetTransactionsFixture::data()),
+            [
+                'scope' => 'test',
+            ]
+        );
+
+        // Act
+        $result = $client->transactions()->list('test');
+
+        // Assert
+        expect($result)->toBeInstanceOf(GetTransactionsResponse::class)
+            ->data->each->toBeTransactionResponse()
+            ->meta->toBeInstanceOf(Meta::class)
+            ->links->toBeInstanceOf(Links::class);
+    });
+
     it('can create transactions', function (): void {
         // Arrange
         $payload = [

@@ -22,6 +22,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
     - [Campaign Teams](#campaign-teams)
     - [Contacts](#contacts)
     - [Tickets](#tickets)
+    - [Transactions](#transactions)
 
 ## Getting started
 
@@ -116,7 +117,7 @@ $response = $client
     ->campaigns()
     ->list();
 
-echo $response->data; // array<int, GetCampaignResponse::class>
+echo $response->data(); // array<int, GetCampaignResponse::class>
 echo $response->meta; // Meta::class
 echo $response->links; // Links::class
 echo $response->toArray(); // ['data' => ['id' => 42, ...], 'meta' => [...], 'links' => [...]]
@@ -181,7 +182,7 @@ $response = $client
     ->members()
     ->list(123);
 
-echo $response->data; // array<int, GetCampaignMembersResponse::class>
+echo $response->data(); // array<int, GetCampaignMembersResponse::class>
 echo $response->meta; // Meta::class
 echo $response->links; // Links::class
 echo $response->toArray(); // ['data' => ['id' => 123, ...], 'meta' => [...], 'links' => [...]]
@@ -230,7 +231,7 @@ $response = $client
     ->teams()
     ->list(123);
 
-echo $response->data; // array<int, GetCampaignTeamsResponse::class>
+echo $response->data(); // array<int, GetCampaignTeamsResponse::class>
 echo $response->meta; // Meta::class
 echo $response->links; // Links::class
 echo $response->toArray(); // ['data' => ['id' => 123, ...], 'meta' => [...], 'links' => [...]]
@@ -316,7 +317,7 @@ $response = $client
     ->contacts()
     ->list();
 
-echo $response->data; // array<int, GetContactResponse::class>
+echo $response->data(); // array<int, GetContactResponse::class>
 echo $response->meta; // Meta::class
 echo $response->links; // Links::class
 echo $response->toArray(); // ['data' => ['id' => 42, ...], 'meta' => [...], 'links' => [...]]
@@ -399,7 +400,7 @@ $response = $client
     ->tickets()
     ->list();
 
-echo $response->data; // array<int, GetTicketsResponse::class>
+echo $response->data(); // array<int, GetTicketsResponse::class>
 echo $response->meta; // Meta::class
 echo $response->links; // Links::class
 echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
@@ -418,5 +419,61 @@ echo $response->data(); // GetTicketResponse::class
 echo $response->firstName; // 'Michael'
 echo $response->lastName; // 'Scott'
 echo $response->price; // 100
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+### Transactions
+
+#### Create a transaction
+
+Creates a transaction from a specified payload.
+
+```php
+$response = $client
+    ->transactions()
+    ->create([
+        'amount' => 100.00,
+        'method' => 'cash',
+        'transacted_at' => CarbonImmutable::now()->addHour()->format('m/d/y'),
+        'campaign_code' => 'DEF456',
+        'first_name' => 'Micahel',
+        'last_name' => 'Scott',
+    ]);
+
+echo $response->data(); // GetTransactionResponse::class
+echo $response->amount; // 100.00
+echo $response->method; // 'cash'
+echo $response->campaignCode; // 'DEF456'
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+#### Get all transactions
+
+Gets a list of transactions.
+
+```php
+$response = $client
+    ->transactions()
+    ->list();
+
+echo $response->data(); // array<int, GetTransactionsResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a transactions
+
+Gets a single transactions.
+
+```php
+$response = $client
+    ->transactions()
+    ->get('ab123');
+
+echo $response->data(); // GetTransactionResponse::class
+echo $response->amount; // 100.00
+echo $response->method; // 'cash'
+echo $response->campaignCode; // 'DEF456'
 echo $response->toArray(); // ['id' => 'abc123', ...]
 ```
