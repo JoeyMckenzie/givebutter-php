@@ -6,13 +6,13 @@ namespace Tests\Responses;
 
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
-use Givebutter\Responses\Payouts\GetPayoutResponse;
 use Givebutter\Responses\Payouts\GetPayoutsResponse;
+use Givebutter\Responses\Plans\GetPlansResponse;
 use Givebutter\Testing\Fixtures\Payouts\GetPayoutsFixture;
 
-covers(GetPayoutsResponse::class);
+covers(GetPlansResponse::class);
 
-describe(GetPayoutsResponse::class, function (): void {
+describe(GetPlansResponse::class, function (): void {
     beforeEach(function (): void {
         $this->data = GetPayoutsFixture::data();
         $this->response = GetPayoutsResponse::from($this->data);
@@ -21,7 +21,7 @@ describe(GetPayoutsResponse::class, function (): void {
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetPayoutsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetPayoutResponse::class)
+            ->data->toBeArray()->each->toBePayout()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -43,7 +43,7 @@ describe(GetPayoutsResponse::class, function (): void {
 
         // Assert
         expect($fake)->toBeInstanceOf(GetPayoutsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetPayoutResponse::class)
+            ->data->toBeArray()->each->toBePayout()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });

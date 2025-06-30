@@ -88,6 +88,7 @@
         "refactor": "vendor/bin/rector process",
         "refactor:test": "vendor/bin/rector process --dry-run",
         "test": "vendor/bin/pest --parallel",
+        "test:sync": "vendor/bin/pest",
         "test:ci": [
             "@test:coverage",
             "@test:mutate",

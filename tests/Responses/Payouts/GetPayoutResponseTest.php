@@ -17,17 +17,7 @@ describe(GetPayoutResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeInstanceOf(GetPayoutResponse::class)
-            ->id->toBeString()
-            ->campaignId->toBeInt()
-            ->method->toBeString()
-            ->status->toBeString()
-            ->amount->toBeInt()
-            ->fee->toBeInt()
-            ->tip->toBeInt()
-            ->payout->toBeInt()
-            ->currency->toBeString()
-            ->createdAt->toBeInstanceOf(\Carbon\CarbonImmutable::class);
+        expect($this->response)->toBePayout();
     });
 
     it('is accessible from an array', function (): void {
@@ -56,17 +46,7 @@ describe(GetPayoutResponse::class, function (): void {
         $fake = GetPayoutResponse::fake(GetPayoutFixture::class);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetPayoutResponse::class)
-            ->id->toBeString()
-            ->campaignId->toBeInt()
-            ->method->toBeString()
-            ->status->toBeString()
-            ->amount->toBeInt()
-            ->fee->toBeInt()
-            ->tip->toBeInt()
-            ->payout->toBeInt()
-            ->currency->toBeString()
-            ->createdAt->toBeInstanceOf(\Carbon\CarbonImmutable::class);
+        expect($fake)->toBePayout();
     });
 
     it('can override properties on fakes', function (): void {
@@ -77,7 +57,7 @@ describe(GetPayoutResponse::class, function (): void {
         ]);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetPayoutResponse::class)
+        expect($fake)->toBePayout()
             ->method->toBe('bank')
             ->status->toBe('completed');
     });

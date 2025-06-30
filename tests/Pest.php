@@ -28,6 +28,7 @@ use Givebutter\Responses\Models\Event;
 use Givebutter\Responses\Models\GivingSpace;
 use Givebutter\Responses\Models\Stats;
 use Givebutter\Responses\Models\Transaction;
+use Givebutter\Responses\Payouts\GetPayoutResponse;
 use Givebutter\Responses\Tickets\GetTicketResponse;
 use Givebutter\Responses\Transactions\GetTransactionResponse;
 
@@ -196,6 +197,21 @@ expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTr
     ->attributionData->toBeNullOrArray()
     ->fairMarketValueAmount->toBeNullOrInt()
     ->taxDeductibleAmount->toBeNullOrInt());
+
+expect()->extend('toBePayout', fn () => $this->toBeInstanceOf(GetPayoutResponse::class)
+    ->id->toBeString()
+    ->campaignId->toBeInt()
+    ->method->toBeString()
+    ->status->toBeString()
+    ->amount->toBeInt()
+    ->fee->toBeInt()
+    ->tip->toBeInt()
+    ->payout->toBeInt()
+    ->currency->toBeString()
+    ->address->toBeNullOrInstanceOf(Address::class)
+    ->memo->toBeNullOrString()
+    ->completedAt->toBeNullOrInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class));
 
 /*
 |--------------------------------------------------------------------------
