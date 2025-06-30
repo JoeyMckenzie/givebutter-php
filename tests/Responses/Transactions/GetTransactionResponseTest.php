@@ -94,6 +94,7 @@ describe(GetTransactionResponse::class, function (): void {
         $data = GetTransactionFixture::data();
         $data['giving_space'] = null;
         $data['dedication'] = null;
+        $data['address'] = null;
 
         // Act
         $response = GetTransactionResponse::from($data);
@@ -103,6 +104,8 @@ describe(GetTransactionResponse::class, function (): void {
         expect($response->givingSpace)->toBeNull()
             ->and($arrayData['giving_space'])->toBeNull()
             ->and($response->dedication)->toBeNull()
-            ->and($arrayData['dedication'])->toBeNull();
+            ->and($arrayData['dedication'])->toBeNull()
+            ->and($response->address)->toBeNull()
+            ->and($arrayData['address'])->toBeNull();
     });
 });

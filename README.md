@@ -23,6 +23,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
     - [Contacts](#contacts)
     - [Tickets](#tickets)
     - [Transactions](#transactions)
+    - [Payouts](#payouts)
 
 ## Getting started
 
@@ -475,5 +476,38 @@ echo $response->data(); // GetTransactionResponse::class
 echo $response->amount; // 100.00
 echo $response->method; // 'cash'
 echo $response->campaignCode; // 'DEF456'
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+### Payouts
+
+#### Get all payouts
+
+Gets a list of payouts.
+
+```php
+$response = $client
+    ->payouts()
+    ->list();
+
+echo $response->data(); // array<int, GetPayoutResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a payout
+
+Gets a single payout.
+
+```php
+$response = $client
+    ->payout()
+    ->get('ab123');
+
+echo $response->data(); // GetTransactionResponse::class
+echo $response->amount; // 100.00
+echo $response->fee; // 3.00
+echo $response->tip; // 1.00
 echo $response->toArray(); // ['id' => 'abc123', ...]
 ```
