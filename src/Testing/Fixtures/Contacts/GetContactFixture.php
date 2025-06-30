@@ -7,6 +7,8 @@ namespace Givebutter\Testing\Fixtures\Contacts;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Models\Address;
 use Givebutter\Responses\Models\Company;
+use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
+use Givebutter\Testing\Fixtures\Models\CustomFieldFixture;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
@@ -18,6 +20,8 @@ use function Pest\Faker\fake;
  */
 final class GetContactFixture extends AbstractDataFixture
 {
+    use HasAddressFixtureData;
+
     public static function data(): array
     {
         /** @var GetContactResponseSchema $data */
@@ -52,21 +56,14 @@ final class GetContactFixture extends AbstractDataFixture
             'primary_email' => fake()->boolean() ? fake()->email() : null,
             'primary_phone' => fake()->boolean() ? fake()->phoneNumber() : null,
             'note' => fake()->boolean() ? fake()->text() : null,
-            'addresses' => array_map(fn (): array => self::fakeAddress(), range(1, fake()->numberBetween(1, 5))),
-            'primary_address' => fake()->boolean() ? self::fakeAddress() : null,
+            'addresses' => array_map(fn (): array => self::address(), range(1, fake()->numberBetween(1, 5))),
+            'primary_address' => fake()->boolean() ? self::address() : null,
             'stats' => [
                 'recurring_contributions' => fake()->numberBetween(100, 1000),
                 'total_contributions' => fake()->numberBetween(100, 1000),
             ],
             'tags' => array_map(fn () => fake()->text(), range(1, fake()->numberBetween(1, 5))),
-            'custom_fields' => array_map(fn (): array => [
-                'id' => fake()->numberBetween(1, 100),
-                'field_id' => fake()->numberBetween(1, 100),
-                'type' => fake()->text(),
-                'value' => fake()->text(),
-                'title' => fake()->title,
-                'description' => fake()->text(),
-            ], range(1, fake()->numberBetween(1, 5))),
+            'custom_fields' => array_map(fn (): array => CustomFieldFixture::data(), range(1, fake()->numberBetween(1, 5))),
             'external_ids' => range(1, fake()->numberBetween(1, 100)),
             'is_email_subscribed' => fake()->boolean(),
             'is_phone_subscribed' => fake()->boolean(),
@@ -107,8 +104,8 @@ final class GetContactFixture extends AbstractDataFixture
             'primary_email' => fake()->boolean() ? fake()->email() : null,
             'primary_phone' => fake()->boolean() ? fake()->phoneNumber() : null,
             'note' => fake()->boolean() ? fake()->text() : null,
-            'addresses' => array_map(fn (): array => self::fakeAddress(), range(1, fake()->numberBetween(1, 5))),
-            'primary_address' => fake()->boolean() ? self::fakeAddress() : null,
+            'addresses' => array_map(fn (): array => self::address(), range(1, fake()->numberBetween(1, 5))),
+            'primary_address' => fake()->boolean() ? self::address() : null,
             'is_email_subscribed' => fake()->boolean(),
             'is_phone_subscribed' => fake()->boolean(),
             'is_address_subscribed' => fake()->boolean(),
@@ -118,39 +115,5 @@ final class GetContactFixture extends AbstractDataFixture
             'updated_at' => fake()->iso8601(),
             'first_time_supporter_at' => fake()->boolean() ? fake()->iso8601() : null,
         ];
-    }
-
-    /**
-     * @return AddressSchema
-     */
-    private static function fakeAddress(): array
-    {
-        /** @var AddressSchema $data */
-        $data = [
-            'address_1' => fake()->streetAddress(),
-            'address_2' => fake()->boolean() ? fake()->streetAddress() : null,
-            'city' => fake()->city,
-            'state' => fake()->text(),
-            'zipcode' => fake()->text(),
-            'country' => fake()->country(),
-            'type' => fake()->text(),
-            'is_primary' => fake()->boolean(),
-            'created_at' => fake()->iso8601(),
-            'updated_at' => fake()->iso8601(),
-        ];
-
-        if (fake()->boolean()) {
-            $data['id'] = fake()->numberBetween(1, 100);
-        }
-
-        if (fake()->boolean()) {
-            $data['account_id'] = fake()->numberBetween(1, 100);
-        }
-
-        if (fake()->boolean()) {
-            $data['name'] = fake()->text();
-        }
-
-        return $data;
     }
 }
