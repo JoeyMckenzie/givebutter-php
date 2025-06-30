@@ -88,4 +88,21 @@ describe(GetTransactionResponse::class, function (): void {
         expect($fake)->toBeTransactionResponse()
             ->email->toBe('michael.scarn@dundermifflin.com');
     });
+
+    it('handles nullable fields correctly', function (): void {
+        // Arrange
+        $data = GetTransactionFixture::data();
+        $data['giving_space'] = null;
+        $data['dedication'] = null;
+
+        // Act
+        $response = GetTransactionResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response->givingSpace)->toBeNull()
+            ->and($arrayData['giving_space'])->toBeNull()
+            ->and($response->dedication)->toBeNull()
+            ->and($arrayData['dedication'])->toBeNull();
+    });
 });

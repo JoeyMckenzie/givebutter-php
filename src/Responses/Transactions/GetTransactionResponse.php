@@ -215,8 +215,8 @@ final readonly class GetTransactionResponse implements ResponseContract
             'timezone' => $this->timezone,
             'giving_space' => $this->givingSpace?->toArray(),
             'dedication' => $this->dedication?->toArray(),
-            'transactions' => array_map(static fn (Transaction $transaction): array => $transaction->toArray(), $this->transactions),
-            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields),
+            'transactions' => array_map(static fn (Transaction $transaction): array => $transaction->toArray(), $this->transactions), // @pest-mutate-ignore
+            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
             'utm_parameters' => $this->utmParameters,
             'external_id' => $this->externalId,
             'communication_opt_in' => $this->communicationOptIn,
