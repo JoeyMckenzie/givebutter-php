@@ -8,7 +8,9 @@
             "param",
             "givebutter",
             "linkedin",
-            "zipcode"
+            "zipcode",
+            "utm",
+            "subtype"
         ],
         "paths": [
             "tests"

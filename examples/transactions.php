@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Carbon\CarbonImmutable;
 use Givebutter\Givebutter;
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -26,3 +27,16 @@ if (count($transactions->data) > 0) {
         ->get($transactions->data[0]->id);
     var_dump($transaction);
 }
+
+// Create a transaction
+$createdTransaction = $client
+    ->transactions()
+    ->create([
+        'amount' => 100.00,
+        'method' => 'cash',
+        'transacted_at' => CarbonImmutable::now()->addHour()->format('m/d/y'),
+        'campaign_code' => 'CMMNG1',
+        'first_name' => 'Joey',
+        'last_name' => 'McKenzie',
+    ]);
+var_dump($createdTransaction);

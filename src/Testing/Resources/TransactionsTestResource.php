@@ -13,6 +13,7 @@ use Wrapkit\Testing\Concerns\Testable;
 /**
  * @phpstan-import-type GetTransactionResponseSchema from GetTransactionResponse
  * @phpstan-import-type GetTransactionsResponseSchema from GetTransactionsResponse
+ * @phpstan-import-type CreateTransactionSchema from TransactionsResourceContract
  *
  * @phpstan-type TransactionsResponseSchema GetTransactionResponseSchema|GetTransactionsResponseSchema
  */
@@ -40,6 +41,17 @@ final class TransactionsTestResource implements TransactionsResourceContract
     public function list(?string $scope = null): GetTransactionsResponse
     {
         /** @var GetTransactionsResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    /**
+     * @param  CreateTransactionSchema  $params
+     */
+    public function create(array $params): GetTransactionResponse
+    {
+        /** @var GetTransactionResponse $response */
         $response = $this->record(__FUNCTION__, func_get_args());
 
         return $response;

@@ -170,8 +170,8 @@ expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTr
     ->lastName->toBeString()
     ->companyName->toBeNullOrString()
     ->company->toBeNullOrString()
-    ->email->toBeString()
-    ->phone->toBeString()
+    ->email->toBeNullOrString()
+    ->phone->toBeNullOrString()
     ->address->toBeNullOrInstanceOf(Address::class)
     ->status->toBeString()
     ->paymentMethod->toBeString()
@@ -192,8 +192,8 @@ expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTr
     ->utmParameters->toBeArray()
     ->externalId->toBeNullOrString()
     ->communicationOptIn->toBeBool()
-    ->sessionId->toBeString()
-    ->attributionData->toBeArray()
+    ->sessionId->toBeNullOrString()
+    ->attributionData->toBeNullOrArray()
     ->fairMarketValueAmount->toBeNullOrInt()
     ->taxDeductibleAmount->toBeNullOrInt());
 

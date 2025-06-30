@@ -41,8 +41,8 @@ describe(GetTransactionResponse::class, function (): void {
             ->and($data['last_name'])->toBeString()
             ->and($data['company_name'])->toBeNullOrString()
             ->and($data['company'])->toBeNullOrString()
-            ->and($data['email'])->toBeString()
-            ->and($data['phone'])->toBeString()
+            ->and($data['email'])->toBeNullOrString()
+            ->and($data['phone'])->toBeNullOrString()
             ->and($data['address'])->toBeNullOrArray()
             ->and($data['status'])->toBeString()
             ->and($data['payment_method'])->toBeString()
@@ -63,8 +63,8 @@ describe(GetTransactionResponse::class, function (): void {
             ->and($data['utm_parameters'])->toBeArray()
             ->and($data['external_id'])->toBeNullOrString()
             ->and($data['communication_opt_in'])->toBeBool()
-            ->and($data['session_id'])->toBeString()
-            ->and($data['attribution_data'])->toBeArray()
+            ->and($data['session_id'])->toBeNullOrString()
+            ->and($data['attribution_data'])->toBeNullOrArray()
             ->and($data['fair_market_value_amount'])->toBeNullOrInt()
             ->and($data['tax_deductible_amount'])->toBeNullOrInt();
     });

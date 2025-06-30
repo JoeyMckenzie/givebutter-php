@@ -47,8 +47,8 @@ final class GetTransactionFixture extends AbstractDataFixture
             'last_name' => fake()->lastName(),
             'company_name' => fake()->boolean() ? fake()->company() : null,
             'company' => fake()->boolean() ? fake()->company() : null,
-            'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
+            'email' => fake()->boolean() ? fake()->email() : null,
+            'phone' => fake()->boolean() ? fake()->phoneNumber() : null,
             'address' => fake()->boolean() ? self::address() : null,
             'status' => fake()->text(),
             'payment_method' => fake()->text(),
@@ -71,10 +71,10 @@ final class GetTransactionFixture extends AbstractDataFixture
             ],
             'external_id' => fake()->boolean() ? fake()->text() : null,
             'communication_opt_in' => fake()->boolean(),
-            'session_id' => fake()->text(),
-            'attribution_data' => array_map(static fn (): array => [
+            'session_id' => fake()->boolean() ? fake()->text() : null,
+            'attribution_data' => fake()->boolean() ? array_map(static fn (): array => [
                 fake()->text() => fake()->text(),
-            ], range(1, fake()->numberBetween(1, 5))),
+            ], range(1, fake()->numberBetween(1, 5))) : null,
             'fair_market_value_amount' => fake()->boolean() ? fake()->numberBetween() : null,
             'tax_deductible_amount' => fake()->boolean() ? fake()->numberBetween() : null,
         ];

@@ -55,4 +55,18 @@ final class TransactionsResource implements TransactionsResourceContract
 
         return GetTransactionResponse::from($data);
     }
+
+    public function create(array $params): GetTransactionResponse
+    {
+        $request = ClientRequestBuilder::post($this->resource)
+            ->withRequestContent($params);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetTransactionResponseSchema $data */
+        $data = $response->data();
+
+        return GetTransactionResponse::from($data);
+    }
 }

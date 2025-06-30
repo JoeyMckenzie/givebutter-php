@@ -37,8 +37,8 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     last_name: string,
  *     company_name: ?string,
  *     company: ?string,
- *     email: string,
- *     phone: string,
+ *     email: ?string,
+ *     phone: ?string,
  *     address: ?AddressSchema,
  *     status: string,
  *     payment_method: string,
@@ -59,8 +59,8 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     utm_parameters: mixed,
  *     external_id: ?string,
  *     communication_opt_in: bool,
- *     session_id: string,
- *     attribution_data: array<int, array<string, mixed>>,
+ *     session_id: ?string,
+ *     attribution_data: ?array<int, array<string, mixed>>,
  *     fair_market_value_amount: ?int,
  *     tax_deductible_amount: ?int
  * }
@@ -100,8 +100,8 @@ final readonly class GetTransactionResponse implements ResponseContract
         public string $lastName,
         public ?string $companyName,
         public ?string $company,
-        public string $email,
-        public string $phone,
+        public ?string $email,
+        public ?string $phone,
         public ?Address $address,
         public string $status,
         public string $paymentMethod,
@@ -122,8 +122,8 @@ final readonly class GetTransactionResponse implements ResponseContract
         public mixed $utmParameters, // TODO: No documentation for this type, so leave as mixed for now
         public ?string $externalId,
         public bool $communicationOptIn,
-        public string $sessionId,
-        public array $attributionData, // TODO: No documentation for array type, leaving as generic array for now
+        public ?string $sessionId,
+        public ?array $attributionData, // TODO: No documentation for array type, leaving as generic array for now
         public ?int $fairMarketValueAmount,
         public ?int $taxDeductibleAmount,
     ) {
