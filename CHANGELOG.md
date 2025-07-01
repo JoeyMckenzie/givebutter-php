@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.3 - 2025-07-01
+
+### What's new?
+
+- Improves error handling for all response models
+- Forces all fields on responses to be nullable
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.2...0.1.3
+
 ## 0.1.2 - 2025-07-01
 
 ### What's new?
