@@ -13,8 +13,15 @@ $dotenv->load();
 $apiKey = $_ENV['GIVEBUTTER_API_KEY'];
 $client = Givebutter::client($apiKey);
 
-// Get a fund
-$fund = $client
+// Get all funds
+$funds = $client
     ->funds()
-    ->get('abc123');
-var_dump($fund);
+    ->list();
+
+if (count($funds->data) > 0 && $funds->data[0]->id !== null) {
+    // Get a fund
+    $fund = $client
+        ->funds()
+        ->get($funds->data[0]->id);
+    var_dump($fund);
+}

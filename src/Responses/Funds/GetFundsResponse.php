@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Givebutter\Responses\Funds;
 
-use Givebutter\Responses\Concerns\Fallible;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Wrapkit\Contracts\ResponseContract;
@@ -35,8 +34,6 @@ final readonly class GetFundsResponse implements ResponseContract
      * @use Fakeable<GetFundsResponseSchema>
      */
     use Fakeable;
-
-    use Fallible;
 
     /**
      * @param  GetFundResponse[]  $data
