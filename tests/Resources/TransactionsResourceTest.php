@@ -28,7 +28,7 @@ describe(TransactionsResource::class, function (): void {
         $result = $client->transactions()->get('abc123');
 
         // Assert
-        expect($result)->toBeTransactionResponse();
+        expect($result)->toBeTransaction();
     });
 
     it('can retrieve all transactions', function (): void {
@@ -43,7 +43,7 @@ describe(TransactionsResource::class, function (): void {
 
         // Assert
         expect($result)->toBeInstanceOf(GetTransactionsResponse::class)
-            ->data->each->toBeTransactionResponse()
+            ->data->each->toBeTransaction()
             ->meta->toBeInstanceOf(MetaResponse::class)
             ->links->toBeInstanceOf(LinksResponse::class);
     });
@@ -63,7 +63,7 @@ describe(TransactionsResource::class, function (): void {
 
         // Assert
         expect($result)->toBeInstanceOf(GetTransactionsResponse::class)
-            ->data->each->toBeTransactionResponse()
+            ->data->each->toBeTransaction()
             ->meta->toBeInstanceOf(MetaResponse::class)
             ->links->toBeInstanceOf(LinksResponse::class);
     });
@@ -108,6 +108,6 @@ describe(TransactionsResource::class, function (): void {
         $result = $client->transactions()->create($payload);
 
         // Assert
-        expect($result)->toBeTransactionResponse();
+        expect($result)->toBeTransaction();
     });
 });

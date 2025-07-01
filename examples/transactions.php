@@ -21,6 +21,8 @@ $transactions = $client
 var_dump($transactions);
 
 if (count($transactions->data) > 0) {
+    assert($transactions->data[0]->id !== null);
+
     // Get a transaction
     $transaction = $client
         ->transactions()

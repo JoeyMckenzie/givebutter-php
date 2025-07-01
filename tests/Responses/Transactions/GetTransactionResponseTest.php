@@ -17,7 +17,21 @@ describe(GetTransactionResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeTransactionResponse();
+        expect($this->response)->toBeTransaction()
+            ->and($this->response->hasErrors())->toBeFalse()
+            ->and($this->response->hasErrorMessage())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetTransactionFixture::errors();
+
+        // Act
+        $response = GetTransactionResponse::from($errors);
+
+        expect($response)->toBeTransactionWithErrors()
+            ->and($response->hasErrors())->toBeTrue()
+            ->and($response->hasErrorMessage())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -30,20 +44,20 @@ describe(GetTransactionResponse::class, function (): void {
             ->and($data['number'])->toBeString()
             ->and($data['campaign_id'])->toBeInt()
             ->and($data['campaign_code'])->toBeString()
-            ->and($data['plan_id'])->toBeNullOrString()
-            ->and($data['pledge_id'])->toBeNullOrString()
-            ->and($data['team_id'])->toBeNullOrString()
-            ->and($data['member_id'])->toBeNullOrString()
-            ->and($data['fund_id'])->toBeNullOrString()
-            ->and($data['fund_code'])->toBeNullOrString()
+            ->and($data['plan_id'])->toBeString()
+            ->and($data['pledge_id'])->toBeString()
+            ->and($data['team_id'])->toBeString()
+            ->and($data['member_id'])->toBeString()
+            ->and($data['fund_id'])->toBeString()
+            ->and($data['fund_code'])->toBeString()
             ->and($data['contact_id'])->toBeInt()
             ->and($data['first_name'])->toBeString()
             ->and($data['last_name'])->toBeString()
-            ->and($data['company_name'])->toBeNullOrString()
-            ->and($data['company'])->toBeNullOrString()
-            ->and($data['email'])->toBeNullOrString()
-            ->and($data['phone'])->toBeNullOrString()
-            ->and($data['address'])->toBeNullOrArray()
+            ->and($data['company_name'])->toBeString()
+            ->and($data['company'])->toBeString()
+            ->and($data['email'])->toBeString()
+            ->and($data['phone'])->toBeString()
+            ->and($data['address'])->toBeArray()
             ->and($data['status'])->toBeString()
             ->and($data['payment_method'])->toBeString()
             ->and($data['method'])->toBeString()
@@ -56,17 +70,19 @@ describe(GetTransactionResponse::class, function (): void {
             ->and($data['transacted_at'])->toBeString()
             ->and($data['created_at'])->toBeString()
             ->and($data['timezone'])->toBeString()
-            ->and($data['giving_space'])->toBeNullOrArray()
-            ->and($data['dedication'])->toBeNullOrArray()
-            ->and($data['transactions'])->toBeNullOrArray()
+            ->and($data['giving_space'])->toBeArray()
+            ->and($data['dedication'])->toBeArray()
+            ->and($data['transactions'])->toBeArray()
             ->and($data['custom_fields'])->toBeArray()
             ->and($data['utm_parameters'])->toBeArray()
-            ->and($data['external_id'])->toBeNullOrString()
+            ->and($data['external_id'])->toBeString()
             ->and($data['communication_opt_in'])->toBeBool()
-            ->and($data['session_id'])->toBeNullOrString()
-            ->and($data['attribution_data'])->toBeNullOrArray()
-            ->and($data['fair_market_value_amount'])->toBeNullOrInt()
-            ->and($data['tax_deductible_amount'])->toBeNullOrInt();
+            ->and($data['session_id'])->toBeString()
+            ->and($data['attribution_data'])->toBeArray()
+            ->and($data['fair_market_value_amount'])->toBeInt()
+            ->and($data['tax_deductible_amount'])->toBeInt()
+            ->and($data['message'])->toBeNull()
+            ->and($data['errors'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -75,7 +91,7 @@ describe(GetTransactionResponse::class, function (): void {
 
         // Assert
 
-        expect($fake)->toBeTransactionResponse();
+        expect($fake)->toBeTransaction();
     });
 
     it('can override properties on fakes', function (): void {
@@ -85,7 +101,7 @@ describe(GetTransactionResponse::class, function (): void {
         ]);
 
         // Assert
-        expect($fake)->toBeTransactionResponse()
+        expect($fake)->toBeTransaction()
             ->email->toBe('michael.scarn@dundermifflin.com');
     });
 
@@ -95,6 +111,8 @@ describe(GetTransactionResponse::class, function (): void {
         $data['giving_space'] = null;
         $data['dedication'] = null;
         $data['address'] = null;
+        $data['transacted_at'] = null;
+        $data['created_at'] = null;
 
         // Act
         $response = GetTransactionResponse::from($data);
@@ -106,6 +124,10 @@ describe(GetTransactionResponse::class, function (): void {
             ->and($response->dedication)->toBeNull()
             ->and($arrayData['dedication'])->toBeNull()
             ->and($response->address)->toBeNull()
-            ->and($arrayData['address'])->toBeNull();
+            ->and($arrayData['address'])->toBeNull()
+            ->and($response->transactedAt)->toBeNull()
+            ->and($arrayData['transacted_at'])->toBeNull()
+            ->and($response->createdAt)->toBeNull()
+            ->and($arrayData['created_at'])->toBeNull();
     });
 });
