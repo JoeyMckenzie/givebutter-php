@@ -37,7 +37,9 @@ describe(GetCampaignMemberResponse::class, function (): void {
             ->and($data['goal'])->toBeInt()
             ->and($data['donors'])->toBeInt()
             ->and($data['items'])->toBeInt()
-            ->and($data['url'])->toBeString();
+            ->and($data['url'])->toBeString()
+            ->and($data['message'])->toBeNull()
+            ->and($data['errors'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -58,5 +60,13 @@ describe(GetCampaignMemberResponse::class, function (): void {
         // Assert
         expect($fake)->toBeCampaignMember()
             ->raised->toBe(1234);
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange & Act
+        $response = GetCampaignMemberResponse::from(GetCampaignMemberFixture::errors());
+
+        // Assert
+        expect($response)->toBeFallibleCampaignMember();
     });
 });

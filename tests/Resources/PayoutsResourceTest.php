@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Givebutter\Resources\PayoutsResource;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Payouts\GetPayoutsResponse;
 use Givebutter\Testing\Fixtures\Payouts\GetPayoutFixture;
 use Givebutter\Testing\Fixtures\Payouts\GetPayoutsFixture;
@@ -41,7 +41,7 @@ describe(PayoutsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetPayoutsResponse::class)
             ->data->each->toBePayout()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Models;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Event;
+use Givebutter\Responses\Models\EventResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type EventSchema from Event
+ * @phpstan-import-type EventResponseSchema from EventResponse
  */
 final class EventFixture extends AbstractDataFixture
 {
     public static function data(): array
     {
-        /** @var EventSchema $data */
+        /** @var EventResponseSchema $data */
         $data = [
             'title' => fake()->text(),
             'type' => fake()->text(),

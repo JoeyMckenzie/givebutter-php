@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Responses;
 
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignsFixture;
 
 covers(GetCampaignsResponse::class);
@@ -21,8 +21,8 @@ describe(GetCampaignsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetCampaignsResponse::class)
             ->data->toBeArray()->each->toBeCampaign()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -44,7 +44,7 @@ describe(GetCampaignsResponse::class, function (): void {
 
         expect($fake)->toBeInstanceOf(GetCampaignsResponse::class)
             ->data->toBeArray()->each->toBeCampaign()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

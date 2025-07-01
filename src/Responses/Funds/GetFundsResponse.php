@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Givebutter\Responses\Funds;
 
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type LinksSchema from Links
- * @phpstan-import-type MetaSchema from Meta
+ * @phpstan-import-type LinksResponseSchema from LinksResponse
+ * @phpstan-import-type MetaResponseSchema from MetaResponse
  * @phpstan-import-type GetFundResponseSchema from GetFundResponse
  *
  * @phpstan-type GetFundsResponseSchema array{
  *     data: GetFundResponseSchema[],
- *     links: LinksSchema,
- *     meta: MetaSchema
+ *     links: LinksResponseSchema,
+ *     meta: MetaResponseSchema
  * }
  *
  * @implements ResponseContract<GetFundsResponseSchema>
@@ -40,8 +40,8 @@ final readonly class GetFundsResponse implements ResponseContract
      */
     private function __construct(
         public array $data,
-        public Links $links,
-        public Meta $meta,
+        public LinksResponse $links,
+        public MetaResponse $meta,
     ) {
         //
     }
@@ -53,8 +53,8 @@ final readonly class GetFundsResponse implements ResponseContract
     {
         return new self(
             array_map(static fn (array $item): GetFundResponse => GetFundResponse::from($item), $attributes['data']),
-            Links::from($attributes['links']),
-            Meta::from($attributes['meta']),
+            LinksResponse::from($attributes['links']),
+            MetaResponse::from($attributes['meta']),
         );
     }
 

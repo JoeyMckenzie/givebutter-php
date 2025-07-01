@@ -8,7 +8,7 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type CustomFieldSchema array{
+ * @phpstan-type CustomFieldResponseSchema array{
  *     id: int,
  *     field_id: int,
  *     title: string,
@@ -17,12 +17,12 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     value: string
  * }
  *
- * @implements ResponseContract<CustomFieldSchema>
+ * @implements ResponseContract<CustomFieldResponseSchema>
  */
-final readonly class CustomField implements ResponseContract
+final readonly class CustomFieldResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<CustomFieldSchema>
+     * @use ArrayAccessible<CustomFieldResponseSchema>
      */
     use ArrayAccessible;
 
@@ -38,7 +38,7 @@ final readonly class CustomField implements ResponseContract
     }
 
     /**
-     * @param  CustomFieldSchema  $attributes
+     * @param  CustomFieldResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

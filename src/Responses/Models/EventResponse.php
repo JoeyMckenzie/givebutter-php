@@ -9,9 +9,9 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-import-type LivestreamSchema from Livestream
+ * @phpstan-import-type LivestreamResponseSchema from LivestreamResponse
  *
- * @phpstan-type EventSchema array{
+ * @phpstan-type EventResponseSchema array{
  *     title: string,
  *     type: string,
  *     location_name: string,
@@ -23,17 +23,17 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     details: string,
  *     private: bool,
  *     tickets_required: bool,
- *     livestream: LivestreamSchema,
+ *     livestream: LivestreamResponseSchema,
  *     livestream_start_at: string,
  *     livestream_end_at: string,
  * }
  *
- * @implements ResponseContract<EventSchema>
+ * @implements ResponseContract<EventResponseSchema>
  */
-final readonly class Event implements ResponseContract
+final readonly class EventResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<EventSchema>
+     * @use ArrayAccessible<EventResponseSchema>
      */
     use ArrayAccessible;
 
@@ -49,7 +49,7 @@ final readonly class Event implements ResponseContract
         public string $details,
         public bool $private,
         public bool $ticketsRequired,
-        public Livestream $livestream,
+        public LivestreamResponse $livestream,
         public CarbonImmutable $livestreamStartAt,
         public CarbonImmutable $livestreamEndAt,
     ) {
@@ -57,7 +57,7 @@ final readonly class Event implements ResponseContract
     }
 
     /**
-     * @param  EventSchema  $attributes
+     * @param  EventResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -73,7 +73,7 @@ final readonly class Event implements ResponseContract
             $attributes['details'],
             $attributes['private'],
             $attributes['tickets_required'],
-            Livestream::from($attributes['livestream']),
+            LivestreamResponse::from($attributes['livestream']),
             CarbonImmutable::parse($attributes['livestream_start_at']),
             CarbonImmutable::parse($attributes['livestream_end_at']),
         );

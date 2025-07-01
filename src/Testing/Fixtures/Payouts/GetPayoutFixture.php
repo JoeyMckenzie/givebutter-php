@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Payouts;
 
-use Givebutter\Responses\Models\Address;
+use Givebutter\Responses\Models\AddressResponse;
 use Givebutter\Responses\Payouts\GetPayoutResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
 use Wrapkit\Testing\AbstractDataFixture;
@@ -12,7 +12,7 @@ use Wrapkit\Testing\AbstractDataFixture;
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type AddressSchema from Address
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
  * @phpstan-import-type GetPayoutResponseSchema from GetPayoutResponse
  */
 final class GetPayoutFixture extends AbstractDataFixture

@@ -9,7 +9,7 @@ use Givebutter\Responses\Transactions\GetTransactionsResponse;
 use Wrapkit\Contracts\ResourceContract;
 
 /**
- * @phpstan-type CreateTransactionSchema array{
+ * @phpstan-type CreateTransactionResponseSchema array{
  *     campaign_code?: string,
  *     campaign_title?: string,
  *     contact_id?: int,
@@ -44,7 +44,7 @@ interface TransactionsResourceContract extends ResourceContract
     public function get(string $id): GetTransactionResponse;
 
     /**
-     * @param  CreateTransactionSchema  $params
+     * @param  CreateTransactionResponseSchema  $params
      */
     public function create(array $params): GetTransactionResponse;
 }

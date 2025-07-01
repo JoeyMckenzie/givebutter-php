@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Carbon\CarbonImmutable;
 use Givebutter\Resources\TransactionsResource;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Transactions\GetTransactionsResponse;
 use Givebutter\Testing\Fixtures\Transactions\GetTransactionFixture;
 use Givebutter\Testing\Fixtures\Transactions\GetTransactionsFixture;
@@ -44,8 +44,8 @@ describe(TransactionsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetTransactionsResponse::class)
             ->data->each->toBeTransactionResponse()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can retrieve all transactions with a scope', function (): void {
@@ -64,8 +64,8 @@ describe(TransactionsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetTransactionsResponse::class)
             ->data->each->toBeTransactionResponse()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can create transactions', function (): void {

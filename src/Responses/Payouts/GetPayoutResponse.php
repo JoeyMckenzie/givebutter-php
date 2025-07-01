@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Payouts;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Address;
+use Givebutter\Responses\Models\AddressResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type AddressSchema from Address
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
  *
  * @phpstan-type GetPayoutResponseSchema array{
  *     id: string,
@@ -23,7 +23,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     tip: int,
  *     payout: int,
  *     currency: string,
- *     address: ?AddressSchema,
+ *     address: ?AddressResponseSchema,
  *     memo: ?string,
  *     completed_at: ?string,
  *     created_at: string
@@ -53,7 +53,7 @@ final readonly class GetPayoutResponse implements ResponseContract
         public int $tip,
         public int $payout,
         public string $currency,
-        public ?Address $address,
+        public ?AddressResponse $address,
         public ?string $memo,
         public ?CarbonImmutable $completedAt,
         public CarbonImmutable $createdAt,
@@ -76,7 +76,7 @@ final readonly class GetPayoutResponse implements ResponseContract
             $attributes['tip'],
             $attributes['payout'],
             $attributes['currency'],
-            isset($attributes['address']) ? Address::from($attributes['address']) : null,
+            isset($attributes['address']) ? AddressResponse::from($attributes['address']) : null,
             $attributes['memo'],
             isset($attributes['completed_at']) ? CarbonImmutable::parse($attributes['completed_at']) : null,
             CarbonImmutable::parse($attributes['created_at']),

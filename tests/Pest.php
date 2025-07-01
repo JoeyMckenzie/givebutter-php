@@ -19,16 +19,16 @@ use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Funds\GetFundResponse;
-use Givebutter\Responses\Models\Address;
-use Givebutter\Responses\Models\Company;
-use Givebutter\Responses\Models\ContactMeta;
-use Givebutter\Responses\Models\Cover;
-use Givebutter\Responses\Models\CustomField;
-use Givebutter\Responses\Models\Dedication;
-use Givebutter\Responses\Models\Event;
-use Givebutter\Responses\Models\GivingSpace;
-use Givebutter\Responses\Models\Stats;
-use Givebutter\Responses\Models\Transaction;
+use Givebutter\Responses\Models\AddressResponse;
+use Givebutter\Responses\Models\CompanyResponse;
+use Givebutter\Responses\Models\ContactMetaResponse;
+use Givebutter\Responses\Models\CoverResponse;
+use Givebutter\Responses\Models\CustomFieldResponse;
+use Givebutter\Responses\Models\DedicationResponse;
+use Givebutter\Responses\Models\EventResponse;
+use Givebutter\Responses\Models\GivingSpaceResponse;
+use Givebutter\Responses\Models\StatsResponse;
+use Givebutter\Responses\Models\TransactionResponse;
 use Givebutter\Responses\Payouts\GetPayoutResponse;
 use Givebutter\Responses\Plans\GetPlanResponse;
 use Givebutter\Responses\Tickets\GetTicketResponse;
@@ -73,8 +73,8 @@ expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignRespo
     ->endAt->toBeInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
-    ->cover->toBeInstanceOf(Cover::class)
-    ->event->toBeInstanceOf(Event::class));
+    ->cover->toBeInstanceOf(CoverResponse::class)
+    ->event->toBeInstanceOf(EventResponse::class));
 
 expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
     ->id->toBeInt()
@@ -88,7 +88,25 @@ expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaig
     ->goal->toBeInt()
     ->donors->toBeInt()
     ->items->toBeInt()
-    ->url->toBeString());
+    ->url->toBeString()
+    ->message->toBeNull()
+    ->errors->toBeNull());
+
+expect()->extend('toBeFallibleCampaignMember', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
+    ->id->toBeNull()
+    ->firstName->toBeNull()
+    ->lastName->toBeNull()
+    ->email->toBeNull()
+    ->phone->toBeNull()
+    ->displayName->toBeNull()
+    ->picture->toBeNull()
+    ->raised->toBeNull()
+    ->goal->toBeNull()
+    ->donors->toBeNull()
+    ->items->toBeNull()
+    ->url->toBeNull()
+    ->message->toBeString()
+    ->errors->toBeArray());
 
 expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignTeamResponse::class)
     ->id->toBeInt()
@@ -115,22 +133,22 @@ expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactRespons
     ->companyName->toBeNullOrString()
     ->employer->toBeNullOrString()
     ->pointOfContact->toBeNullOrString()
-    ->associatedCompanies->toBeArray()->each->toBeInstanceOf(Company::class)
+    ->associatedCompanies->toBeArray()->each->toBeInstanceOf(CompanyResponse::class)
     ->title->toBeNullOrString()
     ->twitterUrl->toBeNullOrString()
     ->linkedInUrl->toBeNullOrString()
     ->facebookUrl->toBeNullOrString()
     ->websiteUrl->toBeNullOrString()
-    ->emails->toBeArray()->each->toBeInstanceOf(ContactMeta::class)
-    ->phones->toBeArray()->each->toBeInstanceOf(ContactMeta::class)
+    ->emails->toBeArray()->each->toBeInstanceOf(ContactMetaResponse::class)
+    ->phones->toBeArray()->each->toBeInstanceOf(ContactMetaResponse::class)
     ->primaryEmail->toBeNullOrString()
     ->primaryPhone->toBeNullOrString()
     ->note->toBeNullOrString()
-    ->addresses->toBeArray()->each->toBeInstanceOf(Address::class)
-    ->primaryAddress->toBeNullOrInstanceOf(Address::class)
-    ->stats->toBeInstanceOf(Stats::class)
+    ->addresses->toBeArray()->each->toBeInstanceOf(AddressResponse::class)
+    ->primaryAddress->toBeNullOrInstanceOf(AddressResponse::class)
+    ->stats->toBeInstanceOf(StatsResponse::class)
     ->tags->toBeArray()->each->toBeString()
-    ->customFields->toBeArray()->each->toBeInstanceOf(CustomField::class)
+    ->customFields->toBeArray()->each->toBeInstanceOf(CustomFieldResponse::class)
     ->externalIds->toBeArray()->each->toBeInt()
     ->isEmailSubscribed->toBeBool()
     ->isPhoneSubscribed->toBeBool()
@@ -175,7 +193,7 @@ expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTr
     ->company->toBeNullOrString()
     ->email->toBeNullOrString()
     ->phone->toBeNullOrString()
-    ->address->toBeNullOrInstanceOf(Address::class)
+    ->address->toBeNullOrInstanceOf(AddressResponse::class)
     ->status->toBeString()
     ->paymentMethod->toBeString()
     ->method->toBeString()
@@ -188,10 +206,10 @@ expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTr
     ->transactedAt->toBeInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->timezone->toBeString()
-    ->givingSpace->toBeNullOrInstanceOf(GivingSpace::class)
-    ->dedication->toBeNullOrInstanceOf(Dedication::class)
-    ->transactions->toBeArray()->each->toBeInstanceOf(Transaction::class)
-    ->customFields->toBeArray()->each->toBeInstanceOf(CustomField::class)
+    ->givingSpace->toBeNullOrInstanceOf(GivingSpaceResponse::class)
+    ->dedication->toBeNullOrInstanceOf(DedicationResponse::class)
+    ->transactions->toBeArray()->each->toBeInstanceOf(TransactionResponse::class)
+    ->customFields->toBeArray()->each->toBeInstanceOf(CustomFieldResponse::class)
     ->utmParameters->toBeArray()
     ->externalId->toBeNullOrString()
     ->communicationOptIn->toBeBool()
@@ -210,7 +228,7 @@ expect()->extend('toBePayout', fn () => $this->toBeInstanceOf(GetPayoutResponse:
     ->tip->toBeInt()
     ->payout->toBeInt()
     ->currency->toBeString()
-    ->address->toBeNullOrInstanceOf(Address::class)
+    ->address->toBeNullOrInstanceOf(AddressResponse::class)
     ->memo->toBeNullOrString()
     ->completedAt->toBeNullOrInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class));

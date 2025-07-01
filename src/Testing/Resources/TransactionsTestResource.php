@@ -13,7 +13,7 @@ use Wrapkit\Testing\Concerns\Testable;
 /**
  * @phpstan-import-type GetTransactionResponseSchema from GetTransactionResponse
  * @phpstan-import-type GetTransactionsResponseSchema from GetTransactionsResponse
- * @phpstan-import-type CreateTransactionSchema from TransactionsResourceContract
+ * @phpstan-import-type CreateTransactionResponseSchema from TransactionsResourceContract
  *
  * @phpstan-type TransactionsResponseSchema GetTransactionResponseSchema|GetTransactionsResponseSchema
  */
@@ -47,7 +47,7 @@ final class TransactionsTestResource implements TransactionsResourceContract
     }
 
     /**
-     * @param  CreateTransactionSchema  $params
+     * @param  CreateTransactionResponseSchema  $params
      */
     public function create(array $params): GetTransactionResponse
     {

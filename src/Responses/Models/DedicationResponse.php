@@ -8,24 +8,24 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type RecipientSchema array{name: ?string, email: ?string}
- * @phpstan-type DedicationSchema array{
+ * @phpstan-type RecipientResponseSchema array{name: ?string, email: ?string}
+ * @phpstan-type DedicationResponseSchema array{
  *     type: string,
  *     name: string,
- *     recipient: RecipientSchema
+ *     recipient: RecipientResponseSchema
  * }
  *
- * @implements ResponseContract<DedicationSchema>
+ * @implements ResponseContract<DedicationResponseSchema>
  */
-final readonly class Dedication implements ResponseContract
+final readonly class DedicationResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<DedicationSchema>
+     * @use ArrayAccessible<DedicationResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @param  RecipientSchema  $recipient
+     * @param  RecipientResponseSchema  $recipient
      */
     public function __construct(
         public string $type,
@@ -36,7 +36,7 @@ final readonly class Dedication implements ResponseContract
     }
 
     /**
-     * @param  DedicationSchema  $attributes
+     * @param  DedicationResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

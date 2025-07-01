@@ -5,8 +5,8 @@ declare(strict_types=1);
 use Carbon\CarbonImmutable;
 use Givebutter\Resources\ContactsResource;
 use Givebutter\Responses\Contacts\GetContactsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Contacts\GetContactFixture;
 use Givebutter\Testing\Fixtures\Contacts\GetContactsFixture;
 use GuzzleHttp\Psr7\Response as GuzzleResponse;
@@ -44,8 +44,8 @@ describe(ContactsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetContactsResponse::class)
             ->data->each->toBeContact()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can retrieve all contacts with a scope', function (): void {
@@ -64,8 +64,8 @@ describe(ContactsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetContactsResponse::class)
             ->data->each->toBeContact()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can create contacts', function (): void {

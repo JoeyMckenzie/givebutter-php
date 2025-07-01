@@ -9,10 +9,10 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-import-type AddressSchema from Address
- * @phpstan-import-type ContactMetaSchema from ContactMeta
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
+ * @phpstan-import-type ContactMetaResponseSchema from ContactMetaResponse
  *
- * @phpstan-type CompanySchema array{
+ * @phpstan-type CompanyResponseSchema array{
  *     id: int,
  *     type: string,
  *     company_name: string,
@@ -21,13 +21,13 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     linkedin_url: ?string,
  *     facebook_url: ?string,
  *     website_url: ?string,
- *     emails: ContactMetaSchema[],
- *     phones: ContactMetaSchema[],
+ *     emails: ContactMetaResponseSchema[],
+ *     phones: ContactMetaResponseSchema[],
  *     primary_email?: ?string,
  *     primary_phone?: ?string,
  *     note: ?string,
- *     addresses: AddressSchema[],
- *     primary_address: ?AddressSchema,
+ *     addresses: AddressResponseSchema[],
+ *     primary_address: ?AddressResponseSchema,
  *     is_email_subscribed: bool,
  *     is_phone_subscribed: bool,
  *     is_address_subscribed: bool,
@@ -38,19 +38,19 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     first_time_supporter_at: ?string
  * }
  *
- * @implements ResponseContract<CompanySchema>
+ * @implements ResponseContract<CompanyResponseSchema>
  */
-final readonly class Company implements ResponseContract
+final readonly class CompanyResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<CompanySchema>
+     * @use ArrayAccessible<CompanyResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @param  ContactMeta[]  $emails
-     * @param  ContactMeta[]  $phones
-     * @param  Address[]  $addresses
+     * @param  ContactMetaResponse[]  $emails
+     * @param  ContactMetaResponse[]  $phones
+     * @param  AddressResponse[]  $addresses
      */
     public function __construct(
         public int $id,
@@ -67,7 +67,7 @@ final readonly class Company implements ResponseContract
         public ?string $primaryPhone,
         public ?string $note,
         public array $addresses,
-        public ?Address $primaryAddress,
+        public ?AddressResponse $primaryAddress,
         public bool $isEmailSubscribed,
         public bool $isPhoneSubscribed,
         public bool $isAddressSubscribed,
@@ -81,7 +81,7 @@ final readonly class Company implements ResponseContract
     }
 
     /**
-     * @param  CompanySchema  $attributes
+     * @param  CompanyResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -94,13 +94,13 @@ final readonly class Company implements ResponseContract
             $attributes['linkedin_url'],
             $attributes['facebook_url'],
             $attributes['website_url'],
-            array_map(static fn (array $email): ContactMeta => ContactMeta::from($email), $attributes['emails']),
-            array_map(static fn (array $phone): ContactMeta => ContactMeta::from($phone), $attributes['phones']),
+            array_map(static fn (array $email): ContactMetaResponse => ContactMetaResponse::from($email), $attributes['emails']),
+            array_map(static fn (array $phone): ContactMetaResponse => ContactMetaResponse::from($phone), $attributes['phones']),
             $attributes['primary_email'] ?? null,
             $attributes['primary_phone'] ?? null,
             $attributes['note'],
-            array_map(static fn (array $address): Address => Address::from($address), $attributes['addresses']),
-            isset($attributes['primary_address']) ? Address::from($attributes['primary_address']) : null,
+            array_map(static fn (array $address): AddressResponse => AddressResponse::from($address), $attributes['addresses']),
+            isset($attributes['primary_address']) ? AddressResponse::from($attributes['primary_address']) : null,
             $attributes['is_email_subscribed'],
             $attributes['is_phone_subscribed'],
             $attributes['is_address_subscribed'],
@@ -123,12 +123,12 @@ final readonly class Company implements ResponseContract
             'linkedin_url' => $this->linkedinUrl,
             'facebook_url' => $this->facebookUrl,
             'website_url' => $this->websiteUrl,
-            'emails' => array_map(static fn (ContactMeta $email): array => $email->toArray(), $this->emails),
-            'phones' => array_map(static fn (ContactMeta $phone): array => $phone->toArray(), $this->phones),
+            'emails' => array_map(static fn (ContactMetaResponse $email): array => $email->toArray(), $this->emails),
+            'phones' => array_map(static fn (ContactMetaResponse $phone): array => $phone->toArray(), $this->phones),
             'primary_email' => $this->primaryEmail,
             'primary_phone' => $this->primaryPhone,
             'note' => $this->note,
-            'addresses' => array_map(static fn (Address $address): array => $address->toArray(), $this->addresses),
+            'addresses' => array_map(static fn (AddressResponse $address): array => $address->toArray(), $this->addresses),
             'primary_address' => $this->primaryAddress?->toArray(),
             'is_email_subscribed' => $this->isEmailSubscribed,
             'is_phone_subscribed' => $this->isPhoneSubscribed,

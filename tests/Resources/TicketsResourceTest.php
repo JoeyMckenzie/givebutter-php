@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Givebutter\Resources\TicketsResource;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Tickets\GetTicketsResponse;
 use Givebutter\Testing\Fixtures\Tickets\GetTicketFixture;
 use Givebutter\Testing\Fixtures\Tickets\GetTicketsFixture;
@@ -41,7 +41,7 @@ describe(TicketsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetTicketsResponse::class)
             ->data->each->toBeTicket()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

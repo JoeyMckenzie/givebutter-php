@@ -8,7 +8,7 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type LineItemSchema array{
+ * @phpstan-type LineItemResponseSchema array{
  *     type: string,
  *     subtype: string,
  *     description: string,
@@ -18,12 +18,12 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     total: int,
  * }
  *
- * @implements ResponseContract<LineItemSchema>
+ * @implements ResponseContract<LineItemResponseSchema>
  */
-final readonly class LineItem implements ResponseContract
+final readonly class LineItemResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<LineItemSchema>
+     * @use ArrayAccessible<LineItemResponseSchema>
      */
     use ArrayAccessible;
 
@@ -40,7 +40,7 @@ final readonly class LineItem implements ResponseContract
     }
 
     /**
-     * @param  LineItemSchema  $attributes
+     * @param  LineItemResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

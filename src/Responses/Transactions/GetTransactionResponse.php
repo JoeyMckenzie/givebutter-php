@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Transactions;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Address;
-use Givebutter\Responses\Models\CustomField;
-use Givebutter\Responses\Models\Dedication;
-use Givebutter\Responses\Models\GivingSpace;
-use Givebutter\Responses\Models\Transaction;
+use Givebutter\Responses\Models\AddressResponse;
+use Givebutter\Responses\Models\CustomFieldResponse;
+use Givebutter\Responses\Models\DedicationResponse;
+use Givebutter\Responses\Models\GivingSpaceResponse;
+use Givebutter\Responses\Models\TransactionResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type AddressSchema from Address
- * @phpstan-import-type CustomFieldSchema from CustomField
- * @phpstan-import-type DedicationSchema from Dedication
- * @phpstan-import-type GivingSpaceSchema from GivingSpace
- * @phpstan-import-type TransactionSchema from Transaction
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
+ * @phpstan-import-type CustomFieldResponseSchema from CustomFieldResponse
+ * @phpstan-import-type DedicationResponseSchema from DedicationResponse
+ * @phpstan-import-type GivingSpaceResponseSchema from GivingSpaceResponse
+ * @phpstan-import-type TransactionResponseSchema from TransactionResponse
  *
  * @phpstan-type GetTransactionResponseSchema array{
  *     id: string,
@@ -39,7 +39,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     company: ?string,
  *     email: ?string,
  *     phone: ?string,
- *     address: ?AddressSchema,
+ *     address: ?AddressResponseSchema,
  *     status: string,
  *     payment_method: string,
  *     method: string,
@@ -52,10 +52,10 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     transacted_at: string,
  *     created_at: string,
  *     timezone: string,
- *     giving_space: ?GivingSpaceSchema,
- *     dedication: ?DedicationSchema,
- *     transactions: TransactionSchema[],
- *     custom_fields: CustomFieldSchema[],
+ *     giving_space: ?GivingSpaceResponseSchema,
+ *     dedication: ?DedicationResponseSchema,
+ *     transactions: TransactionResponseSchema[],
+ *     custom_fields: CustomFieldResponseSchema[],
  *     utm_parameters: mixed,
  *     external_id: ?string,
  *     communication_opt_in: bool,
@@ -80,8 +80,8 @@ final readonly class GetTransactionResponse implements ResponseContract
     use Fakeable;
 
     /**
-     * @param  Transaction[]  $transactions
-     * @param  CustomField[]  $customFields
+     * @param  TransactionResponse[]  $transactions
+     * @param  CustomFieldResponse[]  $customFields
      * @param  array<int, array<string, mixed>>  $attributionData
      */
     public function __construct(
@@ -102,7 +102,7 @@ final readonly class GetTransactionResponse implements ResponseContract
         public ?string $company,
         public ?string $email,
         public ?string $phone,
-        public ?Address $address,
+        public ?AddressResponse $address,
         public string $status,
         public string $paymentMethod,
         public string $method,
@@ -115,8 +115,8 @@ final readonly class GetTransactionResponse implements ResponseContract
         public CarbonImmutable $transactedAt,
         public CarbonImmutable $createdAt,
         public string $timezone,
-        public ?GivingSpace $givingSpace,
-        public ?Dedication $dedication,
+        public ?GivingSpaceResponse $givingSpace,
+        public ?DedicationResponse $dedication,
         public array $transactions,
         public array $customFields,
         public mixed $utmParameters, // TODO: No documentation for this type, so leave as mixed for now
@@ -153,7 +153,7 @@ final readonly class GetTransactionResponse implements ResponseContract
             $attributes['company'],
             $attributes['email'],
             $attributes['phone'],
-            isset($attributes['address']) ? Address::from($attributes['address']) : null,
+            isset($attributes['address']) ? AddressResponse::from($attributes['address']) : null,
             $attributes['status'],
             $attributes['payment_method'],
             $attributes['method'],
@@ -166,10 +166,10 @@ final readonly class GetTransactionResponse implements ResponseContract
             CarbonImmutable::parse($attributes['transacted_at']),
             CarbonImmutable::parse($attributes['created_at']),
             $attributes['timezone'],
-            isset($attributes['giving_space']) ? GivingSpace::from($attributes['giving_space']) : null,
-            isset($attributes['dedication']) ? Dedication::from($attributes['dedication']) : null,
-            array_map(fn (array $transaction): Transaction => Transaction::from($transaction), $attributes['transactions']),
-            array_map(static fn (array $field): CustomField => CustomField::from($field), $attributes['custom_fields']),
+            isset($attributes['giving_space']) ? GivingSpaceResponse::from($attributes['giving_space']) : null,
+            isset($attributes['dedication']) ? DedicationResponse::from($attributes['dedication']) : null,
+            array_map(fn (array $transaction): TransactionResponse => TransactionResponse::from($transaction), $attributes['transactions']),
+            array_map(static fn (array $field): CustomFieldResponse => CustomFieldResponse::from($field), $attributes['custom_fields']),
             $attributes['utm_parameters'],
             $attributes['external_id'],
             $attributes['communication_opt_in'],
@@ -215,8 +215,8 @@ final readonly class GetTransactionResponse implements ResponseContract
             'timezone' => $this->timezone,
             'giving_space' => $this->givingSpace?->toArray(),
             'dedication' => $this->dedication?->toArray(),
-            'transactions' => array_map(static fn (Transaction $transaction): array => $transaction->toArray(), $this->transactions), // @pest-mutate-ignore
-            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
+            'transactions' => array_map(static fn (TransactionResponse $transaction): array => $transaction->toArray(), $this->transactions), // @pest-mutate-ignore
+            'custom_fields' => array_map(static fn (CustomFieldResponse $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
             'utm_parameters' => $this->utmParameters,
             'external_id' => $this->externalId,
             'communication_opt_in' => $this->communicationOptIn,

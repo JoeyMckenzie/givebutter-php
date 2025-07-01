@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Models;
 
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\MetaResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type MetaSchema from Meta
+ * @phpstan-import-type MetaResponseSchema from MetaResponse
  */
 final class MetaFixture extends AbstractDataFixture
 {
     public static function data(): array
     {
-        /** @var MetaSchema $data */
+        /** @var MetaResponseSchema $data */
         $data = [
             'current_page' => 1,
             'from' => 1,

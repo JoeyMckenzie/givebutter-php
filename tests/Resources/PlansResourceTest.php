@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use Givebutter\Resources\PlansResource;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Plans\GetPlansResponse;
 use Givebutter\Testing\Fixtures\Plans\GetPlanFixture;
 use Givebutter\Testing\Fixtures\Plans\GetPlansFixture;
@@ -41,7 +41,7 @@ describe(PlansResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetPlansResponse::class)
             ->data->each->toBePlan()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

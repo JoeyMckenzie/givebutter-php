@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Payouts\GetPayoutsResponse;
 use Givebutter\Testing\Fixtures\Payouts\GetPayoutsFixture;
 
@@ -21,8 +21,8 @@ describe(GetPayoutsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetPayoutsResponse::class)
             ->data->toBeArray()->each->toBePayout()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -43,7 +43,7 @@ describe(GetPayoutsResponse::class, function (): void {
         // Assert
         expect($fake)->toBeInstanceOf(GetPayoutsResponse::class)
             ->data->toBeArray()->each->toBePayout()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

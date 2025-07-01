@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Concerns;
 
-use Givebutter\Responses\Models\Error;
+use Givebutter\Responses\Models\ErrorResponse;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type ErrorSchema from Error
+ * @phpstan-import-type ErrorResponseSchema from ErrorResponse
  */
 trait HasErrorData
 {
     /**
-     * @return ErrorSchema
+     * @return ErrorResponseSchema
      */
     public static function errors(): array
     {
-        /** @var ErrorSchema $data */
+        /** @var ErrorResponseSchema $data */
         $data = [
             'message' => fake()->text(),
             'errors' => [

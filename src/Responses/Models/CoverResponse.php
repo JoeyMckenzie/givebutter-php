@@ -8,18 +8,18 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type CoverSchema array{
+ * @phpstan-type CoverResponseSchema array{
  *     type: string,
  *     url: string,
  *     source: string,
  * }
  *
- * @implements ResponseContract<CoverSchema>
+ * @implements ResponseContract<CoverResponseSchema>
  */
-final readonly class Cover implements ResponseContract
+final readonly class CoverResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<CoverSchema>
+     * @use ArrayAccessible<CoverResponseSchema>
      */
     use ArrayAccessible;
 
@@ -32,7 +32,7 @@ final readonly class Cover implements ResponseContract
     }
 
     /**
-     * @param  CoverSchema  $attributes
+     * @param  CoverResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

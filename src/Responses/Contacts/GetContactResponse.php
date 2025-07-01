@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Contacts;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Address;
-use Givebutter\Responses\Models\Company;
-use Givebutter\Responses\Models\ContactMeta;
-use Givebutter\Responses\Models\CustomField;
-use Givebutter\Responses\Models\Stats;
+use Givebutter\Responses\Models\AddressResponse;
+use Givebutter\Responses\Models\CompanyResponse;
+use Givebutter\Responses\Models\ContactMetaResponse;
+use Givebutter\Responses\Models\CustomFieldResponse;
+use Givebutter\Responses\Models\StatsResponse;
 use PharIo\Manifest\Email;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type AddressSchema from Address
- * @phpstan-import-type CompanySchema from Company
- * @phpstan-import-type ContactMetaSchema from ContactMeta
- * @phpstan-import-type CustomFieldSchema from CustomField
- * @phpstan-import-type StatsSchema from Stats
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
+ * @phpstan-import-type CompanyResponseSchema from CompanyResponse
+ * @phpstan-import-type ContactMetaResponseSchema from ContactMetaResponse
+ * @phpstan-import-type CustomFieldResponseSchema from CustomFieldResponse
+ * @phpstan-import-type StatsResponseSchema from StatsResponse
  *
  * @phpstan-type GetContactResponseSchema array{
  *     id: int,
@@ -36,22 +36,22 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     company_name: ?string,
  *     employer: ?string,
  *     point_of_contact: ?string,
- *     associated_companies?: CompanySchema[],
+ *     associated_companies?: CompanyResponseSchema[],
  *     title: ?string,
  *     twitter_url: ?string,
  *     linkedin_url: ?string,
  *     facebook_url: ?string,
  *     website_url: ?string,
- *     emails: ContactMetaSchema[],
- *     phones: ContactMetaSchema[],
+ *     emails: ContactMetaResponseSchema[],
+ *     phones: ContactMetaResponseSchema[],
  *     primary_email?: ?string,
  *     primary_phone?: ?string,
  *     note: ?string,
- *     addresses: AddressSchema[],
- *     primary_address: ?AddressSchema,
- *     stats: StatsSchema,
+ *     addresses: AddressResponseSchema[],
+ *     primary_address: ?AddressResponseSchema,
+ *     stats: StatsResponseSchema,
  *     tags: string[],
- *     custom_fields: CustomFieldSchema[],
+ *     custom_fields: CustomFieldResponseSchema[],
  *     external_ids: int[],
  *     is_email_subscribed: bool,
  *     is_phone_subscribed: bool,
@@ -79,12 +79,12 @@ final readonly class GetContactResponse implements ResponseContract
     use Fakeable;
 
     /**
-     * @param  Company[]  $associatedCompanies
-     * @param  ContactMeta[]  $emails
-     * @param  ContactMeta[]  $phones
-     * @param  Address[]  $addresses
+     * @param  CompanyResponse[]  $associatedCompanies
+     * @param  ContactMetaResponse[]  $emails
+     * @param  ContactMetaResponse[]  $phones
+     * @param  AddressResponse[]  $addresses
      * @param  string[]  $tags
-     * @param  CustomField[]  $customFields
+     * @param  CustomFieldResponse[]  $customFields
      * @param  int[]  $externalIds
      */
     public function __construct(
@@ -113,8 +113,8 @@ final readonly class GetContactResponse implements ResponseContract
         public ?string $primaryPhone,
         public ?string $note,
         public array $addresses,
-        public ?Address $primaryAddress,
-        public Stats $stats,
+        public ?AddressResponse $primaryAddress,
+        public StatsResponse $stats,
         public array $tags,
         public array $customFields,
         public array $externalIds,
@@ -151,23 +151,23 @@ final readonly class GetContactResponse implements ResponseContract
             $attributes['employer'],
             $attributes['point_of_contact'],
             isset($attributes['associated_companies'])
-                ? array_map(static fn (array $company): Company => Company::from($company), $attributes['associated_companies'])
+                ? array_map(static fn (array $company): CompanyResponse => CompanyResponse::from($company), $attributes['associated_companies'])
                 : [],
             $attributes['title'],
             $attributes['twitter_url'],
             $attributes['linkedin_url'],
             $attributes['facebook_url'],
             $attributes['website_url'],
-            array_map(static fn (array $email): ContactMeta => ContactMeta::from($email), $attributes['emails']),
-            array_map(static fn (array $phone): ContactMeta => ContactMeta::from($phone), $attributes['phones']),
+            array_map(static fn (array $email): ContactMetaResponse => ContactMetaResponse::from($email), $attributes['emails']),
+            array_map(static fn (array $phone): ContactMetaResponse => ContactMetaResponse::from($phone), $attributes['phones']),
             $attributes['primary_email'] ?? null,
             $attributes['primary_phone'] ?? null,
             $attributes['note'],
-            array_map(static fn (array $address): Address => Address::from($address), $attributes['addresses']),
-            isset($attributes['primary_address']) ? Address::from($attributes['primary_address']) : null,
-            Stats::from($attributes['stats']),
+            array_map(static fn (array $address): AddressResponse => AddressResponse::from($address), $attributes['addresses']),
+            isset($attributes['primary_address']) ? AddressResponse::from($attributes['primary_address']) : null,
+            StatsResponse::from($attributes['stats']),
             $attributes['tags'],
-            array_map(static fn (array $field): CustomField => CustomField::from($field), $attributes['custom_fields']),
+            array_map(static fn (array $field): CustomFieldResponse => CustomFieldResponse::from($field), $attributes['custom_fields']),
             $attributes['external_ids'],
             $attributes['is_email_subscribed'],
             $attributes['is_phone_subscribed'],
@@ -197,22 +197,22 @@ final readonly class GetContactResponse implements ResponseContract
             'company_name' => $this->companyName,
             'employer' => $this->employer,
             'point_of_contact' => $this->pointOfContact,
-            'associated_companies' => array_map(static fn (Company $company): array => $company->toArray(), $this->associatedCompanies), // @pest-mutate-ignore
+            'associated_companies' => array_map(static fn (CompanyResponse $company): array => $company->toArray(), $this->associatedCompanies), // @pest-mutate-ignore
             'title' => $this->title,
             'twitter_url' => $this->twitterUrl,
             'linkedin_url' => $this->linkedInUrl,
             'facebook_url' => $this->facebookUrl,
             'website_url' => $this->websiteUrl,
-            'emails' => array_map(static fn (ContactMeta $email): array => $email->toArray(), $this->emails), // @pest-mutate-ignore
-            'phones' => array_map(static fn (ContactMeta $address): array => $address->toArray(), $this->phones), // @pest-mutate-ignore
+            'emails' => array_map(static fn (ContactMetaResponse $email): array => $email->toArray(), $this->emails), // @pest-mutate-ignore
+            'phones' => array_map(static fn (ContactMetaResponse $address): array => $address->toArray(), $this->phones), // @pest-mutate-ignore
             'primary_email' => $this->primaryEmail,
             'primary_phone' => $this->primaryPhone,
             'note' => $this->note,
-            'addresses' => array_map(static fn (Address $address): array => $address->toArray(), $this->addresses), // @pest-mutate-ignore
+            'addresses' => array_map(static fn (AddressResponse $address): array => $address->toArray(), $this->addresses), // @pest-mutate-ignore
             'primary_address' => $this->primaryAddress?->toArray(),
             'stats' => $this->stats->toArray(),
             'tags' => $this->tags,
-            'custom_fields' => array_map(static fn (CustomField $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
+            'custom_fields' => array_map(static fn (CustomFieldResponse $field): array => $field->toArray(), $this->customFields), // @pest-mutate-ignore
             'external_ids' => $this->externalIds,
             'is_email_subscribed' => $this->isEmailSubscribed,
             'is_phone_subscribed' => $this->isPhoneSubscribed,

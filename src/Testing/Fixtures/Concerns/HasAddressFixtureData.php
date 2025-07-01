@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Concerns;
 
-use Givebutter\Responses\Models\Address;
+use Givebutter\Responses\Models\AddressResponse;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type AddressSchema from Address
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
  */
 trait HasAddressFixtureData
 {
     /**
-     * @return AddressSchema
+     * @return AddressResponseSchema
      */
     public static function address(): array
     {
-        /** @var AddressSchema $data */
+        /** @var AddressResponseSchema $data */
         $data = [
             'address_1' => fake()->streetAddress(),
             'address_2' => fake()->boolean() ? fake()->streetAddress() : null,

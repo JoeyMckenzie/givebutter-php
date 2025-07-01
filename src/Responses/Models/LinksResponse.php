@@ -8,19 +8,19 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type LinksSchema array{
+ * @phpstan-type LinksResponseSchema array{
  *     first: string,
  *     last: string,
  *     prev: ?string,
  *     next: ?string,
  * }
  *
- * @implements ResponseContract<LinksSchema>
+ * @implements ResponseContract<LinksResponseSchema>
  */
-final readonly class Links implements ResponseContract
+final readonly class LinksResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<LinksSchema>
+     * @use ArrayAccessible<LinksResponseSchema>
      */
     use ArrayAccessible;
 
@@ -34,7 +34,7 @@ final readonly class Links implements ResponseContract
     }
 
     /**
-     * @param  LinksSchema  $attributes
+     * @param  LinksResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

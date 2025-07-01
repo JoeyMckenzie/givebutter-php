@@ -6,13 +6,13 @@ namespace Givebutter\Responses\Funds;
 
 use Carbon\CarbonImmutable;
 use Givebutter\Responses\Concerns\Fallible;
-use Givebutter\Responses\Models\Error;
+use Givebutter\Responses\Models\ErrorResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type ErrorSchema from Error
+ * @phpstan-import-type ErrorResponseSchema from ErrorResponse
  *
  * @phpstan-type GetFundResponseSchema array{
  *     id?: ?string,
@@ -22,7 +22,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     supporters?: ?int,
  *     created_at?: ?string,
  *     updated_at?: ?string,
- * }|ErrorSchema
+ * }|ErrorResponseSchema
  *
  * @implements ResponseContract<GetFundResponseSchema>
  */

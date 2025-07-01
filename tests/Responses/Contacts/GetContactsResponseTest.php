@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Responses;
 
 use Givebutter\Responses\Contacts\GetContactsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Contacts\GetContactsFixture;
 
 covers(GetContactsResponse::class);
@@ -21,8 +21,8 @@ describe(GetContactsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetContactsResponse::class)
             ->data->toBeArray()->each->toBeContact()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -44,7 +44,7 @@ describe(GetContactsResponse::class, function (): void {
 
         expect($fake)->toBeInstanceOf(GetContactsResponse::class)
             ->data->toBeArray()->each->toBeContact()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

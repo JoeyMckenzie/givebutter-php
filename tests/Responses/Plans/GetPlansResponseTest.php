@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Plans\GetPlansResponse;
 use Givebutter\Testing\Fixtures\Plans\GetPlansFixture;
 
@@ -21,8 +21,8 @@ describe(GetPlansResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetPlansResponse::class)
             ->data->toBeArray()->each->toBePlan()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -43,7 +43,7 @@ describe(GetPlansResponse::class, function (): void {
         // Assert
         expect($fake)->toBeInstanceOf(GetPlansResponse::class)
             ->data->toBeArray()->each->toBePlan()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

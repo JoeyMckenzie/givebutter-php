@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Responses;
 
 use Givebutter\Responses\Funds\GetFundsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Funds\GetFundsFixture;
 
 covers(GetFundsResponse::class);
@@ -21,8 +21,8 @@ describe(GetFundsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetFundsResponse::class)
             ->data->toBeArray()->each->toBeFund()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -43,7 +43,7 @@ describe(GetFundsResponse::class, function (): void {
         // Assert
         expect($fake)->toBeInstanceOf(GetFundsResponse::class)
             ->data->toBeArray()->each->toBeFund()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

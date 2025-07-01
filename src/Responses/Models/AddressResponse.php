@@ -9,7 +9,7 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type AddressSchema array{
+ * @phpstan-type AddressResponseSchema array{
  *     id?: ?int,
  *     account_id?: ?int,
  *     name?: ?string,
@@ -25,12 +25,12 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     updated_at?: ?string,
  * }
  *
- * @implements ResponseContract<AddressSchema>
+ * @implements ResponseContract<AddressResponseSchema>
  */
-final readonly class Address implements ResponseContract
+final readonly class AddressResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<AddressSchema>
+     * @use ArrayAccessible<AddressResponseSchema>
      */
     use ArrayAccessible;
 
@@ -53,7 +53,7 @@ final readonly class Address implements ResponseContract
     }
 
     /**
-     * @param  AddressSchema  $attributes
+     * @param  AddressResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

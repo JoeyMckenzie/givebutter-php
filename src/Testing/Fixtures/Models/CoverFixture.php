@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Models;
 
-use Givebutter\Responses\Models\Cover;
+use Givebutter\Responses\Models\CoverResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type CoverSchema from Cover
+ * @phpstan-import-type CoverResponseSchema from CoverResponse
  */
 final class CoverFixture extends AbstractDataFixture
 {
     public static function data(): array
     {
-        /** @var CoverSchema $data */
+        /** @var CoverResponseSchema $data */
         $data = [
             'type' => fake()->text(),
             'url' => fake()->url(),

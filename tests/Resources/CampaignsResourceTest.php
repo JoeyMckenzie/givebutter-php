@@ -9,8 +9,8 @@ use Givebutter\Resources\CampaignTeamsResource;
 use Givebutter\Responses\Campaigns\GetCampaignMembersResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignFixture;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignMemberFixture;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignMembersFixture;
@@ -54,8 +54,8 @@ describe(CampaignsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetCampaignsResponse::class)
             ->data->each->toBeCampaign()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can retrieve all campaigns with a scope', function (): void {
@@ -74,8 +74,8 @@ describe(CampaignsResource::class, function (): void {
         // Assert
         expect($result)->toBeInstanceOf(GetCampaignsResponse::class)
             ->data->each->toBeCampaign()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('can create campaigns', function (): void {
@@ -178,8 +178,8 @@ describe(CampaignsResource::class, function (): void {
             // Assert
             expect($result)->toBeInstanceOf(GetCampaignMembersResponse::class)
                 ->data->each->toBeCampaignMember()
-                ->meta->toBeInstanceOf(Meta::class)
-                ->links->toBeInstanceOf(Links::class);
+                ->meta->toBeInstanceOf(MetaResponse::class)
+                ->links->toBeInstanceOf(LinksResponse::class);
         });
 
         it('can delete a campaign member', function (): void {
@@ -236,8 +236,8 @@ describe(CampaignsResource::class, function (): void {
             // Assert
             expect($result)->toBeInstanceOf(GetCampaignTeamsResponse::class)
                 ->data->each->toBeCampaignTeam()
-                ->meta->toBeInstanceOf(Meta::class)
-                ->links->toBeInstanceOf(Links::class);
+                ->meta->toBeInstanceOf(MetaResponse::class)
+                ->links->toBeInstanceOf(LinksResponse::class);
         });
     });
 });

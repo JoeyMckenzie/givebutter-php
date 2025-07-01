@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Campaigns;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Cover;
-use Givebutter\Responses\Models\Event;
+use Givebutter\Responses\Models\CoverResponse;
+use Givebutter\Responses\Models\EventResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type CoverSchema from Cover
- * @phpstan-import-type EventSchema from Event
+ * @phpstan-import-type CoverResponseSchema from CoverResponse
+ * @phpstan-import-type EventResponseSchema from EventResponse
  *
  * @phpstan-type GetCampaignResponseSchema array{
  *     id: int,
@@ -30,13 +30,13 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     raised: int,
  *     donors: int,
  *     currency: string,
- *     cover: ?CoverSchema,
+ *     cover: ?CoverResponseSchema,
  *     status: string,
  *     timezone: string,
  *     end_at: ?string,
  *     created_at: string,
  *     updated_at: string,
- *     event: ?EventSchema
+ *     event: ?EventResponseSchema
  * }
  *
  * @implements ResponseContract<GetCampaignResponseSchema>
@@ -68,13 +68,13 @@ final readonly class GetCampaignResponse implements ResponseContract
         public int $raised,
         public int $donors,
         public string $currency,
-        public ?Cover $cover,
+        public ?CoverResponse $cover,
         public string $status,
         public string $timezone,
         public ?CarbonImmutable $endAt,
         public CarbonImmutable $createdAt,
         public CarbonImmutable $updatedAt,
-        public ?Event $event,
+        public ?EventResponse $event,
     ) {
         //
     }
@@ -99,13 +99,13 @@ final readonly class GetCampaignResponse implements ResponseContract
             $attributes['raised'],
             $attributes['donors'],
             $attributes['currency'],
-            isset($attributes['cover']) ? Cover::from($attributes['cover']) : null,
+            isset($attributes['cover']) ? CoverResponse::from($attributes['cover']) : null,
             $attributes['status'],
             $attributes['timezone'],
             isset($attributes['end_at']) ? CarbonImmutable::parse($attributes['end_at']) : null,
             CarbonImmutable::parse($attributes['created_at']),
             CarbonImmutable::parse($attributes['updated_at']),
-            isset($attributes['event']) ? Event::from($attributes['event']) : null,
+            isset($attributes['event']) ? EventResponse::from($attributes['event']) : null,
         );
     }
 

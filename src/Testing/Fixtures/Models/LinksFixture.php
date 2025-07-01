@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Models;
 
-use Givebutter\Responses\Models\Links;
+use Givebutter\Responses\Models\LinksResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type LinksSchema from Links
+ * @phpstan-import-type LinksResponseSchema from LinksResponse
  */
 final class LinksFixture extends AbstractDataFixture
 {
     public static function data(): array
     {
-        /** @var LinksSchema $data */
+        /** @var LinksResponseSchema $data */
         $data = [
             'first' => fake()->url(),
             'last' => fake()->url(),

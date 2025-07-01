@@ -8,17 +8,17 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type StatsSchema array{
+ * @phpstan-type StatsResponseSchema array{
  *     recurring_contributions: int,
  *     total_contributions: int
  * }
  *
- * @implements ResponseContract<StatsSchema>
+ * @implements ResponseContract<StatsResponseSchema>
  */
-final readonly class Stats implements ResponseContract
+final readonly class StatsResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<StatsSchema>
+     * @use ArrayAccessible<StatsResponseSchema>
      */
     use ArrayAccessible;
 
@@ -30,7 +30,7 @@ final readonly class Stats implements ResponseContract
     }
 
     /**
-     * @param  StatsSchema  $attributes
+     * @param  StatsResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

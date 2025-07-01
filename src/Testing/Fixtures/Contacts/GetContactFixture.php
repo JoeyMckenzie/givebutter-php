@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Contacts;
 
 use Givebutter\Responses\Contacts\GetContactResponse;
-use Givebutter\Responses\Models\Address;
-use Givebutter\Responses\Models\Company;
+use Givebutter\Responses\Models\AddressResponse;
+use Givebutter\Responses\Models\CompanyResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
 use Givebutter\Testing\Fixtures\Models\CustomFieldFixture;
 use Wrapkit\Testing\AbstractDataFixture;
@@ -14,8 +14,8 @@ use Wrapkit\Testing\AbstractDataFixture;
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type AddressSchema from Address
- * @phpstan-import-type CompanySchema from Company
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
+ * @phpstan-import-type CompanyResponseSchema from CompanyResponse
  * @phpstan-import-type GetContactResponseSchema from GetContactResponse
  */
 final class GetContactFixture extends AbstractDataFixture
@@ -80,7 +80,7 @@ final class GetContactFixture extends AbstractDataFixture
     }
 
     /**
-     * @return CompanySchema
+     * @return CompanyResponseSchema
      */
     private static function fakeCompany(): array
     {

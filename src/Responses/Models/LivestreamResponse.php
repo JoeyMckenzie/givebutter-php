@@ -8,7 +8,7 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type LivestreamSchema array{
+ * @phpstan-type LivestreamResponseSchema array{
  *     url: string,
  *     type: string,
  *     location: string,
@@ -17,12 +17,12 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     scheduled: bool
  * }
  *
- * @implements ResponseContract<LivestreamSchema>
+ * @implements ResponseContract<LivestreamResponseSchema>
  */
-final readonly class Livestream implements ResponseContract
+final readonly class LivestreamResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<LivestreamSchema>
+     * @use ArrayAccessible<LivestreamResponseSchema>
      */
     use ArrayAccessible;
 
@@ -38,7 +38,7 @@ final readonly class Livestream implements ResponseContract
     }
 
     /**
-     * @param  LivestreamSchema  $attributes
+     * @param  LivestreamResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

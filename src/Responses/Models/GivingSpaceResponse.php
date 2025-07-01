@@ -8,19 +8,19 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type GivingSpaceSchema array{
+ * @phpstan-type GivingSpaceResponseSchema array{
  *     id: int,
  *     name: string,
  *     amount: int,
  *     message: string,
  * }
  *
- * @implements ResponseContract<GivingSpaceSchema>
+ * @implements ResponseContract<GivingSpaceResponseSchema>
  */
-final readonly class GivingSpace implements ResponseContract
+final readonly class GivingSpaceResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<GivingSpaceSchema>
+     * @use ArrayAccessible<GivingSpaceResponseSchema>
      */
     use ArrayAccessible;
 
@@ -34,7 +34,7 @@ final readonly class GivingSpace implements ResponseContract
     }
 
     /**
-     * @param  GivingSpaceSchema  $attributes
+     * @param  GivingSpaceResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

@@ -9,9 +9,9 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-import-type LineItemSchema from LineItem
+ * @phpstan-import-type LineItemResponseSchema from LineItemResponse
  *
- * @phpstan-type TransactionSchema array{
+ * @phpstan-type TransactionResponseSchema array{
  *     id: string,
  *     plan_id: ?string,
  *     pledge_id: ?string,
@@ -25,22 +25,22 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     timezone: string,
  *     refunded: bool,
  *     refunded_at: ?string,
- *     line_items: LineItemSchema[],
+ *     line_items: LineItemResponseSchema[],
  *     fair_market_value_amount: ?int,
  *     tax_deductible_amount: ?int
  * }
  *
- * @implements ResponseContract<TransactionSchema>
+ * @implements ResponseContract<TransactionResponseSchema>
  */
-final readonly class Transaction implements ResponseContract
+final readonly class TransactionResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<TransactionSchema>
+     * @use ArrayAccessible<TransactionResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @param  LineItem[]  $lineItems
+     * @param  LineItemResponse[]  $lineItems
      */
     public function __construct(
         public string $id,
@@ -64,7 +64,7 @@ final readonly class Transaction implements ResponseContract
     }
 
     /**
-     * @param  TransactionSchema  $attributes
+     * @param  TransactionResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -82,7 +82,7 @@ final readonly class Transaction implements ResponseContract
             $attributes['timezone'],
             $attributes['refunded'],
             isset($attributes['refunded_at']) ? CarbonImmutable::parse($attributes['refunded_at']) : null,
-            array_map(fn (array $item): LineItem => LineItem::from($item), $attributes['line_items']),
+            array_map(fn (array $item): LineItemResponse => LineItemResponse::from($item), $attributes['line_items']),
             $attributes['fair_market_value_amount'],
             $attributes['tax_deductible_amount'],
         );
@@ -104,7 +104,7 @@ final readonly class Transaction implements ResponseContract
             'timezone' => $this->timezone,
             'refunded' => $this->refunded,
             'refunded_at' => $this->refundedAt?->toIso8601String(),
-            'line_items' => array_map(fn (LineItem $item): array => $item->toArray(), $this->lineItems),
+            'line_items' => array_map(fn (LineItemResponse $item): array => $item->toArray(), $this->lineItems),
             'fair_market_value_amount' => $this->fairMarketValueAmount,
             'tax_deductible_amount' => $this->taxDeductibleAmount,
         ];

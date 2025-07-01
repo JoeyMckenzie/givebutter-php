@@ -8,17 +8,17 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type ContactMetaSchema array{
+ * @phpstan-type ContactMetaResponseSchema array{
  *     type: string,
  *     value: string
  * }
  *
- * @implements ResponseContract<ContactMetaSchema>
+ * @implements ResponseContract<ContactMetaResponseSchema>
  */
-final readonly class ContactMeta implements ResponseContract
+final readonly class ContactMetaResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<ContactMetaSchema>
+     * @use ArrayAccessible<ContactMetaResponseSchema>
      */
     use ArrayAccessible;
 
@@ -30,7 +30,7 @@ final readonly class ContactMeta implements ResponseContract
     }
 
     /**
-     * @param  ContactMetaSchema  $attributes
+     * @param  ContactMetaResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Models;
 
-use Givebutter\Responses\Models\CustomField;
+use Givebutter\Responses\Models\CustomFieldResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type CustomFieldSchema from CustomField
+ * @phpstan-import-type CustomFieldResponseSchema from CustomFieldResponse
  */
 final class CustomFieldFixture extends AbstractDataFixture
 {
     public static function data(): array
     {
-        /** @var CustomFieldSchema $data */
+        /** @var CustomFieldResponseSchema $data */
         $data = [
             'id' => fake()->numberBetween(1, 100),
             'field_id' => fake()->numberBetween(1, 100),

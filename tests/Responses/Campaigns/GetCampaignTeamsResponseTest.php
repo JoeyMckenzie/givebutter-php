@@ -6,8 +6,8 @@ namespace Tests\Responses;
 
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamsResponse;
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Testing\Fixtures\Campaigns\GetCampaignTeamsFixture;
 
 covers(GetCampaignTeamsResponse::class);
@@ -22,8 +22,8 @@ describe(GetCampaignTeamsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetCampaignTeamsResponse::class)
             ->data->toBeArray()->each->toBeInstanceOf(GetCampaignTeamResponse::class)
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -45,7 +45,7 @@ describe(GetCampaignTeamsResponse::class, function (): void {
 
         expect($fake)->toBeInstanceOf(GetCampaignTeamsResponse::class)
             ->data->toBeArray()->each->toBeInstanceOf(GetCampaignTeamResponse::class)
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

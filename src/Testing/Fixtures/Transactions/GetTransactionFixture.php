@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Transactions;
 
-use Givebutter\Responses\Models\Address;
-use Givebutter\Responses\Models\Dedication;
-use Givebutter\Responses\Models\GivingSpace;
-use Givebutter\Responses\Models\LineItem;
-use Givebutter\Responses\Models\Transaction;
+use Givebutter\Responses\Models\AddressResponse;
+use Givebutter\Responses\Models\DedicationResponse;
+use Givebutter\Responses\Models\GivingSpaceResponse;
+use Givebutter\Responses\Models\LineItemResponse;
+use Givebutter\Responses\Models\TransactionResponse;
 use Givebutter\Responses\Transactions\GetTransactionResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
 use Givebutter\Testing\Fixtures\Models\CustomFieldFixture;
@@ -17,11 +17,11 @@ use Wrapkit\Testing\AbstractDataFixture;
 use function Pest\Faker\fake;
 
 /**
- * @phpstan-import-type AddressSchema from Address
- * @phpstan-import-type DedicationSchema from Dedication
- * @phpstan-import-type GivingSpaceSchema from GivingSpace
- * @phpstan-import-type LineItemSchema from LineItem
- * @phpstan-import-type TransactionSchema from Transaction
+ * @phpstan-import-type AddressResponseSchema from AddressResponse
+ * @phpstan-import-type DedicationResponseSchema from DedicationResponse
+ * @phpstan-import-type GivingSpaceResponseSchema from GivingSpaceResponse
+ * @phpstan-import-type LineItemResponseSchema from LineItemResponse
+ * @phpstan-import-type TransactionResponseSchema from TransactionResponse
  * @phpstan-import-type GetTransactionResponseSchema from GetTransactionResponse
  */
 final class GetTransactionFixture extends AbstractDataFixture
@@ -83,7 +83,7 @@ final class GetTransactionFixture extends AbstractDataFixture
     }
 
     /**
-     * @return GivingSpaceSchema
+     * @return GivingSpaceResponseSchema
      */
     private static function givingSpace(): array
     {
@@ -96,7 +96,7 @@ final class GetTransactionFixture extends AbstractDataFixture
     }
 
     /**
-     * @return DedicationSchema
+     * @return DedicationResponseSchema
      */
     private static function dedication(): array
     {
@@ -111,11 +111,11 @@ final class GetTransactionFixture extends AbstractDataFixture
     }
 
     /**
-     * @return TransactionSchema
+     * @return TransactionResponseSchema
      */
     private static function transaction(): array
     {
-        /** @var TransactionSchema $data */
+        /** @var TransactionResponseSchema $data */
         $data = [
             'id' => fake()->text(),
             'plan_id' => fake()->boolean() ? fake()->text() : null,

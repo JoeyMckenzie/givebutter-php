@@ -8,9 +8,9 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-import-type MetaLinkSchema from MetaLink
+ * @phpstan-import-type MetaLinkResponseSchema from MetaLinkResponse
  *
- * @phpstan-type MetaSchema array{
+ * @phpstan-type MetaResponseSchema array{
  *     current_page: int,
  *     from: ?int,
  *     last_page: int,
@@ -19,20 +19,20 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
  *     to: ?int,
  *     total: int,
  *     unfiltered_total?: ?int,
- *     links: MetaLinkSchema[]
+ *     links: MetaLinkResponseSchema[]
  * }
  *
- * @implements ResponseContract<MetaSchema>
+ * @implements ResponseContract<MetaResponseSchema>
  */
-final readonly class Meta implements ResponseContract
+final readonly class MetaResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<MetaSchema>
+     * @use ArrayAccessible<MetaResponseSchema>
      */
     use ArrayAccessible;
 
     /**
-     * @param  MetaLink[]  $links
+     * @param  MetaLinkResponse[]  $links
      */
     public function __construct(
         public int $currentPage,
@@ -49,7 +49,7 @@ final readonly class Meta implements ResponseContract
     }
 
     /**
-     * @param  MetaSchema  $attributes
+     * @param  MetaResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -62,7 +62,7 @@ final readonly class Meta implements ResponseContract
             $attributes['to'],
             $attributes['total'],
             $attributes['unfiltered_total'] ?? null,
-            array_map(static fn (array $link): MetaLink => MetaLink::from($link), $attributes['links']),
+            array_map(static fn (array $link): MetaLinkResponse => MetaLinkResponse::from($link), $attributes['links']),
         );
     }
 
@@ -77,7 +77,7 @@ final readonly class Meta implements ResponseContract
             'to' => $this->to,
             'total' => $this->total,
             'unfiltered_total' => $this->unfilteredTotal,
-            'links' => array_map(static fn (MetaLink $link): array => $link->toArray(), $this->links),
+            'links' => array_map(static fn (MetaLinkResponse $link): array => $link->toArray(), $this->links),
         ];
     }
 }

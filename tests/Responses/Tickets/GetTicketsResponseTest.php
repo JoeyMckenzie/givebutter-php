@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Tickets\GetTicketsResponse;
 use Givebutter\Testing\Fixtures\Tickets\GetTicketsFixture;
 
@@ -21,8 +21,8 @@ describe(GetTicketsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetTicketsResponse::class)
             ->data->toBeArray()->each->toBeTicket()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -44,7 +44,7 @@ describe(GetTicketsResponse::class, function (): void {
 
         expect($fake)->toBeInstanceOf(GetTicketsResponse::class)
             ->data->toBeArray()->each->toBeTicket()
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });

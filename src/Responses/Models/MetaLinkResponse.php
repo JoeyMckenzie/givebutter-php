@@ -8,18 +8,18 @@ use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
- * @phpstan-type MetaLinkSchema array{
+ * @phpstan-type MetaLinkResponseSchema array{
  *     url: ?string,
  *     label: string,
  *     active: bool,
  * }
  *
- * @implements ResponseContract<MetaLinkSchema>
+ * @implements ResponseContract<MetaLinkResponseSchema>
  */
-final readonly class MetaLink implements ResponseContract
+final readonly class MetaLinkResponse implements ResponseContract
 {
     /**
-     * @use ArrayAccessible<MetaLinkSchema>
+     * @use ArrayAccessible<MetaLinkResponseSchema>
      */
     use ArrayAccessible;
 
@@ -32,7 +32,7 @@ final readonly class MetaLink implements ResponseContract
     }
 
     /**
-     * @param  MetaLinkSchema  $attributes
+     * @param  MetaLinkResponseSchema  $attributes
      */
     public static function from(array $attributes): self
     {

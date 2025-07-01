@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Models\Links;
-use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Models\LinksResponse;
+use Givebutter\Responses\Models\MetaResponse;
 use Givebutter\Responses\Transactions\GetTransactionResponse;
 use Givebutter\Responses\Transactions\GetTransactionsResponse;
 use Givebutter\Testing\Fixtures\Transactions\GetTransactionsFixture;
@@ -22,8 +22,8 @@ describe(GetTransactionsResponse::class, function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetTransactionsResponse::class)
             ->data->toBeArray()->each->toBeInstanceOf(GetTransactionResponse::class)
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 
     it('is accessible from an array', function (): void {
@@ -45,7 +45,7 @@ describe(GetTransactionsResponse::class, function (): void {
 
         expect($fake)->toBeInstanceOf(GetTransactionsResponse::class)
             ->data->toBeArray()->each->toBeInstanceOf(GetTransactionResponse::class)
-            ->meta->toBeInstanceOf(Meta::class)
-            ->links->toBeInstanceOf(Links::class);
+            ->meta->toBeInstanceOf(MetaResponse::class)
+            ->links->toBeInstanceOf(LinksResponse::class);
     });
 });
