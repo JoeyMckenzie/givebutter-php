@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Plans;
 
 use Givebutter\Responses\Plans\GetPlanResponse;
+use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
@@ -14,6 +15,8 @@ use function Pest\Faker\fake;
  */
 final class GetPlanFixture extends AbstractDataFixture
 {
+    use HasErrorData;
+
     public static function data(): array
     {
         /** @var GetPlanResponseSchema $data */

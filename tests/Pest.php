@@ -346,7 +346,24 @@ expect()->extend('toBePlan', fn () => $this->toBeInstanceOf(GetPlanResponse::cla
     ->feeCovered->toBeInt()
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->startedAt->toBeInstanceOf(CarbonImmutable::class)
-    ->nextStartDate->toBeInstanceOf(CarbonImmutable::class));
+    ->nextStartDate->toBeInstanceOf(CarbonImmutable::class)
+    ->message->toBeNull());
+
+expect()->extend('toBePlanWithErrors', fn () => $this->toBeInstanceOf(GetPlanResponse::class)
+    ->id->toBenull()
+    ->firstName->toBenull()
+    ->lastName->toBenull()
+    ->email->toBenull()
+    ->phone->toBenull()
+    ->frequency->toBenull()
+    ->status->toBenull()
+    ->method->toBenull()
+    ->amount->toBenull()
+    ->feeCovered->toBenull()
+    ->createdAt->toBeNull()
+    ->startedAt->toBeNull()
+    ->nextStartDate->toBeNull()
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBeFund', fn () => $this->toBeInstanceOf(GetFundResponse::class)
     ->id->toBeString()

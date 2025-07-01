@@ -20,9 +20,11 @@ $plans = $client
 var_dump($plans);
 
 if (count($plans->data) > 0) {
+    assert($plans->data[0]->id !== null);
+
     // Get a plan
     $plan = $client
-        ->tickets()
+        ->plans()
         ->get($plans->data[0]->id);
     var_dump($plan);
 }
