@@ -20,6 +20,8 @@ $payouts = $client
 var_dump($payouts);
 
 if (count($payouts->data) > 0) {
+    assert($payouts->data[0]->id !== null);
+
     // Get a payout
     $payout = $client
         ->tickets()

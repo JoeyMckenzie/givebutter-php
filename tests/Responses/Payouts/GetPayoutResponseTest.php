@@ -17,7 +17,20 @@ describe(GetPayoutResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBePayout();
+        expect($this->response)->toBePayout()
+            ->and($this->response->hasErrorMessage())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetPayoutFixture::errors();
+
+        // Act
+        $response = GetPayoutResponse::from($errors);
+
+        // Assert
+        expect($response)->toBePayoutWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -35,10 +48,11 @@ describe(GetPayoutResponse::class, function (): void {
             ->and($data['tip'])->toBeInt()
             ->and($data['payout'])->toBeInt()
             ->and($data['currency'])->toBeString()
-            ->and($data['address'])->toBeNullOrArray()
-            ->and($data['memo'])->toBeNullOrString()
-            ->and($data['completed_at'])->toBeNullOrString()
-            ->and($data['created_at'])->toBeString();
+            ->and($data['address'])->toBeArray()
+            ->and($data['memo'])->toBeString()
+            ->and($data['completed_at'])->toBeString()
+            ->and($data['created_at'])->toBeString()
+            ->and($data['message'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -68,6 +82,7 @@ describe(GetPayoutResponse::class, function (): void {
         $data['address'] = null;
         $data['memo'] = null;
         $data['completed_at'] = null;
+        $data['created_at'] = null;
 
         // Act
         $response = GetPayoutResponse::from($data);
@@ -79,6 +94,8 @@ describe(GetPayoutResponse::class, function (): void {
             ->and($response->memo)->toBeNull()
             ->and($arrayData['memo'])->toBeNull()
             ->and($response->completedAt)->toBeNull()
-            ->and($arrayData['completed_at'])->toBeNull();
+            ->and($arrayData['completed_at'])->toBeNull()
+            ->and($response->createdAt)->toBeNull()
+            ->and($arrayData['created_at'])->toBeNull();
     });
 });

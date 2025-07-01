@@ -7,6 +7,7 @@ namespace Givebutter\Testing\Fixtures\Payouts;
 use Givebutter\Responses\Models\AddressResponse;
 use Givebutter\Responses\Payouts\GetPayoutResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
+use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
@@ -17,7 +18,7 @@ use function Pest\Faker\fake;
  */
 final class GetPayoutFixture extends AbstractDataFixture
 {
-    use HasAddressFixtureData;
+    use HasAddressFixtureData, HasErrorData;
 
     public static function data(): array
     {
@@ -32,9 +33,9 @@ final class GetPayoutFixture extends AbstractDataFixture
             'tip' => fake()->numberBetween(1, 100),
             'payout' => fake()->numberBetween(1, 100),
             'currency' => 'USD',
-            'address' => fake()->boolean() ? self::address() : null,
-            'memo' => fake()->boolean() ? fake()->text() : null,
-            'completed_at' => fake()->boolean() ? fake()->iso8601() : null,
+            'address' => self::address(),
+            'memo' => fake()->text(),
+            'completed_at' => fake()->iso8601(),
             'created_at' => fake()->iso8601(),
         ];
 

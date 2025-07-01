@@ -21,7 +21,7 @@ trait HasAddressFixtureData
         /** @var AddressResponseSchema $data */
         $data = [
             'address_1' => fake()->streetAddress(),
-            'address_2' => fake()->boolean() ? fake()->streetAddress() : null,
+            'address_2' => fake()->streetAddress(),
             'city' => fake()->city,
             'state' => fake()->text(),
             'zipcode' => fake()->text(),

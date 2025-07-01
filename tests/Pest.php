@@ -311,10 +311,27 @@ expect()->extend('toBePayout', fn () => $this->toBeInstanceOf(GetPayoutResponse:
     ->tip->toBeInt()
     ->payout->toBeInt()
     ->currency->toBeString()
-    ->address->toBeNullOrInstanceOf(AddressResponse::class)
-    ->memo->toBeNullOrString()
-    ->completedAt->toBeNullOrInstanceOf(CarbonImmutable::class)
-    ->createdAt->toBeInstanceOf(CarbonImmutable::class));
+    ->address->toBeInstanceOf(AddressResponse::class)
+    ->memo->toBeString()
+    ->completedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->message->toBeNull());
+
+expect()->extend('toBePayoutWithErrors', fn () => $this->toBeInstanceOf(GetPayoutResponse::class)
+    ->id->toBeNull()
+    ->campaignId->toBeNull()
+    ->method->toBeNull()
+    ->status->toBeNull()
+    ->amount->toBeNull()
+    ->fee->toBeNull()
+    ->tip->toBeNull()
+    ->payout->toBeNull()
+    ->currency->toBeNull()
+    ->address->toBeNull()
+    ->memo->toBeNull()
+    ->completedAt->toBeNull()
+    ->createdAt->toBeNull()
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBePlan', fn () => $this->toBeInstanceOf(GetPlanResponse::class)
     ->id->toBeString()
