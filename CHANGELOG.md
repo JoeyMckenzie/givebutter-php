@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.2 - 2025-07-01
+
+### What's new?
+
+- Polishes up the complete client surface
+- All resources and endpoints covered
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.1...0.1.2
+
 ## 0.1.1 - 2025-06-27
 
 ### What's new?
