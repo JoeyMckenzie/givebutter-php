@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Funds;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Concerns\Fallible;
+use Givebutter\Responses\Concerns\HasErrors;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
@@ -37,7 +37,7 @@ final readonly class GetFundResponse implements ResponseContract
      */
     use Fakeable;
 
-    use Fallible;
+    use HasErrors;
 
     /**
      * @param  null|array<string, string[]>  $errors

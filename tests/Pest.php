@@ -74,7 +74,32 @@ expect()->extend('toBeCampaign', fn () => $this->toBeInstanceOf(GetCampaignRespo
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
     ->cover->toBeInstanceOf(CoverResponse::class)
-    ->event->toBeInstanceOf(EventResponse::class));
+    ->event->toBeInstanceOf(EventResponse::class)
+    ->message->toBeNull());
+
+expect()->extend('toBeCampaignWithErrors', fn () => $this->toBeInstanceOf(GetCampaignResponse::class)
+    ->id->toBeNull()
+    ->code->toBeNull()
+    ->accountId->toBeNull()
+    ->eventId->toBeNull()
+    ->type->toBeNull()
+    ->title->toBeNull()
+    ->subtitle->toBeNull()
+    ->description->toBeNull()
+    ->slug->toBeNull()
+    ->url->toBeNull()
+    ->goal->toBeNull()
+    ->raised->toBeNull()
+    ->donors->toBeNull()
+    ->currency->toBeNull()
+    ->status->toBeNull()
+    ->timezone->toBeNull()
+    ->endAt->toBeNull()
+    ->createdAt->toBeNull()
+    ->updatedAt->toBeNull()
+    ->cover->toBeNull()
+    ->event->toBeNull()
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
     ->id->toBeInt()
@@ -89,8 +114,7 @@ expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaig
     ->donors->toBeInt()
     ->items->toBeInt()
     ->url->toBeString()
-    ->message->toBeNull()
-    ->errors->toBeNull());
+    ->message->toBeNull());
 
 expect()->extend('toBeCampaignMemberWithErrors', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
     ->id->toBeNull()
@@ -105,8 +129,7 @@ expect()->extend('toBeCampaignMemberWithErrors', fn () => $this->toBeInstanceOf(
     ->donors->toBeNull()
     ->items->toBeNull()
     ->url->toBeNull()
-    ->message->toBeString()->not->toBeEmpty()
-    ->errors->toBeArray()->not->toBeEmpty());
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignTeamResponse::class)
     ->id->toBeInt()
@@ -117,7 +140,20 @@ expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignT
     ->raised->toBeInt()
     ->goal->toBeInt()
     ->supporters->toBeInt()
-    ->members->toBeInt());
+    ->members->toBeInt()
+    ->message->toBeNull());
+
+expect()->extend('toBeCampaignTeamWithErrors', fn () => $this->toBeInstanceOf(GetCampaignTeamResponse::class)
+    ->id->toBeNull()
+    ->name->toBeNull()
+    ->logo->toBeNull()
+    ->slug->toBeNull()
+    ->url->toBeNull()
+    ->raised->toBeNull()
+    ->goal->toBeNull()
+    ->supporters->toBeNull()
+    ->members->toBeNull()
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBeContact', fn () => $this->toBeInstanceOf(GetContactResponse::class)
     ->id->toBeInt()

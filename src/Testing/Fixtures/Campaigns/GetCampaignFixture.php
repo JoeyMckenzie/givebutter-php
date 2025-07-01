@@ -6,6 +6,7 @@ namespace Givebutter\Testing\Fixtures\Campaigns;
 
 use Carbon\CarbonImmutable;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
+use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Givebutter\Testing\Fixtures\Models\CoverFixture;
 use Givebutter\Testing\Fixtures\Models\EventFixture;
 use Wrapkit\Testing\AbstractDataFixture;
@@ -17,6 +18,8 @@ use function Pest\Faker\fake;
  */
 final class GetCampaignFixture extends AbstractDataFixture
 {
+    use HasErrorData;
+
     public static function data(): array
     {
         /** @var GetCampaignResponseSchema $data */

@@ -38,8 +38,7 @@ describe(GetCampaignMemberResponse::class, function (): void {
             ->and($data['donors'])->toBeInt()
             ->and($data['items'])->toBeInt()
             ->and($data['url'])->toBeString()
-            ->and($data['message'])->toBeNull()
-            ->and($data['errors'])->toBeNull();
+            ->and($data['message'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {

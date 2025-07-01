@@ -24,7 +24,6 @@ $createdCampaign = $client
         'subtitle' => 'subtitle',
         'slug' => md5(uniqid('', true)),
         'title' => 'title',
-        'type' => 'collect',
     ]);
 var_dump($createdCampaign);
 
@@ -40,17 +39,21 @@ $campaigns = $client
     ->list();
 var_dump($campaigns);
 
-// Update a campaign
-$updatedCampaign = $client
-    ->campaigns()
-    ->update($campaign->id, [
-        'description' => 'This is a test campaign.',
-        'goal' => 1500,
-    ]);
-var_dump($updatedCampaign);
+if (! $campaign->hasErrors()) {
+    assert($campaign->id !== null);
 
-// Delete a campaign
-$deleteResponse = $client
-    ->campaigns()
-    ->delete($campaign->id);
-var_dump($deleteResponse);
+    // Update a campaign
+    $updatedCampaign = $client
+        ->campaigns()
+        ->update($campaign->id, [
+            'description' => 'This is a test campaign.',
+            'goal' => 1500,
+        ]);
+    var_dump($updatedCampaign);
+
+    // Delete a campaign
+    $deleteResponse = $client
+        ->campaigns()
+        ->delete($campaign->id);
+    var_dump($deleteResponse);
+}

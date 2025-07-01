@@ -17,7 +17,20 @@ describe(GetCampaignTeamResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeCampaignTeam();
+        expect($this->response)->toBeCampaignTeam()
+            ->and($this->response->hasErrorMessage())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetCampaignTeamFixture::errors();
+
+        // Act
+        $response = GetCampaignTeamResponse::from($errors);
+
+        // Assert
+        expect($response)->toBeCampaignTeamWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -34,7 +47,8 @@ describe(GetCampaignTeamResponse::class, function (): void {
             ->and($data['raised'])->toBeInt()
             ->and($data['goal'])->toBeInt()
             ->and($data['supporters'])->toBeInt()
-            ->and($data['members'])->toBeInt();
+            ->and($data['members'])->toBeInt()
+            ->and($data['message'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Campaigns;
 
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
+use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
@@ -14,6 +15,8 @@ use function Pest\Faker\fake;
  */
 final class GetCampaignTeamFixture extends AbstractDataFixture
 {
+    use HasErrorData;
+
     public static function data(): array
     {
         /** @var GetCampaignTeamResponseSchema $data */

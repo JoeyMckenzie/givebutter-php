@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Givebutter\Responses\Campaigns;
 
-use Givebutter\Responses\Concerns\Fallible;
+use Givebutter\Responses\Concerns\HasErrorMessaging;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
@@ -24,7 +24,6 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     items?: ?int,
  *     url?: ?string,
  *     message?: ?string,
- *     errors?: ?array<string, string[]>
  * }
  *
  * @implements ResponseContract<GetCampaignMemberResponseSchema>
@@ -41,11 +40,8 @@ final readonly class GetCampaignMemberResponse implements ResponseContract
      */
     use Fakeable;
 
-    use Fallible;
+    use HasErrorMessaging;
 
-    /**
-     * @param  null|array<string, string[]>  $errors
-     */
     public function __construct(
         public ?int $id,
         public ?string $firstName,
@@ -60,7 +56,6 @@ final readonly class GetCampaignMemberResponse implements ResponseContract
         public ?int $items,
         public ?string $url,
         public ?string $message,
-        public ?array $errors
     ) {
         //
     }
@@ -84,7 +79,6 @@ final readonly class GetCampaignMemberResponse implements ResponseContract
             $attributes['items'] ?? null,
             $attributes['url'] ?? null,
             $attributes['message'] ?? null,
-            $attributes['errors'] ?? null,
         );
     }
 
@@ -104,7 +98,6 @@ final readonly class GetCampaignMemberResponse implements ResponseContract
             'items' => $this->items,
             'url' => $this->url,
             'message' => $this->message,
-            'errors' => $this->errors,
         ];
     }
 }

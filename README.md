@@ -16,6 +16,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
 ## Table of Contents
 
 - [Getting started](#getting-started)
+- [Notes](#notes)
 - [Usage](#usage)
     - [Campaigns](#campaigns)
     - [Campaign Members](#campaign-members)
@@ -81,6 +82,44 @@ $deleteResponse = $client
 ```
 
 For a comprehensive set of examples, take a look at the [examples](/examples) directory.
+
+## Notes
+
+There's some current discrepancies between the API documentation and what the API actually returns, which several
+resources drifting from their schema definition. I do the best I can without internal knowledge of the API to adhere
+to the response schema, though it may be possible there will be breaking changes.
+
+Due to the API response structure and the lack of resource enveloping, the response fields themselves may be `null`
+at any point. One should always check for errors before attempting to use any properties on the responses:
+
+```php
+$createdCampaign = $client
+    ->campaigns()
+    ->create([
+        'description' => 'This is a test campaign.',
+        'end_at' => CarbonImmutable::now()->toIso8601String(),
+        'goal' => 1000,
+        'subtitle' => 'subtitle',
+        'slug' => md5(uniqid('', true)),
+        'title' => 'title',
+        'type' => 'collect',
+    ]);
+
+if ($createdCampaign->hasErrors()) {
+    // Do some error handling...
+} else {
+    // Safely dereference response properties
+    assert($campaign->id !== null);
+
+    // Update a campaign
+    $updatedCampaign = $client
+        ->campaigns()
+        ->update($createdCampaign->id, [
+            'description' => 'This is another test campaign.',
+            'goal' => 1500,
+        ]);
+}
+```
 
 ## Usage
 

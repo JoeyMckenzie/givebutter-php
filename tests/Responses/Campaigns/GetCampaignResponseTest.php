@@ -17,7 +17,20 @@ describe(GetCampaignResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeCampaign();
+        expect($this->response)->toBeCampaign()
+            ->and($this->response->hasErrorMessage())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetCampaignFixture::errors();
+
+        // Act
+        $response = GetCampaignResponse::from($errors);
+
+        // Assert
+        expect($response)->toBeCampaignWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -46,7 +59,8 @@ describe(GetCampaignResponse::class, function (): void {
             ->and($data['end_at'])->toBeString()
             ->and($data['created_at'])->toBeString()
             ->and($data['updated_at'])->toBeString()
-            ->and($data['event'])->toBeArray();
+            ->and($data['event'])->toBeArray()
+            ->and($data['message'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -54,7 +68,6 @@ describe(GetCampaignResponse::class, function (): void {
         $fake = GetCampaignResponse::fake(GetCampaignFixture::class);
 
         // Assert
-
         expect($fake)->toBeCampaign();
     });
 
@@ -82,7 +95,7 @@ describe(GetCampaignResponse::class, function (): void {
             ->description->toBe('campaign description');
     });
 
-    it('handles nullable nested objects', function (): void {
+    it('handles nullable objects on fakes', function (): void {
         // Arrange & Act
         $fake = GetCampaignResponse::fake(GetCampaignFixture::class, [
             'event' => null,
@@ -100,5 +113,23 @@ describe(GetCampaignResponse::class, function (): void {
         expect($data['event'])->toBeNull()
             ->and($data['cover'])->toBeNull()
             ->and($data['end_at'])->toBeNull();
+    });
+
+    it('handles null dates', function (): void {
+        // Arrange
+        $data = GetCampaignFixture::data();
+        $data['created_at'] = null;
+        $data['updated_at'] = null;
+
+        // Act
+        $response = GetCampaignResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response)->toBeInstanceOf(GetCampaignResponse::class)
+            ->createdAt->toBeNull()
+            ->and($arrayData['created_at'])->toBeNull()
+            ->updatedAt->toBeNull()
+            ->and($arrayData['updated_at'])->toBeNull();
     });
 });

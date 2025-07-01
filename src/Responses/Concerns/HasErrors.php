@@ -6,9 +6,8 @@ namespace Givebutter\Responses\Concerns;
 
 /**
  * @property-read ?array<string, string[]> $errors
- * @property-read ?string $message
  */
-trait Fallible
+trait HasErrors
 {
     public function hasErrors(): bool
     {
