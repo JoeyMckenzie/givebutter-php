@@ -505,9 +505,42 @@ $response = $client
     ->payout()
     ->get('ab123');
 
-echo $response->data(); // GetTransactionResponse::class
+echo $response->data(); // GetPayoutResponse::class
 echo $response->amount; // 100.00
 echo $response->fee; // 3.00
 echo $response->tip; // 1.00
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+### Plans
+
+#### Get all plans
+
+Gets a list of plans.
+
+```php
+$response = $client
+    ->plans()
+    ->list();
+
+echo $response->data(); // array<int, GetPlanResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a plan
+
+Gets a single plan.
+
+```php
+$response = $client
+    ->plans()
+    ->get('ab123');
+
+echo $response->data(); // GetPlanResponse::class
+echo $response->amount; // 100.00
+echo $response->firstName; // 'Michael'
+echo $response->lastName; // 'Scarn'
 echo $response->toArray(); // ['id' => 'abc123', ...]
 ```

@@ -16,7 +16,7 @@ final class Givebutter
     public static function client(string $apiKey): Client
     {
         return self::builder()
-            ->withHeader('User-Agent', 'givebutter-php-client/0.1.0')
+            ->withHeader('User-Agent', 'givebutter-php-client/0.1.1')
             ->withApiKey($apiKey)
             ->build();
     }
