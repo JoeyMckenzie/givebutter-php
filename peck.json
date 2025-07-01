@@ -10,7 +10,8 @@
             "linkedin",
             "zipcode",
             "utm",
-            "subtype"
+            "subtype",
+            "lefthook"
         ],
         "paths": [
             "tests"

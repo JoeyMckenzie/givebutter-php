@@ -25,3 +25,18 @@ if (count($funds->data) > 0 && $funds->data[0]->id !== null) {
         ->get($funds->data[0]->id);
     var_dump($fund);
 }
+
+// Create a fund
+$createdFund = $client
+    ->funds()
+    ->create("Scott's Tots");
+var_dump($createdFund);
+
+// Update a fund
+$updatedFund = $client
+    ->funds()
+    ->update($createdFund->id ?? '', "Scott's Tots 2 Fast 2 Furious");
+var_dump($updatedFund);
+
+// Delete a fund
+$client->funds()->delete($createdFund->id ?? '');

@@ -7,6 +7,7 @@ namespace Givebutter\Resources;
 use Givebutter\Contracts\Resources\FundsResourceContract;
 use Givebutter\Responses\Funds\GetFundResponse;
 use Givebutter\Responses\Funds\GetFundsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Contracts\ConnectorContract;
 use Wrapkit\Support\ClientRequestBuilder;
 use Wrapkit\ValueObjects\Response;
@@ -53,5 +54,46 @@ final class FundsResource implements FundsResourceContract
         $data = $response->data();
 
         return GetFundResponse::from($data);
+    }
+
+    public function create(string $name, ?string $code = null): GetFundResponse
+    {
+        $request = ClientRequestBuilder::post($this->resource)
+            ->withRequestContent([
+                'name' => $name,
+                'code' => $code,
+            ]);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetFundResponseSchema $data */
+        $data = $response->data();
+
+        return GetFundResponse::from($data);
+    }
+
+    public function update(string $id, string $name, ?string $code = null): GetFundResponse
+    {
+        $request = ClientRequestBuilder::patch("$this->resource/$id")
+            ->withRequestContent([
+                'name' => $name,
+                'code' => $code,
+            ]);
+
+        /** @var Response<array<array-key, mixed>> $response */
+        $response = $this->connector->sendClientRequest($request);
+
+        /** @var GetFundResponseSchema $data */
+        $data = $response->data();
+
+        return GetFundResponse::from($data);
+    }
+
+    public function delete(string $id): ResponseInterface
+    {
+        $request = ClientRequestBuilder::delete("$this->resource/$id");
+
+        return $this->connector->sendStandardClientRequest($request);
     }
 }

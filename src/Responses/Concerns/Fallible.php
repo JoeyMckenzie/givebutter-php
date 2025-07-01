@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Givebutter\Responses\Concerns;
 
-use Givebutter\Responses\Models\Errors;
+use Givebutter\Responses\Models\Error;
 
 /**
- * @property-read ?Errors $errors
+ * @property-read ?Error $errors
  * @property-read ?string $message
  */
 trait Fallible

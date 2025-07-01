@@ -8,6 +8,7 @@ use Givebutter\Contracts\Resources\FundsResourceContract;
 use Givebutter\Resources\FundsResource;
 use Givebutter\Responses\Funds\GetFundResponse;
 use Givebutter\Responses\Funds\GetFundsResponse;
+use Psr\Http\Message\ResponseInterface;
 use Wrapkit\Testing\Concerns\Testable;
 
 /**
@@ -39,6 +40,30 @@ final class FundsTestResource implements FundsResourceContract
     public function list(): GetFundsResponse
     {
         /** @var GetFundsResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    public function create(string $name, ?string $code = null): GetFundResponse
+    {
+        /** @var GetFundResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    public function update(string $id, string $name, ?string $code = null): GetFundResponse
+    {
+        /** @var GetFundResponse $response */
+        $response = $this->record(__FUNCTION__, func_get_args());
+
+        return $response;
+    }
+
+    public function delete(string $id): ResponseInterface
+    {
+        /** @var ResponseInterface $response */
         $response = $this->record(__FUNCTION__, func_get_args());
 
         return $response;

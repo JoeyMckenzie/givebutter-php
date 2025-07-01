@@ -24,6 +24,7 @@ Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public 
     - [Tickets](#tickets)
     - [Transactions](#transactions)
     - [Payouts](#payouts)
+    - [Funds](#funds)
 
 ## Getting started
 
@@ -543,4 +544,82 @@ echo $response->amount; // 100.00
 echo $response->firstName; // 'Michael'
 echo $response->lastName; // 'Scarn'
 echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+### Funds
+
+#### Create a fund
+
+Creates a fund from a specified payload.
+
+```php
+$response = $client
+    ->funds()
+    ->create("Scott's Tots");
+
+echo $response->data(); // GetFundResponse::class
+echo $response->id; // 'abc123'
+echo $response->name; // "Scott's Tots"
+echo $response->supporters; // 0
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+#### Get all funds
+
+Gets a list of all available funds
+
+```php
+$response = $client
+    ->funds()
+    ->list();
+
+echo $response->data(); // array<int, GetFundsResponse::class>
+echo $response->meta; // Meta::class
+echo $response->links; // Links::class
+echo $response->toArray(); // ['data' => ['id' => 'abc123', ...], 'meta' => [...], 'links' => [...]]
+```
+
+#### Get a fund
+
+Gets a single fund.
+
+```php
+$response = $client
+    ->funds()
+    ->get('abc123');
+
+echo $response->data(); // GetFundResponse::class
+echo $response->id; // 'abc123'
+echo $response->name; // "Scott's Tots"
+echo $response->supporters; // 0
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+#### Update a fund
+
+Updates a fund from a specified payload.
+
+```php
+$response = $client
+    ->campaigns()
+    ->update('abc123', "Scott's Tots", "ST");
+
+echo $response->data(); // GetFundResponse::class
+echo $response->id; // 'abc123'
+echo $response->name; // "Scott's Tots"
+echo $response->code; // 'ST'
+echo $response->supporters; // 0
+echo $response->toArray(); // ['id' => 'abc123', ...]
+```
+
+#### Delete a fund
+
+Deletes a fund.
+
+```php
+$response = $client
+    ->funds()
+    ->delete('abc123');
+
+echo $response->getStatusCode(); // 200
 ```
