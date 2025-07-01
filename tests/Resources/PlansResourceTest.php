@@ -6,6 +6,7 @@ use Givebutter\Resources\PlansResource;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Responses\Plans\GetPlansResponse;
+use Givebutter\Testing\Fixtures\Plans\GetPlanFixture;
 use Givebutter\Testing\Fixtures\Plans\GetPlansFixture;
 use Tests\Mocks\ClientMock;
 use Wrapkit\ValueObjects\Response;
@@ -17,7 +18,7 @@ describe(PlansResource::class, function (): void {
         // Arrange
         $client = ClientMock::get(
             'plans/abc123',
-            Response::from(Givebutter\Testing\Fixtures\Plans\GetPlanFixture::data()),
+            Response::from(GetPlanFixture::data()),
         );
 
         // Act

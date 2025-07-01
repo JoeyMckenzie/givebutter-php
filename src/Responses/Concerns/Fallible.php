@@ -12,7 +12,7 @@ use Givebutter\Responses\Models\Errors;
  */
 trait Fallible
 {
-    public function hasError(): bool
+    public function hasErrors(): bool
     {
         return $this->errors !== null;
     }

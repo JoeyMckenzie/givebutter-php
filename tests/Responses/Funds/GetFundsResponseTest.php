@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
+use Givebutter\Responses\Funds\GetFundsResponse;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
-use Givebutter\Responses\Plans\GetPlansResponse;
-use Givebutter\Testing\Fixtures\Plans\GetPlansFixture;
+use Givebutter\Testing\Fixtures\Funds\GetFundsFixture;
 
-covers(GetPlansResponse::class);
+covers(GetFundsResponse::class);
 
-describe(GetPlansResponse::class, function (): void {
+describe(GetFundsResponse::class, function (): void {
     beforeEach(function (): void {
-        $this->data = GetPlansFixture::data();
-        $this->response = GetPlansResponse::from($this->data);
+        $this->data = GetFundsFixture::data();
+        $this->response = GetFundsResponse::from($this->data);
     });
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeInstanceOf(GetPlansResponse::class)
-            ->data->toBeArray()->each->toBePlan()
+        expect($this->response)->toBeInstanceOf(GetFundsResponse::class)
+            ->data->toBeArray()->each->toBeFund()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -38,11 +38,11 @@ describe(GetPlansResponse::class, function (): void {
 
     it('generates fake responses', function (): void {
         // Arrange & Act
-        $fake = GetPlansResponse::fake(GetPlansFixture::class);
+        $fake = GetFundsResponse::fake(GetFundsFixture::class);
 
         // Assert
-        expect($fake)->toBeInstanceOf(GetPlansResponse::class)
-            ->data->toBeArray()->each->toBePlan()
+        expect($fake)->toBeInstanceOf(GetFundsResponse::class)
+            ->data->toBeArray()->each->toBeFund()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });

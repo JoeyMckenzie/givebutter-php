@@ -22,10 +22,10 @@ trait HasErrorData
         $data = [
             'message' => fake()->text(),
             'errors' => [
-                'field.0' => [
+                'field.0.value' => [
                     fake()->text(),
                 ],
-                'field.1' => [
+                'field.1.value' => [
                     fake()->text(),
                 ],
             ],
