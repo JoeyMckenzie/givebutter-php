@@ -10,7 +10,7 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
 /**
  * @phpstan-type ErrorSchema array{
  *     message?: ?string,
- *     errors?: array<string, string[]>
+ *     errors?: ?array<string, string[]>
  * }
  *
  * @implements ResponseContract<ErrorSchema>

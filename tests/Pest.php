@@ -18,6 +18,7 @@ use Givebutter\Responses\Campaigns\GetCampaignMemberResponse;
 use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Responses\Contacts\GetContactResponse;
+use Givebutter\Responses\Funds\GetFundResponse;
 use Givebutter\Responses\Models\Address;
 use Givebutter\Responses\Models\Company;
 use Givebutter\Responses\Models\ContactMeta;
@@ -228,6 +229,28 @@ expect()->extend('toBePlan', fn () => $this->toBeInstanceOf(GetPlanResponse::cla
     ->createdAt->toBeInstanceOf(CarbonImmutable::class)
     ->startedAt->toBeInstanceOf(CarbonImmutable::class)
     ->nextStartDate->toBeInstanceOf(CarbonImmutable::class));
+
+expect()->extend('toBeFund', fn () => $this->toBeInstanceOf(GetFundResponse::class)
+    ->id->toBeString()
+    ->code->toBeString()
+    ->name->toBeString()
+    ->raised->toBeInt()
+    ->supporters->toBeInt()
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->updatedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->message->toBeNull()
+    ->errors->toBeNull());
+
+expect()->extend('toBeFallibleFund', fn () => $this->toBeInstanceOf(GetFundResponse::class)
+    ->id->toBeNull()
+    ->code->toBeNull()
+    ->name->toBeNull()
+    ->raised->toBeNull()
+    ->supporters->toBeNull()
+    ->createdAt->toBeNull()
+    ->updatedAt->toBeNull()
+    ->message->toBeString()
+    ->errors->toBeArray());
 
 /*
 |--------------------------------------------------------------------------

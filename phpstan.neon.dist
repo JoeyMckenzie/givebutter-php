@@ -4,8 +4,4 @@ parameters:
         - src
         - examples
     tmpDir: build/phpstan
-    ignoreErrors:
-        -
-            message: '#Trait Givebutter\\Responses\\Concerns\\Fallible is used zero times and is not analysed.#'
-            path: src/Responses/Concerns/Fallible.php
 
