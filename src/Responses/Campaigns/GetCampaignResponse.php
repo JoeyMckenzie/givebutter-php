@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Campaigns;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Concerns\HasErrorMessaging;
+use Givebutter\Responses\Concerns\HasErrors;
 use Givebutter\Responses\Models\CoverResponse;
 use Givebutter\Responses\Models\EventResponse;
 use Wrapkit\Contracts\ResponseContract;
@@ -39,6 +39,7 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     updated_at?: ?string,
  *     event?: ?EventResponseSchema,
  *     message?: ?string,
+ *     errors: ?array<string, string[]>
  * }
  *
  * @implements ResponseContract<GetCampaignResponseSchema>
@@ -55,8 +56,11 @@ final readonly class GetCampaignResponse implements ResponseContract
      */
     use Fakeable;
 
-    use HasErrorMessaging;
+    use HasErrors;
 
+    /**
+     * @param  null|array<string, string[]>  $errors
+     */
     public function __construct(
         public ?int $id,
         public ?string $code,
@@ -80,6 +84,7 @@ final readonly class GetCampaignResponse implements ResponseContract
         public ?CarbonImmutable $updatedAt,
         public ?EventResponse $event,
         public ?string $message,
+        public ?array $errors,
     ) {
         //
     }
@@ -112,6 +117,7 @@ final readonly class GetCampaignResponse implements ResponseContract
             isset($attributes['updated_at']) ? CarbonImmutable::parse($attributes['updated_at']) : null,
             isset($attributes['event']) ? EventResponse::from($attributes['event']) : null,
             $attributes['message'] ?? null,
+            $attributes['errors'] ?? null,
         );
     }
 
@@ -140,6 +146,7 @@ final readonly class GetCampaignResponse implements ResponseContract
             'updated_at' => $this->updatedAt?->toIso8601String(),
             'event' => $this->event?->toArray(),
             'message' => $this->message,
+            'errors' => $this->errors,
         ];
     }
 }

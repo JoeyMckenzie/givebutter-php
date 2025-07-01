@@ -9,6 +9,8 @@ namespace Givebutter\Responses\Concerns;
  */
 trait HasErrors
 {
+    use HasErrorMessaging;
+
     public function hasErrors(): bool
     {
         return $this->errors !== null && count($this->errors) > 0;

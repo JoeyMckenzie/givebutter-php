@@ -24,6 +24,7 @@ $createdCampaign = $client
         'subtitle' => 'subtitle',
         'slug' => md5(uniqid('', true)),
         'title' => 'title',
+        'type' => 'collect',
     ]);
 var_dump($createdCampaign);
 
@@ -39,7 +40,7 @@ $campaigns = $client
     ->list();
 var_dump($campaigns);
 
-if (! $campaign->hasErrors()) {
+if (! $campaign->hasErrorMessage()) {
     assert($campaign->id !== null);
 
     // Update a campaign

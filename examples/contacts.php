@@ -18,7 +18,7 @@ $client = Givebutter::client($apiKey);
 // Get a contact
 $contact = $client
     ->contacts()
-    ->get(24837053);
+    ->get(123);
 var_dump($contact);
 
 // Get all contacts
@@ -68,25 +68,29 @@ $createdContact = $client
     ]);
 var_dump($createdContact);
 
-// Update a contact
-$updatedContact = $client
-    ->contacts()
-    ->update($createdContact->id, [
-        'first_name' => fake()->firstName(),
-        'last_name' => fake()->lastName(),
-        'company' => fake()->company(),
-        'title' => fake()->title(),
-    ]);
-var_dump($updatedContact);
+if (! $createdContact->hasErrors()) {
+    assert($createdContact->id !== null);
 
-// Archive a contact
-$deletedContactResponse = $client
-    ->contacts()
-    ->archive($createdContact->id);
-var_dump($deletedContactResponse->getStatusCode());
+    // Update a contact
+    $updatedContact = $client
+        ->contacts()
+        ->update($createdContact->id, [
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'company' => fake()->company(),
+            'title' => fake()->title(),
+        ]);
+    var_dump($updatedContact);
 
-// Restore a contact
-$restoredContact = $client
-    ->contacts()
-    ->restore($createdContact->id);
-var_dump($restoredContact);
+    // Archive a contact
+    $deletedContactResponse = $client
+        ->contacts()
+        ->archive($createdContact->id);
+    var_dump($deletedContactResponse->getStatusCode());
+
+    // Restore a contact
+    $restoredContact = $client
+        ->contacts()
+        ->restore($createdContact->id);
+    var_dump($restoredContact);
+}

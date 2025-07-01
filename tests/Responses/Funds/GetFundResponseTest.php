@@ -17,7 +17,9 @@ describe(GetFundResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeFund();
+        expect($this->response)->toBeFund()
+            ->and($this->response->hasErrorMessage())->toBeFalse()
+            ->and($this->response->hasErrors())->toBeFalse();
     });
 
     it('is accessible from an array', function (): void {
@@ -62,7 +64,9 @@ describe(GetFundResponse::class, function (): void {
         $response = GetFundResponse::from(GetFundFixture::errors());
 
         // Assert
-        expect($response)->toBeFundWithErrors();
+        expect($response)->toBeFundWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue()
+            ->and($response->hasErrors())->toBeTrue();
     });
 
     it('handles null dates', function (): void {

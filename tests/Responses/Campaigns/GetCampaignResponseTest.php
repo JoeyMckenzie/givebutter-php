@@ -18,7 +18,8 @@ describe(GetCampaignResponse::class, function (): void {
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeCampaign()
-            ->and($this->response->hasErrorMessage())->toBeFalse();
+            ->and($this->response->hasErrorMessage())->toBeFalse()
+            ->and($this->response->hasErrors())->toBeFalse();
     });
 
     it('can contain errors', function (): void {
@@ -30,7 +31,8 @@ describe(GetCampaignResponse::class, function (): void {
 
         // Assert
         expect($response)->toBeCampaignWithErrors()
-            ->and($response->hasErrorMessage())->toBeTrue();
+            ->and($response->hasErrorMessage())->toBeTrue()
+            ->and($response->hasErrors())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -60,7 +62,8 @@ describe(GetCampaignResponse::class, function (): void {
             ->and($data['created_at'])->toBeString()
             ->and($data['updated_at'])->toBeString()
             ->and($data['event'])->toBeArray()
-            ->and($data['message'])->toBeNull();
+            ->and($data['message'])->toBeNull()
+            ->and($data['errors'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {

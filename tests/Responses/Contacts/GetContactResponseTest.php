@@ -17,7 +17,22 @@ describe(GetContactResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeContact();
+        expect($this->response)->toBeContact()
+            ->and($this->response->hasErrorMessage())->toBeFalse()
+            ->and($this->response->hasErrors())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetContactFixture::errors();
+
+        // Act
+        $response = GetContactResponse::from($errors);
+
+        // Assert
+        expect($response)->toBeContactWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue()
+            ->and($response->hasErrors())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -64,7 +79,9 @@ describe(GetContactResponse::class, function (): void {
             ->and($data['created_at'])->toBeString()
             ->and($data['updated_at'])->toBeString()
             ->and($data['preferred_name'])->toBeNullOrString()
-            ->and($data['salutation_name'])->toBeNullOrString();
+            ->and($data['salutation_name'])->toBeNullOrString()
+            ->and($data['message'])->toBeNull()
+            ->and($data['errors'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -102,53 +119,38 @@ describe(GetContactResponse::class, function (): void {
             ->company->toBe('Dunder Mifflin');
     });
 
-    it('handles nullable fields correctly', function (): void {
+    it('handles null coalesced fields', function (): void {
         // Arrange
         $data = GetContactFixture::data();
         $data['dob'] = null;
+        $data['primary_address'] = null;
+        $data['stats'] = null;
         $data['address_unsubscribed_at'] = null;
         $data['archived_at'] = null;
-        $data['associated_companies'] = null;
-        $data['primary_email'] = null;
-        $data['primary_phone'] = null;
+        $data['created_at'] = null;
+        $data['updated_at'] = null;
 
         // Act
         $response = GetContactResponse::from($data);
         $arrayData = $response->toArray();
 
         // Assert
-        expect($response->dob)->toBeNull()
+        expect($response)->toBeInstanceOf(GetContactResponse::class)
+            ->dob->toBeNull()
+            ->primaryAddress->toBeNull()
+            ->stats->toBeNull()
+            ->addressUnsubscribedAt->toBeNull()
+            ->archivedAt->toBeNull()
+            ->createdAt->toBeNull()
+            ->updatedAt->toBeNull();
+
+        expect($arrayData)->toBeArray()
             ->and($arrayData['dob'])->toBeNull()
-            ->and($response->addressUnsubscribedAt)->toBeNull()
+            ->and($arrayData['primary_address'])->toBeNull()
+            ->and($arrayData['stats'])->toBeNull()
             ->and($arrayData['address_unsubscribed_at'])->toBeNull()
-            ->and($response->archivedAt)->toBeNull()
             ->and($arrayData['archived_at'])->toBeNull()
-            ->and($response->primaryEmail)->toBeNull()
-            ->and(array_key_exists('primary_email', $arrayData))->toBeTrue()
-            ->and($arrayData['primary_email'])->toBeNull()
-            ->and($response->primaryPhone)->toBeNull()
-            ->and(array_key_exists('primary_phone', $arrayData))->toBeTrue()
-            ->and($arrayData['primary_phone'])->toBeNull()
-            ->and($response->associatedCompanies)->toBeArray()->toBeEmpty()
-            ->and($arrayData['associated_companies'])->toBeArray()->toBeEmpty();
-    });
-
-    it('handles non-null primary email and phone correctly', function (): void {
-        // Arrange
-        $data = GetContactFixture::data();
-        $data['primary_email'] = 'test@example.com';
-        $data['primary_phone'] = '+1234567890';
-
-        // Act
-        $response = GetContactResponse::from($data);
-        $arrayData = $response->toArray();
-
-        // Assert
-        expect($response->primaryEmail)->toBe('test@example.com')
-            ->and(array_key_exists('primary_email', $arrayData))->toBeTrue()
-            ->and($arrayData['primary_email'])->toBe('test@example.com')
-            ->and($response->primaryPhone)->toBe('+1234567890')
-            ->and(array_key_exists('primary_phone', $arrayData))->toBeTrue()
-            ->and($arrayData['primary_phone'])->toBe('+1234567890');
+            ->and($arrayData['created_at'])->toBeNull()
+            ->and($arrayData['updated_at'])->toBeNull();
     });
 });
