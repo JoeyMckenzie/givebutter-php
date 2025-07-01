@@ -9,13 +9,13 @@ use Wrapkit\Responses\Concerns\ArrayAccessible;
 
 /**
  * @phpstan-type ErrorSchema array{
- *     message: string,
+ *     message?: ?string,
  *     errors?: array<string, string[]>
  * }
  *
  * @implements ResponseContract<ErrorSchema>
  */
-final readonly class Error implements ResponseContract
+final readonly class Errors implements ResponseContract
 {
     /**
      * @use ArrayAccessible<ErrorSchema>
@@ -23,10 +23,10 @@ final readonly class Error implements ResponseContract
     use ArrayAccessible;
 
     /**
-     * @param  null|array<string, string[]>  $errors
+     * @param  array<string, string[]>  $errors
      */
     public function __construct(
-        public string $message,
+        public ?string $message,
         public ?array $errors
     ) {
         //
@@ -38,7 +38,7 @@ final readonly class Error implements ResponseContract
     public static function from(array $attributes): self
     {
         return new self(
-            $attributes['message'],
+            $attributes['message'] ?? null,
             $attributes['errors'] ?? []
         );
     }
@@ -47,7 +47,7 @@ final readonly class Error implements ResponseContract
     {
         return [
             'message' => $this->message,
-            'errors' => $this->errors ?? [],
+            'errors' => $this->errors,
         ];
     }
 }
