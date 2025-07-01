@@ -256,7 +256,24 @@ expect()->extend('toBeTicket', fn () => $this->toBeInstanceOf(GetTicketResponse:
     ->price->toBeInt()
     ->pdf->toBeString()
     ->arrivedAt->toBeInstanceOf(CarbonImmutable::class)
-    ->createdAt->toBeInstanceOf(CarbonImmutable::class));
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->message->toBeNull());
+
+expect()->extend('toBeTicketWithErrors', fn () => $this->toBeInstanceOf(GetTicketResponse::class)
+    ->id->toBeNull()
+    ->idSuffix->toBeNull()
+    ->name->toBeNull()
+    ->firstName->toBeNull()
+    ->lastName->toBeNull()
+    ->email->toBeNull()
+    ->phone->toBeNull()
+    ->title->toBeNull()
+    ->description->toBeNull()
+    ->price->toBeNull()
+    ->pdf->toBeNull()
+    ->arrivedAt->toBeNull()
+    ->createdAt->toBeNull()
+    ->message->toBeString()->not->toBeEmpty());
 
 expect()->extend('toBeTransactionResponse', fn () => $this->toBeInstanceOf(GetTransactionResponse::class)
     ->id->toBeString()

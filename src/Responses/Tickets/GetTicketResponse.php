@@ -5,25 +5,27 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Tickets;
 
 use Carbon\CarbonImmutable;
+use Givebutter\Responses\Concerns\HasErrorMessaging;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
  * @phpstan-type GetTicketResponseSchema array{
- *     id: string,
- *     id_suffix: string,
- *     name: string,
- *     first_name: string,
- *     last_name: string,
- *     email: string,
- *     phone: string,
- *     title: string,
- *     description: string,
- *     price: int,
- *     pdf: string,
- *     arrived_at: string,
- *     created_at: string
+ *     id?: ?string,
+ *     id_suffix?: ?string,
+ *     name?: ?string,
+ *     first_name?: ?string,
+ *     last_name?: ?string,
+ *     email?: ?string,
+ *     phone?: ?string,
+ *     title?: ?string,
+ *     description?: ?string,
+ *     price?: ?int,
+ *     pdf?: ?string,
+ *     arrived_at?: ?string,
+ *     created_at?: ?string,
+ *     message?: ?string
  * }
  *
  * @implements ResponseContract<GetTicketResponseSchema>
@@ -40,20 +42,23 @@ final readonly class GetTicketResponse implements ResponseContract
      */
     use Fakeable;
 
+    use HasErrorMessaging;
+
     public function __construct(
-        public string $id,
-        public string $idSuffix,
-        public string $name,
-        public string $firstName,
-        public string $lastName,
-        public string $email,
-        public string $phone,
-        public string $title,
-        public string $description,
-        public int $price,
-        public string $pdf,
-        public CarbonImmutable $arrivedAt,
-        public CarbonImmutable $createdAt,
+        public ?string $id,
+        public ?string $idSuffix,
+        public ?string $name,
+        public ?string $firstName,
+        public ?string $lastName,
+        public ?string $email,
+        public ?string $phone,
+        public ?string $title,
+        public ?string $description,
+        public ?int $price,
+        public ?string $pdf,
+        public ?CarbonImmutable $arrivedAt,
+        public ?CarbonImmutable $createdAt,
+        public ?string $message
     ) {
         //
     }
@@ -64,19 +69,20 @@ final readonly class GetTicketResponse implements ResponseContract
     public static function from(array $attributes): self
     {
         return new self(
-            $attributes['id'],
-            $attributes['id_suffix'],
-            $attributes['name'],
-            $attributes['first_name'],
-            $attributes['last_name'],
-            $attributes['email'],
-            $attributes['phone'],
-            $attributes['title'],
-            $attributes['description'],
-            $attributes['price'],
-            $attributes['pdf'],
-            CarbonImmutable::parse($attributes['arrived_at']),
-            CarbonImmutable::parse($attributes['created_at']),
+            $attributes['id'] ?? null,
+            $attributes['id_suffix'] ?? null,
+            $attributes['name'] ?? null,
+            $attributes['first_name'] ?? null,
+            $attributes['last_name'] ?? null,
+            $attributes['email'] ?? null,
+            $attributes['phone'] ?? null,
+            $attributes['title'] ?? null,
+            $attributes['description'] ?? null,
+            $attributes['price'] ?? null,
+            $attributes['pdf'] ?? null,
+            isset($attributes['arrived_at']) ? CarbonImmutable::parse($attributes['arrived_at']) : null,
+            isset($attributes['created_at']) ? CarbonImmutable::parse($attributes['created_at']) : null,
+            $attributes['message'] ?? null,
         );
     }
 
@@ -94,8 +100,9 @@ final readonly class GetTicketResponse implements ResponseContract
             'description' => $this->description,
             'price' => $this->price,
             'pdf' => $this->pdf,
-            'arrived_at' => $this->arrivedAt->toIso8601String(),
-            'created_at' => $this->createdAt->toIso8601String(),
+            'arrived_at' => $this->arrivedAt?->toIso8601String(),
+            'created_at' => $this->createdAt?->toIso8601String(),
+            'message' => $this->message,
         ];
     }
 }

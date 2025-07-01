@@ -17,7 +17,19 @@ describe(GetTicketResponse::class, function (): void {
 
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
-        expect($this->response)->toBeTicket();
+        expect($this->response)->toBeTicket()
+            ->and($this->response->hasErrorMessage())->toBeFalse();
+    });
+
+    it('can contain errors', function (): void {
+        // Arrange
+        $errors = GetTicketFixture::errors();
+
+        // Act
+        $response = GetTicketResponse::from($errors);
+
+        expect($response)->toBeTicketWithErrors()
+            ->and($response->hasErrorMessage())->toBeTrue();
     });
 
     it('is accessible from an array', function (): void {
@@ -38,7 +50,8 @@ describe(GetTicketResponse::class, function (): void {
             ->and($data['price'])->toBeInt()
             ->and($data['pdf'])->toBeString()
             ->and($data['arrived_at'])->toBeString()
-            ->and($data['created_at'])->toBeString();
+            ->and($data['created_at'])->toBeString()
+            ->and($data['message'])->toBeNull();
     });
 
     it('generates fake responses', function (): void {
@@ -59,5 +72,25 @@ describe(GetTicketResponse::class, function (): void {
         // Assert
         expect($fake)->toBeTicket()
             ->description->toBe('ticket description');
+    });
+
+    it('handles null coalesced fields correctly', function (): void {
+        // Arrange
+        $data = GetTicketFixture::data();
+        $data['arrived_at'] = null;
+        $data['created_at'] = null;
+
+        // Act
+        $response = GetTicketResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response)->toBeInstanceOf(GetTicketResponse::class)
+            ->arrivedAt->toBeNull()
+            ->createdAt->toBeNull();
+
+        expect($arrayData)->toBeArray()
+            ->and($arrayData['arrived_at'])->toBeNull()
+            ->and($arrayData['created_at'])->toBeNull();
     });
 });

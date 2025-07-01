@@ -20,6 +20,8 @@ $tickets = $client
 var_dump($tickets);
 
 if (count($tickets->data) > 0) {
+    assert($tickets->data[0]->id !== null);
+
     // Get a ticket
     $ticket = $client
         ->tickets()

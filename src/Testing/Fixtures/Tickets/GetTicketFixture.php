@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Givebutter\Testing\Fixtures\Tickets;
 
 use Givebutter\Responses\Tickets\GetTicketResponse;
+use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
 use function Pest\Faker\fake;
@@ -14,6 +15,8 @@ use function Pest\Faker\fake;
  */
 final class GetTicketFixture extends AbstractDataFixture
 {
+    use HasErrorData;
+
     public static function data(): array
     {
         /** @var GetTicketResponseSchema $data */
