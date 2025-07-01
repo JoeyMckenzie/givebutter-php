@@ -6,14 +6,11 @@ namespace Givebutter\Responses\Funds;
 
 use Carbon\CarbonImmutable;
 use Givebutter\Responses\Concerns\Fallible;
-use Givebutter\Responses\Models\ErrorResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type ErrorResponseSchema from ErrorResponse
- *
  * @phpstan-type GetFundResponseSchema array{
  *     id?: ?string,
  *     code?: ?string,
@@ -22,7 +19,9 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     supporters?: ?int,
  *     created_at?: ?string,
  *     updated_at?: ?string,
- * }|ErrorResponseSchema
+ *     message?: ?string,
+ *     errors?: ?array<string, string[]>
+ * }
  *
  * @implements ResponseContract<GetFundResponseSchema>
  */
@@ -83,8 +82,8 @@ final readonly class GetFundResponse implements ResponseContract
             'name' => $this->name,
             'raised' => $this->raised,
             'supporters' => $this->supporters,
-            'created_at' => $this->createdAt?->toDateTimeString(),
-            'updated_at' => $this->createdAt?->toDateTimeString(),
+            'created_at' => $this->createdAt?->toIso8601String(),
+            'updated_at' => $this->updatedAt?->toIso8601String(),
             'message' => $this->message,
             'errors' => $this->errors,
         ];

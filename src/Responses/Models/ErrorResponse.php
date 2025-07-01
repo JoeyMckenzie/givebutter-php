@@ -27,7 +27,7 @@ final readonly class ErrorResponse implements ResponseContract
      */
     public function __construct(
         public ?string $message,
-        public array $errors
+        public ?array $errors
     ) {
         //
     }
@@ -39,8 +39,13 @@ final readonly class ErrorResponse implements ResponseContract
     {
         return new self(
             $attributes['message'] ?? null,
-            $attributes['errors'] ?? []
+            $attributes['errors'] ?? null
         );
+    }
+
+    public static function default(): self
+    {
+        return new self(null, null);
     }
 
     public function toArray(): array

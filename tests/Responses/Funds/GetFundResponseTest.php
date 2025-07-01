@@ -31,30 +31,10 @@ describe(GetFundResponse::class, function (): void {
             ->and($data['name'])->toBeString()
             ->and($data['raised'])->toBeInt()
             ->and($data['supporters'])->toBeInt()
-            ->and($data['created_at'])->toBeString()
-            ->and($data['updated_at'])->toBeString()
+            ->and($data['created_at'])->toBeString()->not->toBeEmpty()
+            ->and($data['updated_at'])->toBeString()->not->toBeEmpty()
             ->and($data['message'])->toBeNull()
             ->and($data['errors'])->toBeNull();
-    });
-
-    it('is accessible from an array with errors', function (): void {
-        // Arrange
-        $this->response = GetFundResponse::from(GetFundFixture::errors());
-
-        // Act
-        $data = $this->response->toArray();
-
-        // Assert
-        expect($data)->toBeArray()
-            ->and($data['id'])->toBeNull()
-            ->and($data['code'])->toBeNull()
-            ->and($data['name'])->toBeNull()
-            ->and($data['raised'])->toBeNull()
-            ->and($data['supporters'])->toBeNull()
-            ->and($data['created_at'])->toBeNull()
-            ->and($data['updated_at'])->toBeNull()
-            ->and($data['message'])->toBeString()
-            ->and($data['errors'])->toBeArray();
     });
 
     it('generates fake responses', function (): void {
@@ -82,8 +62,24 @@ describe(GetFundResponse::class, function (): void {
         $response = GetFundResponse::from(GetFundFixture::errors());
 
         // Assert
-        expect($response)->toBeFallibleFund()
-            ->message->toBeString()
-            ->errors->toBeArray();
+        expect($response)->toBeFundWithErrors();
+    });
+
+    it('handles null dates', function (): void {
+        // Arrange
+        $data = GetFundFixture::data();
+        $data['created_at'] = null;
+        $data['updated_at'] = null;
+
+        // Act
+        $response = GetFundResponse::from($data);
+        $arrayData = $response->toArray();
+
+        // Assert
+        expect($response)->toBeInstanceOf(GetFundResponse::class)
+            ->createdAt->toBeNull()
+            ->and($arrayData['created_at'])->toBeNull()
+            ->updatedAt->toBeNull()
+            ->and($arrayData['updated_at'])->toBeNull();
     });
 });

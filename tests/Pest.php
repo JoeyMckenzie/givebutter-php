@@ -92,7 +92,7 @@ expect()->extend('toBeCampaignMember', fn () => $this->toBeInstanceOf(GetCampaig
     ->message->toBeNull()
     ->errors->toBeNull());
 
-expect()->extend('toBeFallibleCampaignMember', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
+expect()->extend('toBeCampaignMemberWithErrors', fn () => $this->toBeInstanceOf(GetCampaignMemberResponse::class)
     ->id->toBeNull()
     ->firstName->toBeNull()
     ->lastName->toBeNull()
@@ -105,8 +105,8 @@ expect()->extend('toBeFallibleCampaignMember', fn () => $this->toBeInstanceOf(Ge
     ->donors->toBeNull()
     ->items->toBeNull()
     ->url->toBeNull()
-    ->message->toBeString()
-    ->errors->toBeArray());
+    ->message->toBeString()->not->toBeEmpty()
+    ->errors->toBeArray()->not->toBeEmpty());
 
 expect()->extend('toBeCampaignTeam', fn () => $this->toBeInstanceOf(GetCampaignTeamResponse::class)
     ->id->toBeInt()
@@ -259,7 +259,7 @@ expect()->extend('toBeFund', fn () => $this->toBeInstanceOf(GetFundResponse::cla
     ->message->toBeNull()
     ->errors->toBeNull());
 
-expect()->extend('toBeFallibleFund', fn () => $this->toBeInstanceOf(GetFundResponse::class)
+expect()->extend('toBeFundWithErrors', fn () => $this->toBeInstanceOf(GetFundResponse::class)
     ->id->toBeNull()
     ->code->toBeNull()
     ->name->toBeNull()
@@ -267,8 +267,8 @@ expect()->extend('toBeFallibleFund', fn () => $this->toBeInstanceOf(GetFundRespo
     ->supporters->toBeNull()
     ->createdAt->toBeNull()
     ->updatedAt->toBeNull()
-    ->message->toBeString()
-    ->errors->toBeArray());
+    ->message->toBeString()->not->toBeEmpty()
+    ->errors->toBeArray()->not->toBeEmpty());
 
 /*
 |--------------------------------------------------------------------------

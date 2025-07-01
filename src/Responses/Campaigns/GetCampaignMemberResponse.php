@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Campaigns;
 
 use Givebutter\Responses\Concerns\Fallible;
-use Givebutter\Responses\Models\ErrorResponse;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
 
 /**
- * @phpstan-import-type ErrorResponseSchema from ErrorResponse
- *
  * @phpstan-type GetCampaignMemberResponseSchema array{
  *     id?: ?int,
  *     first_name?: ?string,
@@ -26,7 +23,9 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     donors?: ?int,
  *     items?: ?int,
  *     url?: ?string,
- * }|ErrorResponseSchema
+ *     message?: ?string,
+ *     errors?: ?array<string, string[]>
+ * }
  *
  * @implements ResponseContract<GetCampaignMemberResponseSchema>
  */

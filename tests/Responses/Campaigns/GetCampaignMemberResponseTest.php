@@ -67,6 +67,6 @@ describe(GetCampaignMemberResponse::class, function (): void {
         $response = GetCampaignMemberResponse::from(GetCampaignMemberFixture::errors());
 
         // Assert
-        expect($response)->toBeFallibleCampaignMember();
+        expect($response)->toBeCampaignMemberWithErrors();
     });
 });

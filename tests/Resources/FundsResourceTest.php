@@ -37,7 +37,7 @@ describe(FundsResource::class, function (): void {
         $result = $client->funds()->get('abc123');
 
         // Assert
-        expect($result)->toBeFallibleFund();
+        expect($result)->toBeFundWithErrors();
     });
 
     it('can create a fund', function (): void {
@@ -91,7 +91,7 @@ describe(FundsResource::class, function (): void {
         $result = $client->funds()->create("Scott's Tots");
 
         // Assert
-        expect($result)->toBeFallibleFund();
+        expect($result)->toBeFundWithErrors();
     });
 
     it('can update a fund', function (): void {
@@ -145,7 +145,7 @@ describe(FundsResource::class, function (): void {
         $result = $client->funds()->update('abc123', "Scott's Tots");
 
         // Assert
-        expect($result)->toBeFallibleFund();
+        expect($result)->toBeFundWithErrors();
     });
 
     it('can delete a fund', function (): void {
