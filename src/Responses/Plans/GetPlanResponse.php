@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Givebutter\Responses\Plans;
 
 use Carbon\CarbonImmutable;
-use Givebutter\Responses\Models\Address;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
@@ -17,6 +16,14 @@ use Wrapkit\Testing\Concerns\Fakeable;
  *     last_name: string,
  *     email: string,
  *     phone: string,
+ *     frequency: string,
+ *     status: string,
+ *     method: string,
+ *     amount: int,
+ *     fee_covered: int,
+ *     created_at: string,
+ *     started_at: string,
+ *     next_start_date: string,
  * }
  *
  * @implements ResponseContract<GetPlanResponseSchema>
@@ -35,18 +42,18 @@ final readonly class GetPlanResponse implements ResponseContract
 
     public function __construct(
         public string $id,
-        public int $campaignId,
-        public string $method,
+        public string $firstName,
+        public string $lastName,
+        public string $email,
+        public string $phone,
+        public string $frequency,
         public string $status,
+        public string $method,
         public int $amount,
-        public int $fee,
-        public int $tip,
-        public int $payout,
-        public string $currency,
-        public ?Address $address,
-        public ?string $memo,
-        public ?CarbonImmutable $completedAt,
+        public int $feeCovered,
         public CarbonImmutable $createdAt,
+        public CarbonImmutable $startedAt,
+        public CarbonImmutable $nextStartDate,
     ) {
         //
     }
@@ -58,18 +65,18 @@ final readonly class GetPlanResponse implements ResponseContract
     {
         return new self(
             $attributes['id'],
-            $attributes['campaign_id'],
-            $attributes['method'],
+            $attributes['first_name'],
+            $attributes['last_name'],
+            $attributes['email'],
+            $attributes['phone'],
+            $attributes['frequency'],
             $attributes['status'],
+            $attributes['method'],
             $attributes['amount'],
-            $attributes['fee'],
-            $attributes['tip'],
-            $attributes['payout'],
-            $attributes['currency'],
-            isset($attributes['address']) ? Address::from($attributes['address']) : null,
-            $attributes['memo'],
-            isset($attributes['completed_at']) ? CarbonImmutable::parse($attributes['completed_at']) : null,
+            $attributes['fee_covered'],
             CarbonImmutable::parse($attributes['created_at']),
+            CarbonImmutable::parse($attributes['started_at']),
+            CarbonImmutable::parse($attributes['next_start_date']),
         );
     }
 
@@ -77,18 +84,18 @@ final readonly class GetPlanResponse implements ResponseContract
     {
         return [
             'id' => $this->id,
-            'campaign_id' => $this->campaignId,
-            'method' => $this->method,
+            'first_name' => $this->firstName,
+            'last_name' => $this->lastName,
+            'email' => $this->email,
+            'phone' => $this->phone,
+            'frequency' => $this->frequency,
             'status' => $this->status,
+            'method' => $this->method,
             'amount' => $this->amount,
-            'fee' => $this->fee,
-            'tip' => $this->tip,
-            'payout' => $this->payout,
-            'currency' => $this->currency,
-            'address' => $this->address?->toArray(),
-            'memo' => $this->memo,
-            'completed_at' => $this->completedAt?->toIso8601String(),
+            'fee_covered' => $this->feeCovered,
             'created_at' => $this->createdAt->toIso8601String(),
+            'started_at' => $this->startedAt->toIso8601String(),
+            'next_start_date' => $this->nextStartDate->toIso8601String(),
         ];
     }
 }

@@ -7,12 +7,11 @@ namespace Tests\Responses;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
 use Givebutter\Responses\Payouts\GetPayoutsResponse;
-use Givebutter\Responses\Plans\GetPlansResponse;
 use Givebutter\Testing\Fixtures\Payouts\GetPayoutsFixture;
 
-covers(GetPlansResponse::class);
+covers(GetPayoutsResponse::class);
 
-describe(GetPlansResponse::class, function (): void {
+describe(GetPayoutsResponse::class, function (): void {
     beforeEach(function (): void {
         $this->data = GetPayoutsFixture::data();
         $this->response = GetPayoutsResponse::from($this->data);

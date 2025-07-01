@@ -6,7 +6,6 @@ namespace Tests\Responses;
 
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
-use Givebutter\Responses\Tickets\GetTicketResponse;
 use Givebutter\Responses\Tickets\GetTicketsResponse;
 use Givebutter\Testing\Fixtures\Tickets\GetTicketsFixture;
 
@@ -21,7 +20,7 @@ describe(GetTicketsResponse::class, function (): void {
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetTicketsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetTicketResponse::class)
+            ->data->toBeArray()->each->toBeTicket()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -44,7 +43,7 @@ describe(GetTicketsResponse::class, function (): void {
         // Assert
 
         expect($fake)->toBeInstanceOf(GetTicketsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetTicketResponse::class)
+            ->data->toBeArray()->each->toBeTicket()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });

@@ -29,6 +29,7 @@ use Givebutter\Responses\Models\GivingSpace;
 use Givebutter\Responses\Models\Stats;
 use Givebutter\Responses\Models\Transaction;
 use Givebutter\Responses\Payouts\GetPayoutResponse;
+use Givebutter\Responses\Plans\GetPlanResponse;
 use Givebutter\Responses\Tickets\GetTicketResponse;
 use Givebutter\Responses\Transactions\GetTransactionResponse;
 
@@ -212,6 +213,21 @@ expect()->extend('toBePayout', fn () => $this->toBeInstanceOf(GetPayoutResponse:
     ->memo->toBeNullOrString()
     ->completedAt->toBeNullOrInstanceOf(CarbonImmutable::class)
     ->createdAt->toBeInstanceOf(CarbonImmutable::class));
+
+expect()->extend('toBePlan', fn () => $this->toBeInstanceOf(GetPlanResponse::class)
+    ->id->toBeString()
+    ->firstName->toBeString()
+    ->lastName->toBeString()
+    ->email->toBeString()
+    ->phone->toBeString()
+    ->frequency->toBeString()
+    ->status->toBeString()
+    ->method->toBeString()
+    ->amount->toBeInt()
+    ->feeCovered->toBeInt()
+    ->createdAt->toBeInstanceOf(CarbonImmutable::class)
+    ->startedAt->toBeInstanceOf(CarbonImmutable::class)
+    ->nextStartDate->toBeInstanceOf(CarbonImmutable::class));
 
 /*
 |--------------------------------------------------------------------------

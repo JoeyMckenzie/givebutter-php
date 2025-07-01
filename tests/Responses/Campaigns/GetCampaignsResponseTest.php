@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Responses;
 
-use Givebutter\Responses\Campaigns\GetCampaignResponse;
 use Givebutter\Responses\Campaigns\GetCampaignsResponse;
 use Givebutter\Responses\Models\Links;
 use Givebutter\Responses\Models\Meta;
@@ -21,7 +20,7 @@ describe(GetCampaignsResponse::class, function (): void {
     it('returns a valid typed object', function (): void {
         // Arrange & Act & Assert
         expect($this->response)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignResponse::class)
+            ->data->toBeArray()->each->toBeCampaign()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });
@@ -44,7 +43,7 @@ describe(GetCampaignsResponse::class, function (): void {
         // Assert
 
         expect($fake)->toBeInstanceOf(GetCampaignsResponse::class)
-            ->data->toBeArray()->each->toBeInstanceOf(GetCampaignResponse::class)
+            ->data->toBeArray()->each->toBeCampaign()
             ->meta->toBeInstanceOf(Meta::class)
             ->links->toBeInstanceOf(Links::class);
     });

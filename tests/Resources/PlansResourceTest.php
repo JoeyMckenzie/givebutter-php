@@ -1,0 +1,46 @@
+<?php
+
+declare(strict_types=1);
+
+use Givebutter\Resources\PlansResource;
+use Givebutter\Responses\Models\Links;
+use Givebutter\Responses\Models\Meta;
+use Givebutter\Responses\Plans\GetPlansResponse;
+use Givebutter\Testing\Fixtures\Plans\GetPlansFixture;
+use Tests\Mocks\ClientMock;
+use Wrapkit\ValueObjects\Response;
+
+covers(PlansResource::class);
+
+describe(PlansResource::class, function (): void {
+    it('can retrieve a single plan', function (): void {
+        // Arrange
+        $client = ClientMock::get(
+            'plans/abc123',
+            Response::from(Givebutter\Testing\Fixtures\Plans\GetPlanFixture::data()),
+        );
+
+        // Act
+        $result = $client->plans()->get('abc123');
+
+        // Assert
+        expect($result)->toBePlan();
+    });
+
+    it('can retrieve all plans', function (): void {
+        // Arrange
+        $client = ClientMock::get(
+            'plans',
+            Response::from(GetPlansFixture::data()),
+        );
+
+        // Act
+        $result = $client->plans()->list();
+
+        // Assert
+        expect($result)->toBeInstanceOf(GetPlansResponse::class)
+            ->data->each->toBePlan()
+            ->meta->toBeInstanceOf(Meta::class)
+            ->links->toBeInstanceOf(Links::class);
+    });
+});
