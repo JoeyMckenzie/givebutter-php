@@ -83,6 +83,10 @@ final class Builder
             throw GivebutterClientException::apiKeyMissing();
         }
 
+        if ($this->baseUri === null) {
+            $this->baseUri = Client::API_BASE_URL;
+        }
+
         $headers = Headers::create();
 
         // For any default headers configured for the client, we'll add those to each outbound request
@@ -92,7 +96,7 @@ final class Builder
 
         // Add the API key as a default header to be included on every request
         $headers = $headers->withCustomHeader('Authorization', "Bearer $this->apiKey");
-        $baseUri = BaseUri::from($this->baseUri ?? Client::API_BASE_URL);
+        $baseUri = BaseUri::from($this->baseUri);
         $queryParams = QueryParams::create();
 
         // As with the headers, we'll also include any query params configured on each request

@@ -6,6 +6,7 @@ use Givebutter\Builder;
 use Givebutter\Client;
 use Givebutter\Exceptions\GivebutterClientException;
 use Psr\Http\Client\ClientInterface;
+use Wrapkit\ValueObjects\BaseUri;
 use Wrapkit\ValueObjects\Headers;
 use Wrapkit\ValueObjects\QueryParams;
 
@@ -73,18 +74,34 @@ describe(Builder::class, function (): void {
                 ->and($builder->queryParams['foo'])->toBe('bar');
         });
 
-        it('sets HTTP client', function (): void {
+        it('can set the base URI', function (): void {
+            // Arrange
+            $baseUri = 'https://api.givebutter.com/v42';
+
             // Act
             $builder = $this->builder
-                ->withBaseUri(Client::API_BASE_URL);
+                ->withApiKey($this->apiKey)
+                ->withBaseUri($baseUri);
 
             // Assert
             expect($builder)->toBeInstanceOf(Builder::class)
                 ->and($builder->baseUri)->not->toBeNull()
-                ->and($builder->baseUri)->toBe(Client::API_BASE_URL);
+                ->and($builder->baseUri)->toBe($baseUri);
         });
 
-        it('sets the base URI', function (): void {
+        it('defaults to the client base URI if no base URI is provided', function (): void {
+            // Arrange & Act
+            $client = $this->builder
+                ->withApiKey($this->apiKey)
+                ->build();
+
+            // Assert
+            expect($client)->toBeInstanceOf(Client::class)
+                ->and($client->connector->baseUri)->toBeInstanceOf(BaseUri::class)
+                ->and(strval($client->connector->baseUri))->toBe('https://api.givebutter.com/v1/');
+        });
+
+        it('can set the HTTP client', function (): void {
             // Arrange
             $client = new GuzzleHttp\Client;
 
