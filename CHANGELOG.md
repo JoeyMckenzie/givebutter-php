@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4 - 2025-07-02
+
+### What's new?
+
+- Allows for client builder to configure custom base URIs
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.3...0.1.4
+
 ## 0.1.3 - 2025-07-01
 
 ### What's new?
