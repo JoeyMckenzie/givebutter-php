@@ -11,7 +11,7 @@
 
 # 🧈 Givebutter PHP
 
-Givebutter PHP is a plug 'n play and easy to use client for Givebutter's public API.
+Givebutter PHP is a plug 'n play HTTP client for Givebutter's public API.
 
 ## Table of Contents
 
