@@ -9,8 +9,6 @@ use Givebutter\Testing\Fixtures\Models\LinksFixture;
 use Givebutter\Testing\Fixtures\Models\MetaFixture;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type GetPlansResponseSchema from GetPlansResponse
  */
@@ -20,10 +18,7 @@ final class GetPlansFixture extends AbstractDataFixture
     {
         /** @var GetPlansResponseSchema $data */
         $data = [
-            'data' => array_map(
-                static fn (): array => GetPlanFixture::data(),
-                range(1, fake()->numberBetween(1, 5)),
-            ),
+            'data' => array_map(static fn (): array => GetPlanFixture::data(), range(1, 5)),
             'meta' => MetaFixture::data(),
             'links' => LinksFixture::data(),
         ];

@@ -6,8 +6,6 @@ namespace Givebutter\Testing\Fixtures\Concerns;
 
 use Givebutter\Responses\Models\ErrorResponse;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type ErrorResponseSchema from ErrorResponse
  */
@@ -20,13 +18,13 @@ trait HasErrorData
     {
         /** @var ErrorResponseSchema $data */
         $data = [
-            'message' => fake()->text(),
+            'message' => 'Validation failed',
             'errors' => [
                 'field.0.value' => [
-                    fake()->text(),
+                    'The field value is invalid',
                 ],
                 'field.1.value' => [
-                    fake()->text(),
+                    'The field value is required',
                 ],
             ],
         ];

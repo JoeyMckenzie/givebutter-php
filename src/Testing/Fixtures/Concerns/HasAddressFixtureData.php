@@ -6,8 +6,6 @@ namespace Givebutter\Testing\Fixtures\Concerns;
 
 use Givebutter\Responses\Models\AddressResponse;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type AddressResponseSchema from AddressResponse
  */
@@ -20,29 +18,20 @@ trait HasAddressFixtureData
     {
         /** @var AddressResponseSchema $data */
         $data = [
-            'address_1' => fake()->streetAddress(),
-            'address_2' => fake()->streetAddress(),
-            'city' => fake()->city,
-            'state' => fake()->text(),
-            'zipcode' => fake()->text(),
-            'country' => fake()->country(),
-            'type' => fake()->text(),
-            'is_primary' => fake()->boolean(),
-            'created_at' => fake()->iso8601(),
-            'updated_at' => fake()->iso8601(),
+            'id' => 123,
+            'account_id' => 456,
+            'name' => 'Home Address',
+            'address_1' => '123 Main St',
+            'address_2' => 'Apt 4B',
+            'city' => 'New York',
+            'state' => 'NY',
+            'zipcode' => '10001',
+            'country' => 'United States',
+            'type' => 'residential',
+            'is_primary' => true,
+            'created_at' => '2023-01-15T14:30:45+00:00',
+            'updated_at' => '2023-01-15T14:30:45+00:00',
         ];
-
-        if (fake()->boolean()) {
-            $data['id'] = fake()->numberBetween(1, 100);
-        }
-
-        if (fake()->boolean()) {
-            $data['account_id'] = fake()->numberBetween(1, 100);
-        }
-
-        if (fake()->boolean()) {
-            $data['name'] = fake()->text();
-        }
 
         return $data;
     }

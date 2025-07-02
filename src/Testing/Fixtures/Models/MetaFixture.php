@@ -7,8 +7,6 @@ namespace Givebutter\Testing\Fixtures\Models;
 use Givebutter\Responses\Models\MetaResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type MetaResponseSchema from MetaResponse
  */
@@ -20,20 +18,29 @@ final class MetaFixture extends AbstractDataFixture
         $data = [
             'current_page' => 1,
             'from' => 1,
-            'last_page' => fake()->numberBetween(2, 100),
-            'path' => fake()->url(),
+            'last_page' => 5,
+            'path' => 'https://api.example.com/resources',
             'per_page' => 20,
-            'to' => fake()->numberBetween(1, 100),
-            'total' => fake()->numberBetween(1, 100),
-            'unfiltered_total' => fake()->boolean() ? fake()->numberBetween(1, 100) : null,
-            'links' => array_map(
-                static fn (): array => [
-                    'url' => fake()->url(),
-                    'label' => fake()->text(),
-                    'active' => fake()->boolean(),
+            'to' => 20,
+            'total' => 95,
+            'unfiltered_total' => 120,
+            'links' => [
+                [
+                    'url' => 'https://api.example.com/resources?page=1',
+                    'label' => '1',
+                    'active' => true,
                 ],
-                range(1, fake()->numberBetween(2, 5))
-            ),
+                [
+                    'url' => 'https://api.example.com/resources?page=2',
+                    'label' => '2',
+                    'active' => false,
+                ],
+                [
+                    'url' => 'https://api.example.com/resources?page=3',
+                    'label' => '3',
+                    'active' => false,
+                ],
+            ],
         ];
 
         return $data;

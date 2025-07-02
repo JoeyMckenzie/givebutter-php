@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Transactions;
 
+use Carbon\CarbonImmutable;
 use Givebutter\Responses\Models\AddressResponse;
 use Givebutter\Responses\Models\DedicationResponse;
 use Givebutter\Responses\Models\GivingSpaceResponse;
@@ -14,8 +15,6 @@ use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Givebutter\Testing\Fixtures\Models\CustomFieldFixture;
 use Wrapkit\Testing\AbstractDataFixture;
-
-use function Pest\Faker\fake;
 
 /**
  * @phpstan-import-type AddressResponseSchema from AddressResponse
@@ -33,51 +32,54 @@ final class GetTransactionFixture extends AbstractDataFixture
     {
         /** @var GetTransactionResponseSchema $data */
         $data = [
-            'id' => fake()->text(),
-            'number' => fake()->text(),
-            'campaign_id' => fake()->numberBetween(),
-            'campaign_code' => fake()->text(),
-            'plan_id' => fake()->text(),
-            'pledge_id' => fake()->text(),
-            'team_id' => fake()->text(),
-            'member_id' => fake()->text(),
-            'fund_id' => fake()->text(),
-            'fund_code' => fake()->text(),
-            'contact_id' => fake()->numberBetween(1, 100),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'company_name' => fake()->company(),
-            'company' => fake()->company(),
-            'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
+            'id' => 'txn_12345',
+            'number' => 'TXN-12345',
+            'campaign_id' => 42,
+            'campaign_code' => 'CAMP-42',
+            'plan_id' => 'plan_67890',
+            'pledge_id' => 'pledge_54321',
+            'team_id' => 'team_98765',
+            'member_id' => 'member_24680',
+            'fund_id' => 'fund_13579',
+            'fund_code' => 'FUND-13579',
+            'contact_id' => 42,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'company_name' => 'Acme Inc',
+            'company' => 'Acme Inc',
+            'email' => 'john.doe@example.com',
+            'phone' => '555-123-4567',
             'address' => self::address(),
-            'status' => fake()->text(),
-            'payment_method' => fake()->text(),
-            'method' => fake()->text(),
-            'amount' => fake()->numberBetween(1, 100),
-            'fee' => fake()->numberBetween(1, 100),
-            'fee_covered' => fake()->numberBetween(1, 100),
-            'donated' => fake()->numberBetween(1, 100),
-            'payout' => fake()->numberBetween(1, 100),
-            'currency' => fake()->text(),
-            'transacted_at' => fake()->iso8601(),
-            'created_at' => fake()->iso8601(),
-            'timezone' => fake()->timezone(),
+            'status' => 'completed',
+            'payment_method' => 'credit_card',
+            'method' => 'online',
+            'amount' => 50,
+            'fee' => 2,
+            'fee_covered' => 2,
+            'donated' => 50,
+            'payout' => 48,
+            'currency' => 'USD',
+            'transacted_at' => CarbonImmutable::now()->toDateTimeString(),
+            'created_at' => CarbonImmutable::now()->toDateTimeString(),
+            'timezone' => 'America/New_York',
             'giving_space' => self::givingSpace(),
             'dedication' => self::dedication(),
-            'transactions' => array_map(static fn (): array => self::transaction(), range(1, fake()->numberBetween(1, 10))), // TODO
+            'transactions' => [self::transaction(), self::transaction()],
             'custom_fields' => array_map(static fn (): array => CustomFieldFixture::data(), range(1, 5)),
             'utm_parameters' => [
-                fake()->text() => fake()->text(),
+                'utm_source' => 'email',
+                'utm_medium' => 'newsletter',
+                'utm_campaign' => 'spring_fundraiser',
             ],
-            'external_id' => fake()->text(),
-            'communication_opt_in' => fake()->boolean(),
-            'session_id' => fake()->text(),
-            'attribution_data' => array_map(static fn (): array => [
-                fake()->text() => fake()->text(),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'fair_market_value_amount' => fake()->numberBetween(),
-            'tax_deductible_amount' => fake()->numberBetween(),
+            'external_id' => 'ext_12345',
+            'communication_opt_in' => true,
+            'session_id' => 'sess_67890',
+            'attribution_data' => [
+                ['referrer' => 'website'],
+                ['campaign' => 'email_blast'],
+            ],
+            'fair_market_value_amount' => 45,
+            'tax_deductible_amount' => 40,
         ];
 
         return $data;
@@ -89,10 +91,10 @@ final class GetTransactionFixture extends AbstractDataFixture
     private static function givingSpace(): array
     {
         return [
-            'id' => fake()->numberBetween(1, 100),
-            'name' => fake()->text(),
-            'amount' => fake()->numberBetween(1, 100),
-            'message' => fake()->text(),
+            'id' => 42,
+            'name' => 'Community Fund',
+            'amount' => 25,
+            'message' => 'Supporting our local community',
         ];
     }
 
@@ -102,11 +104,11 @@ final class GetTransactionFixture extends AbstractDataFixture
     private static function dedication(): array
     {
         return [
-            'type' => fake()->text(),
-            'name' => fake()->text(),
+            'type' => 'memorial',
+            'name' => 'In memory of Jane Smith',
             'recipient' => [
-                'name' => fake()->name(),
-                'email' => fake()->email(),
+                'name' => 'Robert Smith',
+                'email' => 'robert.smith@example.com',
             ],
         ];
     }
@@ -118,30 +120,41 @@ final class GetTransactionFixture extends AbstractDataFixture
     {
         /** @var TransactionResponseSchema $data */
         $data = [
-            'id' => fake()->text(),
-            'plan_id' => fake()->text(),
-            'pledge_id' => fake()->text(),
-            'amount' => fake()->numberBetween(1, 100),
-            'fee' => fake()->numberBetween(1, 100),
-            'fee_covered' => fake()->numberBetween(1, 100),
-            'donated' => fake()->numberBetween(1, 100),
-            'payout' => fake()->numberBetween(1, 100),
-            'captured' => fake()->boolean(),
-            'captured_at' => fake()->iso8601(),
-            'timezone' => fake()->timezone(),
-            'refunded' => fake()->boolean(),
-            'refunded_at' => fake()->iso8601(),
-            'line_items' => array_map(static fn (): array => [
-                'type' => fake()->text(),
-                'subtype' => fake()->text(),
-                'description' => fake()->text(),
-                'quantity' => fake()->numberBetween(1, 100),
-                'price' => fake()->numberBetween(1, 100),
-                'discount' => fake()->numberBetween(1, 100),
-                'total' => fake()->numberBetween(1, 100),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'fair_market_value_amount' => fake()->numberBetween(1, 100),
-            'tax_deductible_amount' => fake()->numberBetween(1, 100),
+            'id' => 'txn_sub_12345',
+            'plan_id' => 'plan_sub_67890',
+            'pledge_id' => 'pledge_sub_54321',
+            'amount' => 25,
+            'fee' => 1,
+            'fee_covered' => 1,
+            'donated' => 25,
+            'payout' => 24,
+            'captured' => true,
+            'captured_at' => CarbonImmutable::now()->toDateTimeString(),
+            'timezone' => 'America/New_York',
+            'refunded' => false,
+            'refunded_at' => null,
+            'line_items' => [
+                [
+                    'type' => 'donation',
+                    'subtype' => 'one-time',
+                    'description' => 'One-time donation',
+                    'quantity' => 1,
+                    'price' => 25,
+                    'discount' => 0,
+                    'total' => 25,
+                ],
+                [
+                    'type' => 'fee',
+                    'subtype' => 'processing',
+                    'description' => 'Processing fee',
+                    'quantity' => 1,
+                    'price' => 1,
+                    'discount' => 0,
+                    'total' => 1,
+                ],
+            ],
+            'fair_market_value_amount' => 20,
+            'tax_deductible_amount' => 20,
         ];
 
         return $data;

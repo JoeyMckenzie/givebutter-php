@@ -8,8 +8,6 @@ use Givebutter\Responses\Campaigns\GetCampaignMemberResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type GetCampaignMemberResponseSchema from GetCampaignMemberResponse
  */
@@ -21,18 +19,18 @@ final class GetCampaignMemberFixture extends AbstractDataFixture
     {
         /** @var GetCampaignMemberResponseSchema $data */
         $data = [
-            'id' => fake()->numberBetween(1, 100),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
-            'display_name' => fake()->userName(),
-            'picture' => fake()->imageUrl(),
-            'raised' => fake()->numberBetween(100, 1000),
-            'goal' => fake()->numberBetween(1000, 10000),
-            'donors' => fake()->numberBetween(1, 100),
-            'items' => fake()->numberBetween(1, 100),
-            'url' => fake()->url(),
+            'id' => 75,
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john.doe@example.com',
+            'phone' => '555-123-4567',
+            'display_name' => 'JohnD',
+            'picture' => 'https://example.com/profile/johndoe.jpg',
+            'raised' => 850,
+            'goal' => 5000,
+            'donors' => 42,
+            'items' => 15,
+            'url' => 'https://example.com/members/johndoe',
         ];
 
         return $data;

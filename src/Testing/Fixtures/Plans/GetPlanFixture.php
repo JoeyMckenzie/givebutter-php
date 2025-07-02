@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Plans;
 
+use Carbon\CarbonImmutable;
 use Givebutter\Responses\Plans\GetPlanResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
-
-use function Pest\Faker\fake;
 
 /**
  * @phpstan-import-type GetPlanResponseSchema from GetPlanResponse
@@ -21,19 +20,19 @@ final class GetPlanFixture extends AbstractDataFixture
     {
         /** @var GetPlanResponseSchema $data */
         $data = [
-            'id' => fake()->text(),
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'email' => fake()->email(),
-            'phone' => fake()->phoneNumber(),
-            'frequency' => fake()->text(),
-            'status' => fake()->text(),
-            'method' => fake()->text(),
-            'amount' => fake()->numberBetween(10, 100),
-            'fee_covered' => fake()->numberBetween(10, 100),
-            'created_at' => fake()->iso8601(),
-            'started_at' => fake()->iso8601(),
-            'next_start_date' => fake()->iso8601(),
+            'id' => 'plan_12345',
+            'first_name' => 'Jane',
+            'last_name' => 'Smith',
+            'email' => 'jane.smith@example.com',
+            'phone' => '555-987-6543',
+            'frequency' => 'monthly',
+            'status' => 'active',
+            'method' => 'credit_card',
+            'amount' => 25,
+            'fee_covered' => 2,
+            'created_at' => CarbonImmutable::now()->toIso8601String(),
+            'started_at' => CarbonImmutable::now()->toIso8601String(),
+            'next_start_date' => CarbonImmutable::now()->toIso8601String(),
         ];
 
         return $data;

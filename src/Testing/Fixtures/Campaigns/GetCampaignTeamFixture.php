@@ -8,8 +8,6 @@ use Givebutter\Responses\Campaigns\GetCampaignTeamResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type GetCampaignTeamResponseSchema from GetCampaignTeamResponse
  */
@@ -21,15 +19,15 @@ final class GetCampaignTeamFixture extends AbstractDataFixture
     {
         /** @var GetCampaignTeamResponseSchema $data */
         $data = [
-            'id' => fake()->numberBetween(1, 100),
-            'name' => fake()->name(),
-            'logo' => fake()->imageUrl(),
-            'slug' => fake()->text(),
-            'url' => fake()->url(),
-            'raised' => fake()->numberBetween(100, 1000),
-            'goal' => fake()->numberBetween(1000, 10000),
-            'supporters' => fake()->numberBetween(1, 100),
-            'members' => fake()->numberBetween(1, 10),
+            'id' => 33,
+            'name' => 'Team Awesome',
+            'logo' => 'https://example.com/logos/team-awesome.png',
+            'slug' => 'team-awesome',
+            'url' => 'https://example.com/teams/team-awesome',
+            'raised' => 750,
+            'goal' => 5000,
+            'supporters' => 45,
+            'members' => 8,
         ];
 
         return $data;

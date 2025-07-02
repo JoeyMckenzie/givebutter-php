@@ -7,8 +7,6 @@ namespace Givebutter\Testing\Fixtures\Models;
 use Givebutter\Responses\Models\LivestreamResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type LivestreamResponseSchema from LivestreamResponse
  */
@@ -18,12 +16,12 @@ final class LivestreamFixture extends AbstractDataFixture
     {
         /** @var LivestreamResponseSchema $data */
         $data = [
-            'url' => fake()->url(),
-            'type' => fake()->text(),
-            'location' => fake()->text(),
-            'platform' => fake()->text(),
-            'embed_url' => fake()->text(),
-            'scheduled' => fake()->boolean(),
+            'url' => 'https://example.com/livestream/event123',
+            'type' => 'video',
+            'location' => 'online',
+            'platform' => 'zoom',
+            'embed_url' => 'https://example.com/embed/livestream/event123',
+            'scheduled' => true,
         ];
 
         return $data;

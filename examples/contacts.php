@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use Givebutter\Givebutter;
 
-use function Pest\Faker\fake;
-
 require_once __DIR__.'/../vendor/autoload.php';
 
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../');
@@ -31,40 +29,39 @@ var_dump($contacts);
 $createdContact = $client
     ->contacts()
     ->create([
-        'first_name' => fake()->firstName(),
-        'middle_name' => fake()->firstName(),
-        'last_name' => fake()->lastName(),
+        'first_name' => 'Michael',
+        'middle_name' => 'Gary',
+        'last_name' => 'Scott',
         'email' => [
             [
                 'type' => 'work',
-                'value' => fake()->email(),
+                'value' => 'michael.scott@dundermiffline',
             ],
         ],
         'phones' => [
             [
                 'type' => 'work',
-                'value' => fake()->e164PhoneNumber(),
+                'value' => '+15708675309',
             ],
         ],
         'addresses' => [
             [
-                'address_1' => fake()->streetAddress(),
-                'city' => fake()->city(),
-                'state' => 'CA',
-                'zipcode' => fake()->postcode(),
+                'address_1' => '123 Paper st.',
+                'city' => 'Scranton',
+                'state' => 'PA',
+                'zipcode' => '18507',
                 'country' => 'US',
             ],
         ],
         'tags' => [
-            fake()->word(),
-            fake()->word(),
+            'paper',
         ],
-        'dob' => fake()->dateTimeBetween('-90 years', '-25 years')->format('m/d/Y'),
-        'company' => fake()->company(),
-        'title' => fake()->title(),
-        'twitter_url' => fake()->url(),
-        'linkedin_url' => fake()->url(),
-        'facebook_url' => fake()->url(),
+        'dob' => '03/15/1967',
+        'company' => 'Dunder Mifflin',
+        'title' => 'Regional Manager',
+        'twitter_url' => 'https://twitter.com/michaelscott',
+        'linkedin_url' => 'https://linkedin.com/in/michaelscott',
+        'facebook_url' => 'https://facebook.com/michaelscott',
     ]);
 var_dump($createdContact);
 
@@ -75,10 +72,10 @@ if (! $createdContact->hasErrors()) {
     $updatedContact = $client
         ->contacts()
         ->update($createdContact->id, [
-            'first_name' => fake()->firstName(),
-            'last_name' => fake()->lastName(),
-            'company' => fake()->company(),
-            'title' => fake()->title(),
+            'first_name' => 'Michael',
+            'last_name' => 'Scarn',
+            'company' => 'CIA',
+            'title' => 'Secret Agent',
         ]);
     var_dump($updatedContact);
 

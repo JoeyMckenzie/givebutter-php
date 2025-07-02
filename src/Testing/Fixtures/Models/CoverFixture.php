@@ -7,8 +7,6 @@ namespace Givebutter\Testing\Fixtures\Models;
 use Givebutter\Responses\Models\CoverResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type CoverResponseSchema from CoverResponse
  */
@@ -18,9 +16,9 @@ final class CoverFixture extends AbstractDataFixture
     {
         /** @var CoverResponseSchema $data */
         $data = [
-            'type' => fake()->text(),
-            'url' => fake()->url(),
-            'source' => fake()->text(),
+            'type' => 'image',
+            'url' => 'https://example.com/images/campaign-cover.jpg',
+            'source' => 'upload',
         ];
 
         return $data;

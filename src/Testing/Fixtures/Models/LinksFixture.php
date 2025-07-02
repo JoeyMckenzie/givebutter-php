@@ -7,8 +7,6 @@ namespace Givebutter\Testing\Fixtures\Models;
 use Givebutter\Responses\Models\LinksResponse;
 use Wrapkit\Testing\AbstractDataFixture;
 
-use function Pest\Faker\fake;
-
 /**
  * @phpstan-import-type LinksResponseSchema from LinksResponse
  */
@@ -18,10 +16,10 @@ final class LinksFixture extends AbstractDataFixture
     {
         /** @var LinksResponseSchema $data */
         $data = [
-            'first' => fake()->url(),
-            'last' => fake()->url(),
-            'prev' => fake()->url(),
-            'next' => fake()->url(),
+            'first' => 'https://api.example.com/resources?page=1',
+            'last' => 'https://api.example.com/resources?page=5',
+            'prev' => 'https://api.example.com/resources?page=4',
+            'next' => 'https://api.example.com/resources?page=2',
         ];
 
         return $data;

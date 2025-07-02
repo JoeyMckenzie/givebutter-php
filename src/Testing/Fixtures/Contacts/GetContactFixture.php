@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Contacts;
 
+use Carbon\CarbonImmutable;
 use Givebutter\Responses\Contacts\GetContactResponse;
 use Givebutter\Responses\Models\AddressResponse;
 use Givebutter\Responses\Models\CompanyResponse;
@@ -11,8 +12,6 @@ use Givebutter\Testing\Fixtures\Concerns\HasAddressFixtureData;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Givebutter\Testing\Fixtures\Models\CustomFieldFixture;
 use Wrapkit\Testing\AbstractDataFixture;
-
-use function Pest\Faker\fake;
 
 /**
  * @phpstan-import-type AddressResponseSchema from AddressResponse
@@ -27,54 +26,66 @@ final class GetContactFixture extends AbstractDataFixture
     {
         /** @var GetContactResponseSchema $data */
         $data = [
-            'id' => fake()->numberBetween(1, 100),
-            'type' => fake()->text(),
-            'prefix' => fake()->text,
-            'first_name' => fake()->firstName(),
-            'middle_name' => fake()->name,
-            'last_name' => fake()->lastName(),
-            'suffix' => fake()->text,
-            'gender' => fake()->text,
-            'dob' => fake()->iso8601,
-            'company' => fake()->company,
-            'company_name' => fake()->company,
-            'employer' => fake()->company,
-            'point_of_contact' => fake()->name,
-            'associated_companies' => array_map(static fn (): array => self::fakeCompany(), range(1, fake()->numberBetween(1, 5))),
-            'title' => fake()->title,
-            'twitter_url' => fake()->url,
-            'linkedin_url' => fake()->url,
-            'facebook_url' => fake()->url,
-            'website_url' => fake()->url,
-            'emails' => array_map(fn (): array => [
-                'type' => fake()->text(),
-                'value' => fake()->email(),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'phones' => array_map(fn (): array => [
-                'type' => fake()->text(),
-                'value' => fake()->phoneNumber(),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'primary_email' => fake()->email,
-            'primary_phone' => fake()->phoneNumber,
-            'note' => fake()->text,
-            'addresses' => array_map(fn (): array => self::address(), range(1, fake()->numberBetween(1, 5))),
+            'id' => 42,
+            'type' => 'individual',
+            'prefix' => 'Mr.',
+            'first_name' => 'Robert',
+            'middle_name' => 'James',
+            'last_name' => 'Williams',
+            'suffix' => 'Jr.',
+            'gender' => 'male',
+            'dob' => CarbonImmutable::now()->toIso8601String(),
+            'company' => 'Acme Corporation',
+            'company_name' => 'Acme Corporation',
+            'employer' => 'Acme Corporation',
+            'point_of_contact' => 'Sarah Johnson',
+            'associated_companies' => [self::fakeCompany(), self::fakeCompany()],
+            'title' => 'Director',
+            'twitter_url' => 'https://twitter.com/robertwilliams',
+            'linkedin_url' => 'https://linkedin.com/in/robertwilliams',
+            'facebook_url' => 'https://facebook.com/robertwilliams',
+            'website_url' => 'https://robertwilliams.example.com',
+            'emails' => [
+                [
+                    'type' => 'work',
+                    'value' => 'robert.williams@example.com',
+                ],
+                [
+                    'type' => 'personal',
+                    'value' => 'rwilliams@gmail.example.com',
+                ],
+            ],
+            'phones' => [
+                [
+                    'type' => 'mobile',
+                    'value' => '555-123-4567',
+                ],
+                [
+                    'type' => 'work',
+                    'value' => '555-987-6543',
+                ],
+            ],
+            'primary_email' => 'robert.williams@example.com',
+            'primary_phone' => '555-123-4567',
+            'note' => 'Regular donor since 2020',
+            'addresses' => [self::address(), self::address()],
             'primary_address' => self::address(),
             'stats' => [
-                'recurring_contributions' => fake()->numberBetween(100, 1000),
-                'total_contributions' => fake()->numberBetween(100, 1000),
+                'recurring_contributions' => 250,
+                'total_contributions' => 750,
             ],
-            'tags' => array_map(fn () => fake()->text(), range(1, fake()->numberBetween(1, 5))),
-            'custom_fields' => array_map(fn (): array => CustomFieldFixture::data(), range(1, fake()->numberBetween(1, 5))),
-            'external_ids' => range(1, fake()->numberBetween(1, 100)),
-            'is_email_subscribed' => fake()->boolean(),
-            'is_phone_subscribed' => fake()->boolean(),
-            'is_address_subscribed' => fake()->boolean(),
-            'address_unsubscribed_at' => fake()->iso8601,
-            'archived_at' => fake()->iso8601,
-            'created_at' => fake()->iso8601(),
-            'updated_at' => fake()->iso8601(),
-            'preferred_name' => fake()->firstName,
-            'salutation_name' => fake()->firstName(),
+            'tags' => ['donor', 'volunteer', 'vip'],
+            'custom_fields' => [CustomFieldFixture::data(), CustomFieldFixture::data()],
+            'external_ids' => [1, 2, 3],
+            'is_email_subscribed' => true,
+            'is_phone_subscribed' => true,
+            'is_address_subscribed' => true,
+            'address_unsubscribed_at' => CarbonImmutable::now()->toIso8601String(),
+            'archived_at' => CarbonImmutable::now()->toIso8601String(),
+            'created_at' => CarbonImmutable::now()->toIso8601String(),
+            'updated_at' => CarbonImmutable::now()->toIso8601String(),
+            'preferred_name' => 'Rob',
+            'salutation_name' => 'Robert',
         ];
 
         return $data;
@@ -86,35 +97,47 @@ final class GetContactFixture extends AbstractDataFixture
     private static function fakeCompany(): array
     {
         return [
-            'id' => fake()->numberBetween(1, 100),
-            'type' => fake()->text(),
-            'company_name' => fake()->company(),
-            'title' => fake()->title,
-            'twitter_url' => fake()->url,
-            'linkedin_url' => fake()->url,
-            'facebook_url' => fake()->url,
-            'website_url' => fake()->url,
-            'emails' => array_map(fn (): array => [
-                'type' => fake()->text(),
-                'value' => fake()->email(),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'phones' => array_map(fn (): array => [
-                'type' => fake()->text(),
-                'value' => fake()->phoneNumber(),
-            ], range(1, fake()->numberBetween(1, 5))),
-            'primary_email' => fake()->email,
-            'primary_phone' => fake()->phoneNumber,
-            'note' => fake()->text,
-            'addresses' => array_map(fn (): array => self::address(), range(1, fake()->numberBetween(1, 5))),
+            'id' => 123,
+            'type' => 'corporation',
+            'company_name' => 'Acme Corporation',
+            'title' => 'CEO',
+            'twitter_url' => 'https://twitter.com/acmecorp',
+            'linkedin_url' => 'https://linkedin.com/company/acmecorp',
+            'facebook_url' => 'https://facebook.com/acmecorp',
+            'website_url' => 'https://acmecorp.example.com',
+            'emails' => [
+                [
+                    'type' => 'info',
+                    'value' => 'info@acmecorp.example.com',
+                ],
+                [
+                    'type' => 'support',
+                    'value' => 'support@acmecorp.example.com',
+                ],
+            ],
+            'phones' => [
+                [
+                    'type' => 'main',
+                    'value' => '555-123-4567',
+                ],
+                [
+                    'type' => 'fax',
+                    'value' => '555-987-6543',
+                ],
+            ],
+            'primary_email' => 'info@acmecorp.example.com',
+            'primary_phone' => '555-123-4567',
+            'note' => 'Corporate sponsor since 2018',
+            'addresses' => [self::address()],
             'primary_address' => self::address(),
-            'is_email_subscribed' => fake()->boolean(),
-            'is_phone_subscribed' => fake()->boolean(),
-            'is_address_subscribed' => fake()->boolean(),
-            'address_unsubscribed_at' => fake()->iso8601(),
-            'archived_at' => fake()->iso8601,
-            'created_at' => fake()->iso8601(),
-            'updated_at' => fake()->iso8601(),
-            'first_time_supporter_at' => fake()->iso8601,
+            'is_email_subscribed' => true,
+            'is_phone_subscribed' => true,
+            'is_address_subscribed' => true,
+            'address_unsubscribed_at' => CarbonImmutable::now()->toIso8601String(),
+            'archived_at' => CarbonImmutable::now()->toIso8601String(),
+            'created_at' => CarbonImmutable::now()->toIso8601String(),
+            'updated_at' => CarbonImmutable::now()->toIso8601String(),
+            'first_time_supporter_at' => CarbonImmutable::now()->toIso8601String(),
         ];
     }
 }

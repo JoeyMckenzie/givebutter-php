@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace Givebutter\Testing\Fixtures\Funds;
 
+use Carbon\CarbonImmutable;
 use Givebutter\Responses\Funds\GetFundResponse;
 use Givebutter\Testing\Fixtures\Concerns\HasErrorData;
 use Wrapkit\Testing\AbstractDataFixture;
-
-use function Pest\Faker\fake;
 
 /**
  * @phpstan-import-type GetFundResponseSchema from GetFundResponse
@@ -21,13 +20,13 @@ final class GetFundFixture extends AbstractDataFixture
     {
         /** @var GetFundResponseSchema $data */
         $data = [
-            'id' => fake()->text(),
-            'code' => fake()->text(),
-            'name' => fake()->text(),
-            'raised' => fake()->numberBetween(10, 100),
-            'supporters' => fake()->numberBetween(10, 100),
-            'created_at' => fake()->iso8601(),
-            'updated_at' => fake()->iso8601(),
+            'id' => 'fund_12345',
+            'code' => 'FUND-12345',
+            'name' => 'Education Fund',
+            'raised' => 75000,
+            'supporters' => 250,
+            'created_at' => CarbonImmutable::now()->toIso8601String(),
+            'updated_at' => CarbonImmutable::now()->toIso8601String(),
         ];
 
         return $data;
