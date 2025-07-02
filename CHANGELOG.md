@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.5 - 2025-07-02
+
+### What's new?
+
+- Adds mutation testing coverage for configurable base URIs
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.4...0.1.5
+
 ## 0.1.4 - 2025-07-02
 
 ### What's new?
