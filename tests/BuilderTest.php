@@ -74,6 +74,17 @@ describe(Builder::class, function (): void {
         });
 
         it('sets HTTP client', function (): void {
+            // Act
+            $builder = $this->builder
+                ->withBaseUri(Client::API_BASE_URL);
+
+            // Assert
+            expect($builder)->toBeInstanceOf(Builder::class)
+                ->and($builder->baseUri)->not->toBeNull()
+                ->and($builder->baseUri)->toBe(Client::API_BASE_URL);
+        });
+
+        it('sets the base URI', function (): void {
             // Arrange
             $client = new GuzzleHttp\Client;
 

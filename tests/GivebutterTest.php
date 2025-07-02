@@ -26,7 +26,7 @@ describe(Givebutter::class, function (): void {
             ->and($client->connector->headers->hasAnyHeaders())->toBeTrue()
             ->and($client->connector->headers->contains('Authorization'))->toBeTrue()
             ->and($client->connector->headers->contains('User-Agent'))->toBeTrue()
-            ->and($client->connector->headers->toArray()['User-Agent'])->toMatch('/^givebutter-php-client\/\d+\.\d+\.\d+$/')
+            ->and($client->connector->headers->toArray()['User-Agent'])->toMatch('/^givebutter-php\/\d+\.\d+\.\d+$/')
             ->and($client->connector->queryParams)->toBeInstanceOf(QueryParams::class)
             ->and($client->connector->queryParams->hasAnyParams())->toBeFalse();
     });

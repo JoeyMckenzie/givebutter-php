@@ -32,6 +32,8 @@ final class Builder
 
     public private(set) ?ConnectorContract $connector = null;
 
+    public private(set) ?string $baseUri = null;
+
     public function withHttpClient(ClientInterface $client): self
     {
         $clone = clone $this;
@@ -64,6 +66,14 @@ final class Builder
         return $clone;
     }
 
+    public function withBaseUri(string $baseUri): self
+    {
+        $clone = clone $this;
+        $clone->baseUri = $baseUri;
+
+        return $clone;
+    }
+
     /**
      * @throws GivebutterClientException
      */
@@ -82,7 +92,7 @@ final class Builder
 
         // Add the API key as a default header to be included on every request
         $headers = $headers->withCustomHeader('Authorization', "Bearer $this->apiKey");
-        $baseUri = BaseUri::from(Client::API_BASE_URL);
+        $baseUri = BaseUri::from($this->baseUri ?? Client::API_BASE_URL);
         $queryParams = QueryParams::create();
 
         // As with the headers, we'll also include any query params configured on each request
