@@ -26,6 +26,7 @@ Givebutter PHP is a plug 'n play HTTP client for Givebutter's public API.
     - [Transactions](#transactions)
     - [Payouts](#payouts)
     - [Funds](#funds)
+- [Testing](#testing)
 
 ## Getting started
 
@@ -662,3 +663,79 @@ $response = $client
 
 echo $response->getStatusCode(); // 200
 ```
+
+## Testing
+
+The package provides a fake implementation of the `Givebutter\Client` class that allows you to fake the API responses.
+To test your code, ensure you swap the `Givebutter\Client` class with the `Givebutter\Testing\ClientFake` class in your
+test case. Fake responses are returned in the order they are provided while creating the fake client. All responses
+have a `fake()` method that allows you to easily create a response object by only providing the parameters relevant
+for your test case.
+
+```php
+use Givebutter\Testing\ClientFake;
+use Givebutter\Responses\Campaigns\GetCampaignResponse;
+
+$fake = new ClientFake([
+    GetCampaignResponse::fake(GetCampaignFixture::class),
+]);
+
+$campaign = $fake
+    ->campaigns()
+    ->create([
+        'description' => 'This is a test campaign.',
+        'end_at' => CarbonImmutable::now()->toIso8601String(),
+        'goal' => 1000,
+        'subtitle' => 'subtitle',
+        'slug' => md5(uniqid('', true)),
+        'title' => 'title',
+        'type' => 'collect',
+    ]);
+
+expect($campaign->description)->toBe('This is a test campaign.');
+```
+
+After the requests have been sent, there are various methods to ensure that the expected requests were sent:
+
+```php
+// Assert completion create request was sent
+$fake->proxy->assertSent(CampaignsResource::class, function (string $method, array $parameters): bool {
+    return $method === 'create' &&
+        $parameters[0]['title'] === 'title' &&
+        $parameters[0]['description'] === 'This is a test campaign.';
+});
+
+// Assert 2 completion create requests were sent
+$fake->proxy->assertSent(CampaignsResource::class, 2);
+
+// Assert no completion create requests were sent
+$fake->proxy->assertNotSent(CampaignsResource::class);
+
+// Assert no requests were sent
+$fake->proxy->assertNothingSent();
+```
+
+To write tests expecting the API request to fail, you may provide a `Throwable` object as the response.
+
+```php
+$fake = new ClientFake([
+    new Exception('Oops, something bad happened!')
+]);
+
+// the `Exception` will be thrown
+$campaign = $fake
+    ->campaigns()
+    ->create([
+        'description' => 'This is a test campaign.',
+        'end_at' => CarbonImmutable::now()->toIso8601String(),
+        'goal' => 1000,
+        'subtitle' => 'subtitle',
+        'slug' => md5(uniqid('', true)),
+        'title' => 'title',
+        'type' => 'collect',
+    ]);
+```
+
+---
+
+Givebutter PHP is an open-sourced software licensed under the **[MIT license](https://opensource.org/licenses/MIT)**.

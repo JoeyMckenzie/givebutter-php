@@ -14,11 +14,12 @@ use Givebutter\Contracts\Resources\TicketsResourceContract;
 use Givebutter\Contracts\Resources\TransactionsResourceContract;
 use Givebutter\Testing\Resources\CampaignsTestResource;
 use Givebutter\Testing\Resources\ContactsTestResource;
+use Givebutter\Testing\Resources\FundsTestResource;
 use Givebutter\Testing\Resources\PayoutsTestResource;
+use Givebutter\Testing\Resources\PlansTestResource;
 use Givebutter\Testing\Resources\TicketsTestResource;
 use Givebutter\Testing\Resources\TransactionsTestResource;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
 use Throwable;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Testing\ClientProxyFake;
@@ -64,11 +65,11 @@ final class ClientFake implements ClientContract
 
     public function plans(): PlansResourceContract
     {
-        throw new RuntimeException('Not implemented');
+        return new PlansTestResource($this->proxy);
     }
 
     public function funds(): FundsResourceContract
     {
-        throw new RuntimeException('Not implemented');
+        return new FundsTestResource($this->proxy);
     }
 }
