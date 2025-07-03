@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.7 - 2025-07-03
+
+### What's new?
+
+- Adds additional resources to the client fake
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.6...0.1.7
+
 ## 0.1.6 - 2025-07-02
 
 ### What's new?
