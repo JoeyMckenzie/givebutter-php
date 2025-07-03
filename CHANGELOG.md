@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.8 - 2025-07-03
+
+### What's new?
+
+- Updates wrapkit to use new assert traits for more fluent resource assertions
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.7...0.1.8
+
 ## 0.1.7 - 2025-07-03
 
 ### What's new?
