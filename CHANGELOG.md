@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.6 - 2025-07-02
+
+### What's new?
+
+- Removes dependency on faker in data fixture for testing
+
+**Full Changelog**: https://github.com/JoeyMckenzie/givebutter-php/compare/0.1.5...0.1.6
+
 ## 0.1.5 - 2025-07-02
 
 ### What's new?
