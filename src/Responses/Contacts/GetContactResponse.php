@@ -11,7 +11,6 @@ use Givebutter\Responses\Models\CompanyResponse;
 use Givebutter\Responses\Models\ContactMetaResponse;
 use Givebutter\Responses\Models\CustomFieldResponse;
 use Givebutter\Responses\Models\StatsResponse;
-use PharIo\Manifest\Email;
 use Wrapkit\Contracts\ResponseContract;
 use Wrapkit\Responses\Concerns\ArrayAccessible;
 use Wrapkit\Testing\Concerns\Fakeable;
