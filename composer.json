@@ -16,7 +16,7 @@
     ],
     "require": {
         "php": ">=8.4",
-        "joeymckenzie/wrapkit": "^0.1",
+        "joeymckenzie/wrapkit": "^0.1.18",
         "nesbot/carbon": "^3.0"
     },
     "require-dev": {

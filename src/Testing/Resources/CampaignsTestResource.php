@@ -34,12 +34,12 @@ final class CampaignsTestResource implements CampaignsResourceContract
 
     public function members(): CampaignMembersResourceContract
     {
-        return new CampaignMembersTestResource($this->proxy);
+        return new CampaignMembersTestResource($this->fake);
     }
 
     public function teams(): CampaignTeamsResourceContract
     {
-        return new CampaignTeamsTestResource($this->proxy);
+        return new CampaignTeamsTestResource($this->fake);
     }
 
     public function get(int $id): GetCampaignResponse

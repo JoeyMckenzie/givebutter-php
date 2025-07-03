@@ -20,56 +20,51 @@ use Givebutter\Testing\Resources\PlansTestResource;
 use Givebutter\Testing\Resources\TicketsTestResource;
 use Givebutter\Testing\Resources\TransactionsTestResource;
 use Psr\Http\Message\ResponseInterface;
-use Throwable;
 use Wrapkit\Contracts\ResponseContract;
-use Wrapkit\Testing\ClientProxyFake;
+use Wrapkit\Testing\Concerns\AssertsRequests;
 
+/**
+ * @template TResponse of ResponseContract<array<array-key, mixed>>|ResponseInterface
+ */
 final class ClientFake implements ClientContract
 {
-    public ClientProxyFake $proxy;
-
     /**
-     * @template TResponse of ResponseContract<array<array-key, mixed>>
-     *
-     * @param  array<int, TResponse|ResponseInterface|Throwable>  $responses
+     * @use AssertsRequests<TResponse>
      */
-    public function __construct(array $responses = [])
-    {
-        $this->proxy = new ClientProxyFake($responses);
-    }
+    use AssertsRequests;
 
     public function campaigns(): CampaignsResourceContract
     {
-        return new CampaignsTestResource($this->proxy);
+        return new CampaignsTestResource($this);
     }
 
     public function contacts(): ContactsResourceContract
     {
-        return new ContactsTestResource($this->proxy);
+        return new ContactsTestResource($this);
     }
 
     public function tickets(): TicketsResourceContract
     {
-        return new TicketsTestResource($this->proxy);
+        return new TicketsTestResource($this);
     }
 
     public function transactions(): TransactionsResourceContract
     {
-        return new TransactionsTestResource($this->proxy);
+        return new TransactionsTestResource($this);
     }
 
     public function payouts(): PayoutsResourceContract
     {
-        return new PayoutsTestResource($this->proxy);
+        return new PayoutsTestResource($this);
     }
 
     public function plans(): PlansResourceContract
     {
-        return new PlansTestResource($this->proxy);
+        return new PlansTestResource($this);
     }
 
     public function funds(): FundsResourceContract
     {
-        return new FundsTestResource($this->proxy);
+        return new FundsTestResource($this);
     }
 }

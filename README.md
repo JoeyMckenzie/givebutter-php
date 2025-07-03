@@ -702,20 +702,20 @@ After the requests have been sent, there are various methods to ensure that the 
 
 ```php
 // Assert completion create request was sent
-$fake->proxy->assertSent(CampaignsResource::class, function (string $method, array $parameters): bool {
+$fake->assertSent(CampaignsResource::class, function (string $method, array $parameters): bool {
     return $method === 'create' &&
         $parameters[0]['title'] === 'title' &&
         $parameters[0]['description'] === 'This is a test campaign.';
 });
 
 // Assert 2 completion create requests were sent
-$fake->proxy->assertSent(CampaignsResource::class, 2);
+$fake->assertSent(CampaignsResource::class, 2);
 
 // Assert no completion create requests were sent
-$fake->proxy->assertNotSent(CampaignsResource::class);
+$fake->assertNotSent(CampaignsResource::class);
 
 // Assert no requests were sent
-$fake->proxy->assertNothingSent();
+$fake->assertNothingSent();
 ```
 
 To write tests expecting the API request to fail, you may provide a `Throwable` object as the response.

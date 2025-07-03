@@ -67,7 +67,7 @@ describe(ClientFake::class, function (): void {
             ->and($response->description)->toBe('campaign');
 
         // Act again, simulate another response going through
-        $fake->proxy->addResponses([
+        $fake->addResponses([
             GetCampaignResponse::fake(GetCampaignFixture::class, [
                 'description' => 'another campaign',
             ]),
@@ -90,7 +90,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        $fake->proxy->assertSent(CampaignsResource::class, fn (string $method, array $parameters): bool => $method === 'get' && $parameters[0] === 123);
+        $fake->assertSent(CampaignsResource::class, fn (string $method, array $parameters): bool => $method === 'get' && $parameters[0] === 123);
     });
 
     it('throws an exception if a request was not sent', function (): void {
@@ -100,7 +100,7 @@ describe(ClientFake::class, function (): void {
         ]);
 
         // Act & Assert
-        $fake->proxy->assertSent(CampaignsResource::class, fn (string $method, array $parameters): bool => $method === 'get' && $parameters[0] === 123);
+        $fake->assertSent(CampaignsResource::class, fn (string $method, array $parameters): bool => $method === 'get' && $parameters[0] === 123);
     })->throws(ExpectationFailedException::class);
 
     it('asserts a request was sent on the resource', function (): void {
@@ -128,7 +128,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        $fake->proxy->assertSent(CampaignsResource::class, 2);
+        $fake->assertSent(CampaignsResource::class, 2);
     });
 
     it('throws an exception if a request was not sent any number of times', function (): void {
@@ -142,7 +142,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        $fake->proxy->assertSent(CampaignsResource::class, 2);
+        $fake->assertSent(CampaignsResource::class, 2);
     })->throws(ExpectationFailedException::class);
 
     it('asserts a request was not sent', function (): void {
@@ -150,7 +150,7 @@ describe(ClientFake::class, function (): void {
         $fake = new ClientFake;
 
         // Act & Assert
-        $fake->proxy->assertNotSent(CampaignsResource::class);
+        $fake->assertNotSent(CampaignsResource::class);
     });
 
     it('throws an exception if an unexpected request was sent', function (): void {
@@ -163,7 +163,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        $fake->proxy->assertNotSent(CampaignsResource::class);
+        $fake->assertNotSent(CampaignsResource::class);
     })->throws(ExpectationFailedException::class);
 
     it('asserts a request was not sent on the resource', function (): void {
@@ -181,7 +181,7 @@ describe(ClientFake::class, function (): void {
         $fake = new ClientFake;
 
         // Act & Assert
-        $fake->proxy->assertNothingSent();
+        $fake->assertNothingSent();
     });
 
     it('throws an exception if any request was sent when non was expected', function (): void {
@@ -194,7 +194,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        $fake->proxy->assertNothingSent();
+        $fake->assertNothingSent();
     })->throws(ExpectationFailedException::class);
 
     it('throws an exception with proper message when assertNothingSent fails', function (): void {
@@ -209,7 +209,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(321);
 
         // Assert - Verify the exact error message format
-        expect(fn () => $fake->proxy->assertNothingSent())
+        expect(fn () => $fake->assertNothingSent())
             ->toThrow(ExpectationFailedException::class, 'The following requests were sent unexpectedly: '.CampaignsResource::class.', '.CampaignsResource::class);
     });
 
@@ -243,10 +243,10 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert - Using the default parameter
-        $fake->proxy->assertSent(CampaignsResource::class);
+        $fake->assertSent(CampaignsResource::class);
 
         // Should fail if we try to assert it was sent twice
-        expect(fn () => $fake->proxy->assertSent(CampaignsResource::class, 2))
+        expect(fn () => $fake->assertSent(CampaignsResource::class, 2))
             ->toThrow(ExpectationFailedException::class, 'was sent 1 times instead of 2 times');
     });
 
@@ -260,7 +260,7 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert - Call assertSent with null callback (default behavior)
-        $fake->proxy->assertSent(CampaignsResource::class);
+        $fake->assertSent(CampaignsResource::class);
     });
 
     it('returns empty array for non-existent resource without checking callback', function (): void {
@@ -273,10 +273,10 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert
-        expect($fake->proxy->sent(CampaignsResource::class))
+        expect($fake->sent(CampaignsResource::class))
             ->toBeArray()
             ->not->toBeEmpty()
-            ->and(fn () => $fake->proxy->assertSent(CampaignsResource::class));
+            ->and(fn () => $fake->assertSent(CampaignsResource::class));
     });
 
     it('correctly filters requests by resource type', function (): void {
@@ -290,9 +290,9 @@ describe(ClientFake::class, function (): void {
         $fake->campaigns()->get(123);
 
         // Assert - Should only count ServerResource requests
-        $fake->proxy->assertSent(CampaignsResource::class, 1);
+        $fake->assertSent(CampaignsResource::class, 1);
 
         // Verify filtering works by asserting no requests for a different resource
-        $fake->proxy->assertNotSent('DifferentResource');
+        $fake->assertNotSent('DifferentResource');
     });
 });
