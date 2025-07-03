@@ -13,6 +13,9 @@
 
 Givebutter PHP is a plug 'n play HTTP client for Givebutter's public API.
 
+> Lookging for Laravel integration? I've got you covered!
+> See [joeymckenzie/givebutter-laravel](https://github.com/joeymckenzie/givebutter-laravel) for details.
+
 ## Table of Contents
 
 - [Getting started](#getting-started)
