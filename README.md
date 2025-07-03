@@ -36,7 +36,7 @@ composer require joeymckenzie/givebutter-php
 ```
 
 Since the client is compatible with any PSR-18 HTTP client, any commonly used HTTP client can be used thanks
-to our dependency on `php-http/discovery`. Once both dependencies have been installed, you may start interacting
+to our dependency on `php-http/discovery`. Once installed, you may start interacting
 with [Givebutter's API](https://docs.givebutter.com/reference/reference-getting-started/):
 
 ```php
